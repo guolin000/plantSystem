@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--扫描服务层-->
+    <context:component-scan base-package="com.plantsys.service.impl"/>
+
+    <!-- 1,声明事务管理器 指定要使用的数据源
+    DataSourceTransactionManager 会与数据源（如数据库连接池）一起工作，确保在事务管理下的数据库操作要么全部成功，要么全部失败。
+    这有助于确保应用程序的数据一致性和可靠性。
+    与 Spring 的声明式事务管理（@Transactional 注解）一起使用，
+    确保在业务方法中的操作要么都成功提交，要么都回滚。-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 2,声明事务的传播特性 也就是通知
+    用于确保方法在事务控制下执行，以保证数据的一致性和完整性-->
+    <tx:advice id="advise" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 以add开头的方法名需要事务 -->
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="change*" propagation="REQUIRED"/>
+            <tx:method name="reset*" propagation="REQUIRED"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="load*" read-only="true"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 3进行AOP织入 -->
+    <aop:config>
+        <!-- 声明切面 -->
+        <aop:pointcut expression="execution(* com.plantsys.service.impl.*.*(..))" id="pc1"/>
+        <!-- 织入 -->
+        <aop:advisor advice-ref="advise" pointcut-ref="pc1"/>
+    </aop:config>
+</beans>

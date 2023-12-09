@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.PictureMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.Picture">
+            <id property="pictureId" column="picture_id" jdbcType="INTEGER"/>
+            <result property="plantId" column="plant_id" jdbcType="INTEGER"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="location" column="location" jdbcType="VARCHAR"/>
+            <result property="photographer" column="photographer" jdbcType="VARCHAR"/>
+            <result property="path" column="path" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        picture_id,plant_id,description,
+        location,photographer,path
+    </sql>
+    <delete id="deleteByPlantId">
+        delete
+        from picture
+        where plant_id = #{plantId,jdbcType=NUMERIC}
+    </delete>
+    <select id="selectAllByPlantId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from picture
+        where
+        plant_id = #{plantId,jdbcType=NUMERIC}
+    </select>
+</mapper>
