@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.DiseaseMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.Disease">
+            <id property="diseaseId" column="disease_id" jdbcType="INTEGER"/>
+            <result property="diseaseName" column="disease_name" jdbcType="VARCHAR"/>
+            <result property="treatMethod" column="treat_method" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        disease_id,disease_name,treat_method
+    </sql>
+</mapper>

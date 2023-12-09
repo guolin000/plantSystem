@@ -61,7 +61,6 @@
                 </ModuleInfoGo>
               </list>
             </option>
-            <option name="needToStringHashcodeEquals" value="true" />
             <option name="needsComment" value="true" />
             <option name="needsModel" value="true" />
             <option name="relativePackage" value="entity" />
@@ -69,8 +68,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="PlantDisease" />
-                  <option name="tableName" value="plant_disease" />
+                  <option name="className" value="Treatment" />
+                  <option name="tableName" value="treatment" />
                 </TableUIInfo>
               </list>
             </option>

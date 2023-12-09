@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.PlantMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.Plant">
+            <id property="plantId" column="plant_id" jdbcType="INTEGER"/>
+            <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
+            <result property="speciesId" column="species_id" jdbcType="INTEGER"/>
+            <result property="diseaseId" column="disease_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        plant_id,plant_name,species_id,
+        disease_id
+    </sql>
+</mapper>

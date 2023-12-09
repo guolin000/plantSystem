@@ -57,5 +57,26 @@ public class SysController {
         return "plant/plantManager";
     }
 
-
+    /**
+     * 跳转到患病植物列表
+     * @return
+     */
+    @RequestMapping("toPlantDisease")
+    public String toPlantDisease(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "treatment/plantDisease";
+    }
+    /**
+     * 跳转到防治任务列表
+     * @return
+     */
+    @RequestMapping("toTreatment")
+    public String toTreatment(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "treatment/treatment";
+    }
 }

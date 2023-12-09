@@ -69,6 +69,7 @@ public class LoginController {
             if (null != user) {
                 //放入到session域中
                 WebUtils.getHttpSession().setAttribute("user", user);
+                WebUtils.getHttpSession().setAttribute("role",user.getRid());
                 return "main/index";
             } else {
                 model.addAttribute("error", SysConstant.USER_LOGIN_ERROR_MSG);
