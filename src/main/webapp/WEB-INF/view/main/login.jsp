@@ -11,7 +11,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="icon" href="/resources/favicon6.ico">
-	<link rel="stylesheet" href="/resources/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="${dawdd}/resources/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="/resources/css/public.css" media="all" />
 </head>
 <body class="loginBody">

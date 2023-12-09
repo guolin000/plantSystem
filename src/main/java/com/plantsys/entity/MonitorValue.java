@@ -1,39 +1,39 @@
 package com.plantsys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * 
+ *
  * @TableName monitor_value
  */
 @TableName(value ="monitor_value")
 @Data
 public class MonitorValue implements Serializable {
     /**
-     * 
+     *
      */
     @TableId
     private Integer recordId;
 
     /**
-     * 
+     *
      */
     @TableId
     private Integer plantId;
 
     /**
-     * 
+     *
      */
     @TableId
     private Integer indicatorId;
 
     /**
-     * 
+     *
      */
     private Double indicatorValue;
 

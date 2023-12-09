@@ -20,4 +20,20 @@
         from monitor_value
         where plant_id = #{plantId,jdbcType=NUMERIC}
     </delete>
+    <insert id="addSelective">
+        insert into monitor_value
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">record_id,</if>
+            <if test="plantId != null">plant_id,</if>
+            <if test="indicatorId != null">indicator_id,</if>
+            <if test="indicatorValue != null">indicator_value,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">#{recordId,jdbcType=INTEGER},</if>
+            <if test="plantId != null">#{plantId,jdbcType=INTEGER},</if>
+            <if test="indicatorId != null">#{indicatorId,jdbcType=INTEGER},</if>
+            <if test="indicatorValue != null">#{indicatorValue,jdbcType=FLOAT},</if>
+        </trim>
+    </insert>
 </mapper>
