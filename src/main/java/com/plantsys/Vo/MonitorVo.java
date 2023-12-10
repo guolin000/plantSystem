@@ -51,4 +51,14 @@ public class MonitorVo {
      *
      */
     private String monitorSite;
+
+    /**
+     *
+     */
+    private String loginName;
+
+    /**
+     *
+     */
+    private String equipmentName;
 }

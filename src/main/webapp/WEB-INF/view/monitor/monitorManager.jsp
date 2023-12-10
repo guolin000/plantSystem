@@ -43,14 +43,14 @@
 		<div class="layui-inline">
 			<label class="layui-form-label">监测设备:</label>
 			<div class="layui-input-inline" style="padding: 5px">
-				<input type="text" name="equipmentId" autocomplete="off" class="layui-input layui-input-inline"
+				<input type="text" name="equipmentName" autocomplete="off" class="layui-input layui-input-inline"
 					   placeholder="请输入监测设备" style="height: 30px;border-radius: 10px">
 			</div>
 		</div>
 		<div class="layui-inline">
 			<label class="layui-form-label">监测人员:</label>
 			<div class="layui-input-inline" style="padding: 5px">
-				<input type="text" name="userId" autocomplete="off" class="layui-input layui-input-inline"
+				<input type="text" name="loginName" autocomplete="off" class="layui-input layui-input-inline"
 					   placeholder="请输入监测人员" style="height: 30px;border-radius: 10px">
 			</div>
 		</div>
@@ -230,8 +230,8 @@
 			, page: true  //是否启用分页
 			, cols: [[   //列表数据
 				{field: 'recordId', title: '监测记录编号', align: 'center'}
-				, {field: 'equipmentId', title: '监测设备', align: 'center'}
-				, {field: 'userId', title: '监测人员', align: 'center'}
+				, {field: 'equipmentName', title: '监测设备', align: 'center'}
+				, {field: 'loginName', title: '监测人员', align: 'center'}
 				, {field: 'monitorTime', title: '监测时间', align: 'center'}
 				, {field: 'monitorSite', title: '监测地点', align: 'center'}
 				, {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 220}
@@ -437,19 +437,19 @@
 					content += '<table style="width: 50%; border: 1px solid #dddddd; border-collapse: collapse; margin-top: 20px;">';
 					content += '<thead>';
 					content += '<tr style="background-color: #f2f2f2;">';
-					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">植物编号</th>';
-					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">监测指标编号</th>';
+					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">植物</th>';
+					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">监测指标</th>';
 					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">监测指标值</th>';
 					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">操作</th>';
 					content += '</tr>';
 					content += '</thead>';
 					content += '<tbody>';
-					data.forEach(function(monitorValue) {
+					data.forEach(function(monitorValueInfo) {
 						content += '<tr>';
-						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValue.plantId + '</td>';
-						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValue.indicatorId + '</td>';
-						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValue.indicatorValue + '</td>';
-						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;"><button class="layui-btn layui-btn-danger" onclick="deleteMonitorValue(' + monitorValue.recordId + ',' + monitorValue.plantId + ',' + monitorValue.indicatorId + ')">删除</button></td>';
+						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValueInfo.plantName + '</td>';
+						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValueInfo.indicatorName + '</td>';
+						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValueInfo.indicatorValue + '</td>';
+						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;"><button class="layui-btn layui-btn-danger" onclick="deleteMonitorValue(' + monitorValueInfo.recordId + ',' + monitorValueInfo.plantId + ',' + monitorValueInfo.indicatorId + ')">删除</button></td>';
 						content += '</tr>';
 					});
 					content += '</tbody>';
@@ -458,7 +458,7 @@
 					layer.open({
 						type: 1,
 						title: '监测记录指标值',
-						area: ['400px', 100+data.length*70+'px'], // 宽高
+						area: ['400px', 150+data.length*50+'px'], // 宽高
 						content: content
 					});
 				},

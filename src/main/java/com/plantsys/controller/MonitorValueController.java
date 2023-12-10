@@ -1,24 +1,20 @@
 package com.plantsys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.plantsys.Vo.MonitorVo;
-import com.plantsys.entity.MonitorRecord;
+import com.plantsys.entity.MonitorRecordInfo;
 import com.plantsys.entity.MonitorValue;
+import com.plantsys.entity.MonitorValueInfo;
 import com.plantsys.service.MonitorRecordService;
+import com.plantsys.service.MonitorValueInfoService;
 import com.plantsys.service.MonitorValueService;
 import com.plantsys.service.UserService;
-import com.plantsys.util.DataGridView;
 import com.plantsys.util.ResultObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class MonitorValueController {
@@ -27,17 +23,18 @@ public class MonitorValueController {
     @Autowired
     UserService userService;
     @Autowired
-    MonitorRecordService monitorRecordService;
-    @Autowired
     MonitorValueService monitorValueService;
+    @Autowired
+    MonitorValueInfoService monitorValueInfoService;
 
 
     //查看监测指标值
     @RequestMapping("checkMonitorValue")
     @ResponseBody
-    public List<MonitorValue> checkMonitorValue(Integer recordId){
-        List<MonitorValue> monitorValueList = monitorValueService.selectByRecordId(recordId);
-        return monitorValueList;
+    public List<MonitorValueInfo> checkMonitorValue(Integer recordId){
+        QueryWrapper<MonitorValueInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("record_id",recordId);
+        return monitorValueInfoService.list(queryWrapper);
     }
 
 

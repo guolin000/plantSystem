@@ -85,4 +85,19 @@ public class MaintenanceVo {
      *
      */
     private Integer taskStatus;
+
+    /**
+     *
+     */
+    private String plantName;
+
+    /**
+     *
+     */
+    private String maintainerName;
+
+    /**
+     *
+     */
+    private String creatorName;
 }

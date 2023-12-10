@@ -15,7 +15,7 @@
             <option name="ignoreFieldSuffix" value="" />
             <option name="ignoreTablePrefix" value="" />
             <option name="ignoreTableSuffix" value="" />
-            <option name="moduleName" value="plantSystem" />
+            <option name="moduleName" value="PlantSystem" />
             <option name="modulePath" value="$PROJECT_DIR$" />
             <option name="moduleUIInfoList">
               <list>
@@ -69,8 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="PlantDisease" />
-                  <option name="tableName" value="plant_disease" />
+                  <option name="className" value="MonitorValueInfo" />
+                  <option name="tableName" value="monitor_value_info" />
                 </TableUIInfo>
               </list>
             </option>
@@ -78,7 +78,7 @@
             <option name="useLombokPlugin" value="true" />
           </GenerateConfig>
         </option>
-        <option name="moduleName" value="plantSystem" />
+        <option name="moduleName" value="PlantSystem" />
         <option name="projectPath" value="$PROJECT_DIR$" />
         <option name="templateName" value="mybatis-plus3" />
       </TemplateContext>

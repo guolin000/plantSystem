@@ -57,35 +57,35 @@
 		<div class="layui-inline">
 			<label class="layui-form-label">养护时间:</label>
 			<div class="layui-input-inline" style="padding: 5px">
-				<input type="text" name="maintenanceTime" autocomplete="off" class="layui-input layui-input-inline"
+				<input type="date" name="maintenanceTime" autocomplete="off" class="layui-input layui-input-inline"
 					   placeholder="请输入养护时间" style="height: 30px;border-radius: 10px">
 			</div>
 		</div>
 		<div class="layui-inline">
 			<label class="layui-form-label">养护地点:</label>
 			<div class="layui-input-inline" style="padding: 5px">
-				<input type="date" name="maintenanceSite" autocomplete="off" class="layui-input layui-input-inline"
+				<input type="text" name="maintenanceSite" autocomplete="off" class="layui-input layui-input-inline"
 					   placeholder="请输入养护地点" style="height: 30px;border-radius: 10px">
 			</div>
 		</div>
 		<div class="layui-inline">
 			<label class="layui-form-label">养护人员:</label>
 			<div class="layui-input-inline" style="padding: 5px">
-				<input type="text" name="uid" autocomplete="off" class="layui-input layui-input-inline"
+				<input type="text" name="maintainerName" autocomplete="off" class="layui-input layui-input-inline"
 					   placeholder="请输入养护人员" style="height: 30px;border-radius: 10px">
 			</div>
 		</div>
 		<div class="layui-inline">
 			<label class="layui-form-label">养护对象:</label>
 			<div class="layui-input-inline" style="padding: 5px">
-				<input type="text" name="plantId" autocomplete="off" class="layui-input layui-input-inline"
+				<input type="text" name="plantName" autocomplete="off" class="layui-input layui-input-inline"
 					   placeholder="请输入养护对象" style="height: 30px;border-radius: 10px">
 			</div>
 		</div>
 		<div class="layui-inline">
 			<label class="layui-form-label">创建人员:</label>
 			<div class="layui-input-inline" style="padding: 5px">
-				<input type="text" name="creator" autocomplete="off" class="layui-input layui-input-inline"
+				<input type="text" name="creatorName" autocomplete="off" class="layui-input layui-input-inline"
 					   placeholder="请输入创建人员" style="height: 30px;border-radius: 10px">
 			</div>
 		</div>
@@ -141,16 +141,16 @@
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">形态特征:</label>
+			<label class="layui-form-label">养护时间:</label>
 			<div class="layui-input-block">
-				<input type="text" name="maintenanceTime" placeholder="请输入形态特征" autocomplete="off" class="layui-input">
+				<input type="date" name="maintenanceTime" placeholder="请输入养护时间" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">养护地点:</label>
 			<div class="layui-input-block">
-				<input type="date" name="maintenanceSite" placeholder="请输入养护地点" autocomplete="off" class="layui-input">
+				<input type="text" name="maintenanceSite" placeholder="请输入养护地点" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
@@ -242,12 +242,12 @@
 				, {field: 'taskDescription', title: '任务描述', align: 'center'}
 				, {field: 'maintenanceTime', title: '养护时间', align: 'center'}
 				, {field: 'maintenanceSite', title: '养护地点', align: 'center'}
-				, {field: 'uid', title: '养护人员', align: 'center'}
-				, {field: 'plantId', title: '养护对象', align: 'center'}
-				, {field: 'creator', title: '创建人员', align: 'center'}
+				, {field: 'maintainerName', title: '养护人员', align: 'center'}
+				, {field: 'plantName', title: '养护对象', align: 'center'}
+				, {field: 'creatorName', title: '创建人员', align: 'center'}
 				, {field: 'creationTime', title: '创建时间', align: 'center'}
 				, {field: 'updateTime', title: '更新时间', align: 'center'}
-				, {field: 'diseaseId', title: '任务状态', align: 'center',templet: function (d) {
+				, {field: 'taskStatus', title: '任务状态', align: 'center',templet: function (d) {
 						return d.taskStatus === 0 ? '未完成' : '已完成';
 					}}
 				, {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 220}

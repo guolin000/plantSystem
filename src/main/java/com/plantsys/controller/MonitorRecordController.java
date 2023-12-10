@@ -1,11 +1,14 @@
 package com.plantsys.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.plantsys.Vo.MonitorVo;
 import com.plantsys.entity.MonitorRecord;
+import com.plantsys.entity.MonitorRecordInfo;
 import com.plantsys.entity.MonitorValue;
+import com.plantsys.service.MonitorRecordInfoService;
 import com.plantsys.service.MonitorRecordService;
 import com.plantsys.service.MonitorValueService;
 import com.plantsys.service.UserService;
@@ -29,13 +32,15 @@ public class MonitorRecordController {
     @Autowired
     MonitorRecordService monitorRecordService;
     @Autowired
+    MonitorRecordInfoService monitorRecordInfoService;
+    @Autowired
     MonitorValueService monitorValueService;
 
 
     //跳转到监测模块
     @RequestMapping("toMonitorManager")
     public ModelAndView monitorRecordList(){
-        return new ModelAndView("monitor/list");
+        return new ModelAndView("monitor/monitorManager");
     }
 
 
@@ -88,14 +93,14 @@ public class MonitorRecordController {
         Page<Object> page = PageHelper.startPage(monitorVo.getPage(), monitorVo.getLimit());
         System.out.println("1");
         System.out.println(monitorVo);
-        QueryWrapper<MonitorRecord> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<MonitorRecordInfo> queryWrapper = new QueryWrapper<>();
         // 模糊查询或查询所有记录
         queryWrapper.like(null != monitorVo.getRecordId(), "record_id", monitorVo.getRecordId());
-        queryWrapper.like(null != monitorVo.getEquipmentId(), "equipment_id", monitorVo.getEquipmentId());
-        queryWrapper.like(null != monitorVo.getUserId(), "user_id", monitorVo.getUserId());
+        queryWrapper.like(StrUtil.isNotBlank(monitorVo.getEquipmentName()), "equipment_name", monitorVo.getEquipmentName());
+        queryWrapper.like(StrUtil.isNotBlank(monitorVo.getLoginName()), "login_name", monitorVo.getLoginName());
         queryWrapper.like(null != monitorVo.getMonitorTime(), "monitor_time", monitorVo.getMonitorTime());
         queryWrapper.like(null != monitorVo.getMonitorSite(), "monitor_site", monitorVo.getMonitorSite());
-        List<MonitorRecord> data =this.monitorRecordService.list(queryWrapper);
+        List<MonitorRecordInfo> data =this.monitorRecordInfoService.list(queryWrapper);
         if (null != data) {
             data.stream().collect(Collectors.toList());
         }
