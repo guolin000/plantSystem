@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.GenusMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.Genus">
+            <id property="genusId" column="genus_id" jdbcType="INTEGER"/>
+            <result property="genusName" column="genus_name" jdbcType="VARCHAR"/>
+            <result property="familyId" column="family_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        genus_id,genus_name,family_id
+    </sql>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.TreatmentInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.TreatmentInfo">
+            <result property="treatmentId" column="treatment_id" jdbcType="INTEGER"/>
+            <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
+            <result property="diseaseId" column="disease_id" jdbcType="INTEGER"/>
+            <result property="diseaseName" column="disease_name" jdbcType="VARCHAR"/>
+            <result property="medicamentId" column="medicament_id" jdbcType="INTEGER"/>
+            <result property="medicamentName" column="medicament_name" jdbcType="VARCHAR"/>
+            <result property="dosage" column="dosage" jdbcType="VARCHAR"/>
+            <result property="duration" column="duration" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="plantId" column="plant_id" jdbcType="INTEGER"/>
+            <result property="loginName" column="login_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        treatment_id,plant_name,disease_id,
+        disease_name,medicament_id,medicament_name,
+        dosage,duration,user_id,
+        create_time,update_time,status,
+        plant_id,login_name
+    </sql>
+</mapper>

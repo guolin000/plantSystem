@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.MonitorValueMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.MonitorValue">
+            <id property="recordId" column="record_id" jdbcType="INTEGER"/>
+            <id property="plantId" column="plant_id" jdbcType="INTEGER"/>
+            <id property="indicatorId" column="indicator_id" jdbcType="INTEGER"/>
+            <result property="indicatorValue" column="indicator_value" jdbcType="FLOAT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        record_id,plant_id,indicator_id,
+        indicator_value
+    </sql>
+    <delete id="deleteByPlantId">
+        delete
+        from monitor_value
+        where plant_id = #{plantId,jdbcType=NUMERIC}
+    </delete>
+</mapper>

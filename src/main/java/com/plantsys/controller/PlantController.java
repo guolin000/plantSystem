@@ -33,7 +33,7 @@ public class PlantController {
     @Autowired
     FamilyService familyService;
     @Autowired
-    PlantDiseaseService plantDiseaseService;
+    DiseaseService DiseaseService;
     @Autowired
     PictureService pictureService;
     @Autowired
