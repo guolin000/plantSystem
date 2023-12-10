@@ -2,6 +2,7 @@ package com.plantsys.service;
 
 import com.plantsys.entity.Treatment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author Administrator
@@ -9,5 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-12-10 01:26:57
 */
 public interface TreatmentService extends IService<Treatment> {
-
+    int deleteByMedicamentId(Integer medicamentId);
 }

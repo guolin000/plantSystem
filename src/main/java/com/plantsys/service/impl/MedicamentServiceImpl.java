@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class MedicamentServiceImpl extends ServiceImpl<MedicamentMapper, Medicament>
     implements MedicamentService{
-
 }
 
 

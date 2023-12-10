@@ -20,4 +20,9 @@
         create_time,update_time,user_id,
         status,plant_id
     </sql>
+    <delete id="deleteByMedicamentId">
+        delete
+        from treatment
+        where medicament_id = #{medicamentId,jdbcType=NUMERIC}
+    </delete>
 </mapper>

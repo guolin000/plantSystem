@@ -2,6 +2,7 @@ package com.plantsys.mapper;
 
 import com.plantsys.entity.Treatment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author Administrator
@@ -10,7 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.plantsys.entity.Treatment
 */
 public interface TreatmentMapper extends BaseMapper<Treatment> {
-
+    int deleteByMedicamentId(@Param("medicamentId") Integer medicamentId);
 }
 
 

@@ -79,4 +79,15 @@ public class SysController {
         model.addAttribute("uid", user.getUserId());
         return "treatment/treatment";
     }
+    /**
+     * 跳转到药剂信息列表
+     * @return
+     */
+    @RequestMapping("toMedicament")
+    public String toMedicament(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "treatment/medicament";
+    }
 }
