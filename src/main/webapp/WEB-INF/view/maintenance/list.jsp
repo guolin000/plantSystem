@@ -157,21 +157,21 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">养护人员:</label>
 			<div class="layui-input-block">
-				<input type="text" name="uid" placeholder="请输入养护人员" autocomplete="off" class="layui-input">
+				<input type="text" name="uid" placeholder="请输入养护人员(1-4)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">养护对象:</label>
 			<div class="layui-input-block">
-				<input type="text" name="plantId" placeholder="请输入养护对象" autocomplete="off" class="layui-input">
+				<input type="text" name="plantId" placeholder="请输入养护对象(1001-1010)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">创建人员:</label>
 			<div class="layui-input-block">
-				<input type="text" name="creator" placeholder="请输入养护人员" autocomplete="off" class="layui-input">
+				<input type="text" name="creator" placeholder="请输入创建人员(1-4)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
@@ -366,7 +366,7 @@
 				success: function (index) {
 					//清空表单数据
 					$("#dataFrm")[0].reset();
-					url = "addMaintenanceTask";
+					url = "addMaintenanceTask.action";
 				}
 			});
 		}
@@ -380,8 +380,7 @@
 				area: ['800px', '540px'],
 				success: function (index) {
 					form.val("dataFrm", data);
-					$('#mobileCoverImg').attr('src', "/file/downloadFile.action?path=" + data.img);
-					url = "updateMaintenanceTask";
+					url = "updateMaintenanceTask.action";
 				}
 			});
 		}

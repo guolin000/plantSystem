@@ -2,6 +2,7 @@ package com.plantsys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.plantsys.entity.MonitorValue;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -16,5 +17,7 @@ public interface MonitorValueService extends IService<MonitorValue> {
 
     int addSelective(MonitorValue monitorValue);
 
-    List<MonitorValue> selectByMap(Map<String, Object> map);
+    List<MonitorValue> selectByRecordId(@Param("recordId") Integer recordId);
+
+    int deleteSelective(MonitorValue monitorValue);
 }

@@ -91,6 +91,7 @@
 
 <div id="newsBar" style="display: none;">
 	<c:if test="${true}"> <!--role == 2 || role == 4-->
+		<a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="addValue">录入</a>
 		<a class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius" lay-event="viewNews">查看</a>
 		<a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
 		<a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
@@ -109,13 +110,13 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">监测设备:</label>
 			<div class="layui-input-block">
-				<input type="text" name="equipmentId" placeholder="请输入监测设备" autocomplete="off" class="layui-input">
+				<input type="text" name="equipmentId" placeholder="请输入监测设备(1-4)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">监测人员:</label>
 			<div class="layui-input-block">
-				<input type="text" name="userId" placeholder="请输入监测设备" autocomplete="off" class="layui-input">
+				<input type="text" name="userId" placeholder="请输入监测人员(1-4)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
@@ -149,33 +150,53 @@
 
 <%--查看div--%>
 <div id="viewNewsDiv" style="padding: 10px;display: none">
-	<form class="layui-form" lay-filter="dataFrm2" id="dataFrm2" style="margin-right: 20px">
-		<table>
-			<thead>
-			<tr>
-				<th>植物编号</th>
-				<th>监测指标编号</th>
-				<th>监测指标值</th>
-			</tr>
-			</thead>
-			<tbody>
-			<c:forEach items="${maintenanceValueList}" var="data">
-			<tr>
-				<td>${data.plantId}</td>
-				<td>${data.indicatorId}</td>
-				<td>${data.indicatorName}</td>
-			</tr>
-			</c:forEach>
-			</tbody>
-		</table>
+
+</div>
+
+<%--录入div--%>
+<div style="display: none;padding: 20px" id="addValueDiv">
+	<form class="layui-form" lay-filter="dataFrm" id="valueFrm" style="margin-right: 20px">
+		<div class="layui-form-item">
+			<label class="layui-form-label">监测记录编号:</label>
+			<div class="layui-input-block">
+				<input type="text" name="recordId" placeholder="请输入监测记录编号" autocomplete="off" class="layui-input" readonly="readonly">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">植物编号:</label>
+			<div class="layui-input-block">
+				<input type="text" name="plantId" placeholder="请输入植物编号(1001-1010)" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">监测指标编号:</label>
+			<div class="layui-input-block">
+				<input type="text" name="indicatorId" placeholder="请输入监测指标编号(1-4)" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">监测指标值:</label>
+			<div class="layui-input-block">
+				<input type="text" name="indicatorValue" placeholder="监测指标值" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-input-block" style="text-align: center;padding-right: 120px">
+				<button type="button"
+						class="layui-btn layui-btn-normal layui-btn-md layui-icon layui-icon-release layui-btn-radius"
+						lay-filter="doSubmit2" lay-submit="">提交
+				</button>
+				<button type="reset" id="valueFrmResetBtn"
+						class="layui-btn layui-btn-warm layui-btn-md layui-icon layui-icon-refresh layui-btn-radius">重置
+				</button>
+			</div>
+		</div>
 	</form>
 </div>
-<!--plugins-->
-<%--分页以及模糊查询登录不可删除--%>
-<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-<script src="/resources/layui/layui.js"></script>
 
+<script src="/resources/layui/layui.js"></script>
 <script type="text/javascript">
 	var tableIns;
 	layui.use(['jquery', 'layer', 'form', 'table', 'laydate', 'upload'], function () {
@@ -312,6 +333,8 @@
 				openUpdateNews(data);
 			} else if (layEvent === 'viewNews') {//查看
 				viewNews(data);
+			} else if (layEvent === 'addValue') {//录入
+				openAddValue(data);
 			}
 		});
 
@@ -328,7 +351,7 @@
 				success: function (index) {
 					//清空表单数据
 					$("#dataFrm")[0].reset();
-					url = "addMonitorRecord";
+					url = "addMonitorRecord.action";
 				}
 			});
 		}
@@ -342,8 +365,21 @@
 				area: ['800px', '540px'],
 				success: function (index) {
 					form.val("dataFrm", data);
-					$('#mobileCoverImg').attr('src', "/file/downloadFile.action?path=" + data.img);
-					url = "updateMonitorRecord";
+					url = "updateMonitorRecord.action";
+				}
+			});
+		}
+
+		//打开录入监测指标值页面
+		function openAddValue(data) {
+			mainIndex = layer.open({
+				type: 1,
+				title: '录入监测指标值',
+				content: $("#addValueDiv"),
+				area: ['800px', '540px'],
+				success: function (index) {
+					form.val("dataFrm", data);
+					url = "addMonitorValue.action";
 				}
 			});
 		}
@@ -376,29 +412,103 @@
 		});
 
 
+		//保存
+		form.on("submit(doSubmit2)", function (obj) {
+			//序列化表单数据
+			var params = $("#valueFrm").serialize();
+			$.post(url, params, function (obj) {
+				layer.msg(obj.msg);
+				//关闭弹出层
+				layer.close(mainIndex);
+				//刷新数据 表格
+				tableIns.reload();
+			})
+		});
+
+
 		//查看
 		function viewNews(data) {
-			var list = null;
 			$.ajax({
-				url:"checkMonitorValue",
-				data:{"taskId": data.taskId},
-				type:"post",
-				dataType:"json",
-				success:function (maintenanceValueList) {
-					list = maintenanceValueList;
-				}
-			});
-			mainIndex = layer.open({
-				type: 1,
-				title: '查看监测记录指标值',
-				content: $("#viewNewsDiv"),
-				area: ['700px', '540px'],
-				success: function () {
-					form.val("dataFrm2", list);
-				}
+				url:"checkMonitorValue.action",
+				type: 'POST',
+				data: { 'recordId': data.recordId },
+				success: function(data) {
+					var content = '<div align="center">';
+					content += '<table style="width: 50%; border: 1px solid #dddddd; border-collapse: collapse; margin-top: 20px;">';
+					content += '<thead>';
+					content += '<tr style="background-color: #f2f2f2;">';
+					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">植物编号</th>';
+					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">监测指标编号</th>';
+					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">监测指标值</th>';
+					content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">操作</th>';
+					content += '</tr>';
+					content += '</thead>';
+					content += '<tbody>';
+					data.forEach(function(monitorValue) {
+						content += '<tr>';
+						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValue.plantId + '</td>';
+						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValue.indicatorId + '</td>';
+						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + monitorValue.indicatorValue + '</td>';
+						content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;"><button class="layui-btn layui-btn-danger" onclick="deleteMonitorValue(' + monitorValue.recordId + ',' + monitorValue.plantId + ',' + monitorValue.indicatorId + ')">删除</button></td>';
+						content += '</tr>';
+					});
+					content += '</tbody>';
+					content += '</table>';
+					content += '</div>';
+					layer.open({
+						type: 1,
+						title: '监测记录指标值',
+						area: ['400px', 100+data.length*70+'px'], // 宽高
+						content: content
+					});
+				},
+
 			});
 		}
 	});
+
+	function addMonitorValue(recordId,plantId,indicatorId,indicatorValue) {
+		console.log(recordId);
+		console.log(plantId);
+		console.log(indicatorId);
+		console.log(indicatorValue);
+		layui.jquery.ajax({
+			url: 'addMonitorValue.action', // 替换为你的删除接口
+			type: 'POST',
+			data: {
+				'recordId': recordId,
+				'plantId': plantId,
+				'indicatorId': indicatorId,
+				'indicatorValue': indicatorValue
+			},
+			success: function(response) {
+				alert('添加成功');
+				document.location.reload();//当前页面
+			},
+			error: function(error) {
+				alert('添加失败');
+			}
+		});
+	}
+
+	function deleteMonitorValue(recordId,plantId,indicatorId) {
+		layui.jquery.ajax({
+			url: 'deleteMonitorValue.action', // 替换为你的删除接口
+			type: 'POST',
+			data: {
+				'recordId': recordId,
+				'plantId': plantId,
+				'indicatorId': indicatorId,
+			},
+			success: function(response) {
+				alert('删除成功');
+				document.location.reload();//当前页面
+			},
+			error: function(error) {
+				alert('删除失败');
+			}
+		});
+	}
 
 </script>
 <style type="text/css">
