@@ -3,7 +3,9 @@ package com.plantsys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.plantsys.Vo.MonitorVo;
 import com.plantsys.Vo.QueryVo;
+import com.plantsys.entity.MaintenanceTask;
 import com.plantsys.entity.MonitorRecord;
 import com.plantsys.entity.MonitorValue;
 import com.plantsys.service.MonitorRecordService;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,6 +35,16 @@ public class MonitorRecordController {
     @Autowired
     MonitorValueService monitorValueService;
 
+
+    //完成任务
+    @RequestMapping("checkMonitorValue")
+    @ResponseBody
+    public List<MonitorValue> checkMonitorValue(Integer taskId){
+        Map<String,Object> map = new HashMap<>();
+        map.put("taskId", taskId);
+        List<MonitorValue> monitorValueList = monitorValueService.selectByMap(map);
+        return re;
+    }
 
     //跳转到监测模块
     @RequestMapping("toMonitorManager")
@@ -83,19 +97,18 @@ public class MonitorRecordController {
 
     //查询监测记录
     @RequestMapping("monitorRecordList")
-    public DataGridView monitorRecordList(QueryVo queryVo){
+    public DataGridView monitorRecordList(MonitorVo monitorVo){
         System.out.println("awfdawdaw");
-        Page<Object> page = PageHelper.startPage(queryVo.getPage(), queryVo.getLimit());
+        Page<Object> page = PageHelper.startPage(monitorVo.getPage(), monitorVo.getLimit());
         System.out.println("1");
-        System.out.println(queryVo);
+        System.out.println(monitorVo);
         QueryWrapper<MonitorRecord> queryWrapper = new QueryWrapper<>();
         // 模糊查询或查询所有记录
-//        queryWrapper.like(null != queryVo.getPlantId(), "plant_id", queryVo.getPlantId());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPlantName()), "plant_name", queryVo.getPlantName());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getFeature()), "feature", queryVo.getFeature());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getValue()), "value", queryVo.getValue());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPoint()), "point", queryVo.getPoint());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getAlias()), "alias", queryVo.getAlias());
+        queryWrapper.like(null != monitorVo.getRecordId(), "record_id", monitorVo.getRecordId());
+        queryWrapper.like(null != monitorVo.getEquipmentId(), "equipment_id", monitorVo.getEquipmentId());
+        queryWrapper.like(null != monitorVo.getUserId(), "user_id", monitorVo.getUserId());
+        queryWrapper.like(null != monitorVo.getMonitorTime(), "monitor_time", monitorVo.getMonitorTime());
+        queryWrapper.like(null != monitorVo.getMonitorSite(), "monitor_site", monitorVo.getMonitorSite());
         List<MonitorRecord> data =this.monitorRecordService.list(queryWrapper);
         if (null != data) {
             data.stream().collect(Collectors.toList());

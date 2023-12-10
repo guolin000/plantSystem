@@ -3,6 +3,9 @@ package com.plantsys.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.plantsys.entity.MonitorValue;
 
+import java.util.List;
+import java.util.Map;
+
 /**
 * @author Administrator
 * @description 针对表【monitor_value】的数据库操作Service
@@ -12,4 +15,6 @@ public interface MonitorValueService extends IService<MonitorValue> {
     int deleteByPlantId(Integer plantId);
 
     int addSelective(MonitorValue monitorValue);
+
+    List<MonitorValue> selectByMap(Map<String, Object> map);
 }

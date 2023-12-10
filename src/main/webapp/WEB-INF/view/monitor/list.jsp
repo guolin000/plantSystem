@@ -159,13 +159,15 @@
 			</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${maintenancevaluelist}" var="data">
+			<c:forEach items="${maintenanceValueList}" var="data">
 			<tr>
 				<td>${data.plantId}</td>
 				<td>${data.indicatorId}</td>
 				<td>${data.indicatorName}</td>
 			</tr>
 			</c:forEach>
+			</tbody>
+		</table>
 	</form>
 </div>
 <!--plugins-->
@@ -376,13 +378,14 @@
 
 		//查看
 		function viewNews(data) {
+			var list = null;
 			$.ajax({
-				url:"completeMaintenanceTask",
-				data:{"taskId": taskId},
+				url:"checkMonitorValue",
+				data:{"taskId": data.taskId},
 				type:"post",
 				dataType:"json",
-				success:function (data) {
-					//TODO
+				success:function (maintenanceValueList) {
+					list = maintenanceValueList;
 				}
 			});
 			mainIndex = layer.open({
@@ -390,9 +393,8 @@
 				title: '查看监测记录指标值',
 				content: $("#viewNewsDiv"),
 				area: ['700px', '540px'],
-				success: function (index) {
-					form.val("dataFrm2", data);
-					$('#mobileCoverImg1').attr('src', "/file/downloadFile.action?path=" + data.img);
+				success: function () {
+					form.val("dataFrm2", list);
 				}
 			});
 		}
