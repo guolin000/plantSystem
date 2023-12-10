@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -81,7 +81,7 @@
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="newsTable" lay-filter="newsTable"></table>
 <div style="display: none;" id="newsToolBar">
-    <c:if test="${admin!=null}">
+    <c:if test="${role==1}">
         <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">新增</button>
     </c:if>
 </div>
@@ -134,13 +134,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">栽培要点:</label>
             <div class="layui-input-block">
-                <input type="text" name="point"  placeholder="请输入栽培要点" autocomplete="off" class="layui-input">
+                <input type="text" name="point" placeholder="请输入栽培要点" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">种名:</label>
             <div class="layui-input-block">
-                <input type="text" name="speciesName" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+                <input type="text" name="speciesName" placeholder="请输入植物名称" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -152,13 +153,15 @@
         <div class="layui-form-item">
             <label class="layui-form-label">科名:</label>
             <div class="layui-input-block">
-                <input type="text" name="familyName" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+                <input type="text" name="familyName" placeholder="请输入植物名称" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">病虫害名称:</label>
             <div class="layui-input-block">
-                <input type="text" name="diseaseName" placeholder="请输入病虫害名称" autocomplete="off" class="layui-input">
+                <input type="text" name="diseaseName" placeholder="请输入病虫害名称" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
 
@@ -203,13 +206,15 @@
         <div class="layui-form-item">
             <label class="layui-form-label">植物编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="plantId"  readonly placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="plantId" readonly placeholder="请输入图书编号" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">配图编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="pictureId" lay-verify="required" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="pictureId" lay-verify="required" placeholder="请输入图书编号"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -221,13 +226,15 @@
         <div class="layui-form-item">
             <label class="layui-form-label">拍摄人:</label>
             <div class="layui-input-block">
-                <input type="text" name="photographer" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="photographer" placeholder="请输入图书编号" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">描述:</label>
             <div class="layui-input-block">
-                <input type="text" name="description" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="description" placeholder="请输入图书编号" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item" style="margin-top: 20px">
@@ -236,7 +243,7 @@
                 <i class="layui-icon">&#xe67c;</i>上传
             </button>
             <input type="hidden" name="path" id="img">
-            <img  id="mobileCoverImg" class="originalImg"  style="height: 50px;min-width: 50px;"/>
+            <img id="mobileCoverImg" class="originalImg" style="height: 50px;min-width: 50px;"/>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block" style="text-align: center;padding-right: 120px">
@@ -266,12 +273,12 @@
         laydate.render({
             elem: '#publishTime',
             type: 'date'
-            ,trigger: 'click'// 增加这个参数解决
+            , trigger: 'click'// 增加这个参数解决
         });
         laydate.render({
             elem: '#returnTime',
             type: 'datetime'
-            ,trigger: 'click'// 增加这个参数解决
+            , trigger: 'click'// 增加这个参数解决
         });
 
         //渲染数据表格
@@ -293,18 +300,20 @@
                 , {field: 'speciesName', title: '种名', align: 'center'}
                 , {field: 'genusName', title: '属名', align: 'center'}
                 , {field: 'familyName', title: '科名', align: 'center'}
-                , {field: 'diseaseId', title: '是否患病', align: 'center',templet: function (d) {
-                        return d.diseaseName== null ? '不患病' : '患病';
-                    }}
+                , {
+                    field: 'diseaseId', title: '是否患病', align: 'center', templet: function (d) {
+                        return d.diseaseName == null ? '不患病' : '患病';
+                    }
+                }
                 , {field: 'diseaseName', title: '病名', align: 'center'}
                 , {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 270}
             ]],
-            done:function (data, curr, count) {
+            done: function (data, curr, count) {
                 //不是第一页时，如果当前返回的数据为0那么就返回上一页
-                if(data.data.length==0&&curr!=1){
+                if (data.data.length == 0 && curr != 1) {
                     tableIns.reload({
-                        page:{
-                            curr:curr-1
+                        page: {
+                            curr: curr - 1
                         }
                     })
                 }
@@ -382,7 +391,7 @@
                 openUpdateNews(data);
             } else if (layEvent === 'viewNews') {//配图
                 viewNews(data);
-            }else if(layEvent === 'addPicture'){ //添加配图
+            } else if (layEvent === 'addPicture') { //添加配图
                 openAddPicture(data);
             }
         });
@@ -404,6 +413,7 @@
                 }
             });
         }
+
         //打开添加配图层
         function openAddPicture(data) {
             mainIndex = layer.open({
@@ -419,6 +429,7 @@
                 }
             });
         }
+
         //保存配图
         form.on("submit(doSubmit2)", function (obj) {
             //序列化表单数据
@@ -432,6 +443,7 @@
                 tableIns.reload();
             })
         });
+
         //打开修改页面
         function openUpdateNews(data) {
             mainIndex = layer.open({
@@ -479,12 +491,12 @@
         function viewNews(data) {
 
             $.ajax({
-                url:"/plant/showPictures.action",
+                url: "/plant/showPictures.action",
                 type: 'POST',
-                data: { 'plantId': data.plantId },
-                success: function(data) {
+                data: {'plantId': data.plantId},
+                success: function (data) {
                     var content = '';
-                    data.forEach(function(picture) {
+                    data.forEach(function (picture) {
                         // $('#mobileCoverImg').attr('src', "downloadFile?path=" + res.data.src);
                         // content += '<div align="center"><img src="' + 'downloadFile?path='+picture.path + '" style="width:200px;min-height: 200px;"><p>拍摄人: ' + picture.photographer + '</p><p>拍摄地点: ' + picture.location + '</p><p>描述: ' + picture.description + '</p></div>';
                         content += '<div align="center">';
@@ -519,21 +531,20 @@
         }
 
 
-
-
     });
+
     function deletePicture(pictureId) {
         console.log(pictureId)
         jquery.ajax({
             url: '/plant/deletePicture.action', // 替换为你的删除接口
             type: 'POST',
-            data: { 'pictureId': pictureId },
-            success: function(response) {
+            data: {'pictureId': pictureId},
+            success: function (response) {
                 // 处理删除成功的情况，比如刷新图片列表或显示一个通知
                 alert('图片删除成功');
                 // 重新加载或更新视图
             },
-            error: function(error) {
+            error: function (error) {
                 // 处理错误情况
                 alert('删除失败');
             }
@@ -541,8 +552,8 @@
     }
 </script>
 <style type="text/css">
-    .layui-table img{
-        max-width:100%
+    .layui-table img {
+        max-width: 100%
     }
 </style>
 
