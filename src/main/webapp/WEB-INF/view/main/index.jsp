@@ -22,7 +22,7 @@
 			<div class="layui-main mag0">
 				<a href="#" class="logo" style="width: 200px;">园林植物综合管理平台</a>
 				<!-- 显示/隐藏菜单 -->
-				<a href="javascript:;" class="seraph hideMenu icon-caidan"></a>
+				<a href="javascript:;" class="seraph hideMenu layui-icon layui-icon-left" id="toggleMenu"></a>
 			    <!-- 顶部右侧菜单 -->
 			    <ul class="layui-nav top_menu">
 					<li class="layui-nav-item" id="userInfo">
@@ -210,6 +210,16 @@
 	function addTab(_this){
 		tab.tabAdd(_this);
 	}
+	document.getElementById('toggleMenu').addEventListener('click', function() {
+		var menuIcon = this;
+		if (menuIcon.classList.contains('layui-icon-left')) {
+			menuIcon.classList.remove('layui-icon-left');
+			menuIcon.classList.add('layui-icon-right');
+		} else {
+			menuIcon.classList.remove('layui-icon-right');
+			menuIcon.classList.add('layui-icon-left');
+		}
+	});
 	</script>
 </body>
 </html>

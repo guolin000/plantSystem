@@ -81,7 +81,7 @@
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="newsTable" lay-filter="newsTable"></table>
 <div style="display: none;" id="newsToolBar">
-    <c:if test="${admin!=null}">
+    <c:if test="${role==1}">
         <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">新增</button>
     </c:if>
 </div>
