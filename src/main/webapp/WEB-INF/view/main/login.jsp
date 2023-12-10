@@ -16,7 +16,7 @@
 </head>
 <body class="loginBody">
 <br>
-<h1 align="center"  style="color:LightSteelBlue ; font-size: 65px;font-family: 方正粗黑宋简体,微软雅黑;">园 林 植 物 管 理 系 统</h1>
+<h1 align="center"  style="color:LightSteelBlue ; font-size: 65px;font-family: 方正粗黑宋简体,微软雅黑;">园 林 植 物 综 合 管 理 平 台</h1>
 	<form class="layui-form" id="loginFrm" method="post" action="/login/login.action" style="height: 525px;width: 300px;">
 		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
 			<legend>请登录</legend>
