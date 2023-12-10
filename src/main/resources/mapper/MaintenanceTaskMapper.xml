@@ -24,6 +24,70 @@
         creator,creation_time,update_time,
         plant_id,task_status
     </sql>
+    <delete id="deleteByTaskId">
+        delete
+        from maintenance_task
+        where task_id = #{taskId,jdbcType=NUMERIC}
+    </delete>
+    <select id="selectByMap" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from maintenance_task
+        where 1 = 1
+        <if test="map.taskId != null ">
+            and task_id = #{map.taskId}
+        </if>
+        <if test="map.keyword != null and map.keyword != '' ">
+            <bind name="keyword" value="'%' + map.keyword + '%'" />
+            and task_name like #{keyword}
+        </if>
+    </select>
+    <insert id="addSelective">
+        insert into maintenance_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="taskName != null">task_name,</if>
+            <if test="taskDescription != null">task_description,</if>
+            <if test="maintenanceTime != null">maintenance_time,</if>
+            <if test="maintenanceSite != null">maintenance_site,</if>
+            <if test="uid != null">uid,</if>
+            <if test="creator != null">creator,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="plantId != null">plant_id,</if>
+            <if test="taskStatus != null">task_status,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId,jdbcType=INTEGER},</if>
+            <if test="taskName != null">#{taskName,jdbcType=VARCHAR},</if>
+            <if test="taskDescription != null">#{taskDescription,jdbcType=VARCHAR},</if>
+            <if test="maintenanceTime != null">#{maintenanceTime,jdbcType=TIMESTAMP},</if>
+            <if test="maintenanceSite != null">#{maintenanceSite,jdbcType=VARCHAR},</if>
+            <if test="uid != null">#{uid,jdbcType=INTEGER},</if>
+            <if test="creator != null">#{creator,jdbcType=INTEGER},</if>
+            <if test="creationTime != null">#{creationTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="plantId != null">#{plantId,jdbcType=INTEGER},</if>
+            <if test="taskStatus != null">#{taskStatus,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateSelective">
+        update maintenance_task
+        <set>
+            <if test="taskName != null">task_name=#{taskName,jdbcType=VARCHAR},</if>
+            <if test="taskDescription != null">task_description=#{taskDescription,jdbcType=VARCHAR},</if>
+            <if test="maintenanceTime != null">maintenance_time=#{maintenanceTime,jdbcType=TIMESTAMP},</if>
+            <if test="maintenanceSite != null">maintenance_site=#{maintenanceSite,jdbcType=VARCHAR},</if>
+            <if test="uid != null">uid=#{uid,jdbcType=NUMERIC},</if>
+            <if test="creator != null">creator=#{creator,jdbcType=NUMERIC},</if>
+            <if test="creationTime != null">creation_time=#{creationTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">update_time=#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="plantId != null">plant_id=#{plantId,jdbcType=NUMERIC},</if>
+            <if test="taskStatus != null">task_status=#{taskStatus,jdbcType=NUMERIC},</if>
+        </set>
+        where task_id = #{taskId,jdbcType=NUMERIC}
+    </update>
     <delete id="deleteByPlantId">
         delete
         from maintenance_task
