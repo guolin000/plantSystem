@@ -27,5 +27,20 @@ public class QueryVo {
     private String point;
 
     private String alias;
-
+    /**
+     * 出版社
+     */
+    private Integer familyId;
+    private String familyName;
+    private Integer genusId;
+    private String genusName;
+    private Integer speciesId;
+    private String speciesName;
+    private String environment;
+    private Integer provinceId;
+    private String provinceName;
+    private Integer cityId;
+    private String cityName;
+    private Integer countyId;
+    private String countyName;
 }
