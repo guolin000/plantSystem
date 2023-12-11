@@ -69,8 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="SortInfo" />
-                  <option name="tableName" value="sort_info" />
+                  <option name="className" value="CountyInfo" />
+                  <option name="tableName" value="county_info" />
                 </TableUIInfo>
               </list>
             </option>
