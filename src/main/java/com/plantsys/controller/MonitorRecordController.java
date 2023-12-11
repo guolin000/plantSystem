@@ -46,10 +46,9 @@ public class MonitorRecordController {
 
     //添加监测记录
     @RequestMapping("addMonitorRecord")
-    public ResultObj addMonitorRecord(MonitorRecord monitorRecord, MonitorValue monitorValue){
+    public ResultObj addMonitorRecord(MonitorRecord monitorRecord){
         try{
             monitorRecordService.addSelective(monitorRecord);
-            monitorValueService.addSelective(monitorValue); // 后添加指标值
             return ResultObj.ADD_SUCCESS;
         }catch (Exception e){
             e.printStackTrace();
@@ -76,7 +75,7 @@ public class MonitorRecordController {
     @ResponseBody
     public ResultObj deleteMonitorRecord(Integer recordId){
         try{
-            monitorValueService.deleteByPlantId(recordId); // 先删除指标值 B
+            monitorValueService.deleteByPlantId(recordId); // 先删除监测记录指标值
             monitorRecordService.deleteByRecordId(recordId);
             return ResultObj.DELETE_SUCCESS;
         }catch (Exception e){

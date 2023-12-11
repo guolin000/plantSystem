@@ -338,7 +338,7 @@
 			if (layEvent === 'del') { //删除
 				layer.confirm('真的删除【' + data.taskId + '】这项任务么？', function (index) {
 					//向服务端发送删除指令
-					$.post("deletePlant", {taskId: data.taskId}, function (res) {
+					$.post("deleteMaintenanceTask.action", {taskId: data.taskId}, function (res) {
 						layer.msg(res.msg);
 						//刷新数据表格
 						tableIns.reload();
@@ -429,11 +429,11 @@
 
 
 		//完成
-		function completeTask(taskId){
+		function completeTask(data){
 			if(confirm("确定完成?")){
 				$.ajax({
-					url:"completeMaintenanceTask",
-					data:{"taskId": taskId},
+					url:"completeMaintenanceTask.action",
+					data:{"taskId": data.taskId},
 					type:"post",
 					dataType:"json",
 					success:function (data) {

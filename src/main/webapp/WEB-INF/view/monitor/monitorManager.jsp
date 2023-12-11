@@ -322,7 +322,7 @@
 			if (layEvent === 'del') { //删除
 				layer.confirm('真的删除【' + data.recordId + '】这条记录么？', function (index) {
 					//向服务端发送删除指令
-					$.post("deletePlant", {recordId: data.recordId}, function (res) {
+					$.post("deleteMonitorRecord.action", {recordId: data.recordId}, function (res) {
 						layer.msg(res.msg);
 						//刷新数据表格
 						tableIns.reload();

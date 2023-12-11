@@ -60,8 +60,8 @@ public class MaintenanceTaskController {
         if(maintenanceTask.getTaskStatus()==0){
             maintenanceTask.setTaskStatus(1);
             maintenanceTaskService.updateSelective(maintenanceTask);
+            re = true;
         }
-        re = true;
         return re;
     }
 
