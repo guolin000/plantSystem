@@ -61,6 +61,7 @@
                 </ModuleInfoGo>
               </list>
             </option>
+            <option name="needToStringHashcodeEquals" value="true" />
             <option name="needsComment" value="true" />
             <option name="needsModel" value="true" />
             <option name="relativePackage" value="entity" />
@@ -68,12 +69,13 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="MonitorValueInfo" />
-                  <option name="tableName" value="monitor_value_info" />
+                  <option name="className" value="SortInfo" />
+                  <option name="tableName" value="sort_info" />
                 </TableUIInfo>
               </list>
             </option>
             <option name="templatesName" value="mybatis-plus3" />
+            <option name="useActualColumnAnnotationInject" value="true" />
             <option name="useLombokPlugin" value="true" />
           </GenerateConfig>
         </option>
