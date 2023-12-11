@@ -1,4 +1,5 @@
 package com.plantsys.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.plantsys.entity.Medicament;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

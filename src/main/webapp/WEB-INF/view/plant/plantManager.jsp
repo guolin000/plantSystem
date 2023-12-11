@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>图书管理</title>
+    <title>植物管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -81,7 +81,7 @@
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="newsTable" lay-filter="newsTable"></table>
 <div style="display: none;" id="newsToolBar">
-    <c:if test="${admin!=null}">
+    <c:if test="${role==1}">
         <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">新增</button>
     </c:if>
 </div>
@@ -203,31 +203,31 @@
         <div class="layui-form-item">
             <label class="layui-form-label">植物编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="plantId"  readonly placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="plantId"  readonly placeholder="请输入植物编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">配图编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="pictureId" lay-verify="required" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="pictureId" lay-verify="required" placeholder="请输入配图编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">拍摄地点:</label>
             <div class="layui-input-block">
-                <input type="text" name="location" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="location" placeholder="请输入拍摄地点" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">拍摄人:</label>
             <div class="layui-input-block">
-                <input type="text" name="photographer" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="photographer" placeholder="请输入拍摄人名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">描述:</label>
             <div class="layui-input-block">
-                <input type="text" name="description" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="description" placeholder="请输入描述" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item" style="margin-top: 20px">

@@ -2,23 +2,19 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.plantsys.mapper.MedicamentMapper">
+<mapper namespace="com.plantsys.mapper.MedicamentInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.plantsys.entity.Medicament">
-            <id property="medicamentId" column="medicament_id" jdbcType="INTEGER"/>
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.MedicamentInfo">
+            <result property="medicamentId" column="medicament_id" jdbcType="INTEGER"/>
             <result property="medicamentName" column="medicament_name" jdbcType="VARCHAR"/>
             <result property="dosage" column="dosage" jdbcType="VARCHAR"/>
             <result property="duration" column="duration" jdbcType="VARCHAR"/>
             <result property="diseaseId" column="disease_id" jdbcType="INTEGER"/>
+            <result property="diseaseName" column="disease_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         medicament_id,medicament_name,dosage,
-        duration,disease_id
+        duration,disease_id,disease_name
     </sql>
-    <delete id="deleteByMedicamentId">
-        delete
-        from medicament
-        where medicament_id = #{medicamentId,jdbcType=NUMERIC}
-    </delete>
 </mapper>

@@ -811,7 +811,7 @@ a cite {
 
 .layui-header {
     z-index: 1000;
-    height: 60px
+    height: 50px
 }
 
 .layui-header a:hover {
@@ -2177,11 +2177,11 @@ a cite {
     margin-top: -9px;
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
-    margin-top: -3px \9
+    margin-top: -3px
 }
 
 :root .layui-form-selected .layui-edge {
-    margin-top: -9px \0/ IE9
+    margin-top: -9px
 }
 
 .layui-form-selectup dl {

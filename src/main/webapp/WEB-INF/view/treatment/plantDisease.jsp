@@ -78,35 +78,41 @@
 <div style="display: none;padding: 20px" id="saveOrUpdateDiv">
     <form class="layui-form" lay-filter="dataFrm" id="dataFrm" style="margin-right: 20px">
         <div class="layui-form-item">
-            <label class="layui-form-label">病虫害编号:</label>
+            <label class="layui-form-label">植物编号:</label>
             <div class="layui-input-block">
-                <input type="text" id="diseaseId" name="diseaseId" placeholder="请输入植物编号" autocomplete="off" class="layui-input">
+                <input type="text" id="plantId" name="plantId" readonly placeholder="请输入植物编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">药剂编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="medicamentId" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+                <input type="text" name="medicamentId" placeholder="请输入药剂编号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">设置养护人员:</label>
+            <div class="layui-input-block">
+                <input type="text" name="userId" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">创建时间:</label>
             <div class="layui-input-block">
-                <input type="text" id="createTime" name="createTime" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+                <input type="text" id="createTime" name="createTime" placeholder="请输入创建时间" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">创建人员:</label>
             <div class="layui-input-block">
-                <input type="text" name="creator" readonly placeholder="请输入形态特征" autocomplete="off" class="layui-input" value="${uid}">
+                <input type="text" name="creator" readonly placeholder="请输入创建人员" autocomplete="off" class="layui-input" value="${uid}">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">更新时间:</label>
             <div class="layui-input-block">
-                <input type="text" id="updateTime" name="updateTime" placeholder="请输入应用价值" autocomplete="off" class="layui-input">
+                <input type="text" id="updateTime" name="updateTime" placeholder="请输入更新时间" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -218,7 +224,7 @@
         var url;
         var mainIndex;
 
-        //打开防治框
+        //打开防治弹出层
         function viewNews(data) {
             mainIndex = layer.open({
                 type: 1,
@@ -226,9 +232,9 @@
                 content: $("#saveOrUpdateDiv"),
                 area: ['800px', '540px'],
                 success: function (index) {
-                    //清空表单数据
-                    $("#diseaseId").val(data.diseaseId);
-                    $("#dataFrm")[0].reset();
+
+                    $("#plantId").val(data.plantId);
+
                     url = "/disease/addTreatment.action";
                 }
             });
@@ -240,6 +246,7 @@
             $.post(url, params, function (obj) {
                 layer.msg(obj.msg);
                 //关闭弹出层
+                $("#dataFrm")[0].reset();
                 layer.close(mainIndex);
                 //刷新数据 表格
                 tableIns.reload();
