@@ -171,7 +171,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">监测指标编号:</label>
 			<div class="layui-input-block">
-				<input type="text" name="indicatorId" placeholder="请输入监测指标编号(1-4)" autocomplete="off" class="layui-input">
+				<input type="text" name="indicatorId" placeholder="请输入监测指标编号(1-8)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
@@ -473,7 +473,7 @@
 		console.log(indicatorId);
 		console.log(indicatorValue);
 		layui.jquery.ajax({
-			url: 'addMonitorValue.action', // 替换为你的删除接口
+			url: 'addMonitorValue.action', // 替换为你的接口
 			type: 'POST',
 			data: {
 				'recordId': recordId,
