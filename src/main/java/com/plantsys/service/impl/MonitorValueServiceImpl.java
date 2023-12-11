@@ -6,6 +6,8 @@ import com.plantsys.mapper.MonitorValueMapper;
 import com.plantsys.service.MonitorValueService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【monitor_value】的数据库操作Service实现
@@ -21,6 +23,16 @@ public class MonitorValueServiceImpl extends ServiceImpl<MonitorValueMapper, Mon
 
     public int addSelective(MonitorValue monitorValue) {
         return this.baseMapper.addSelective(monitorValue);
+    }
+
+    @Override
+    public List<MonitorValue> selectByRecordId(Integer recordId) {
+        return this.baseMapper.selectByRecordId(recordId);
+    }
+
+    @Override
+    public int deleteSelective(MonitorValue monitorValue) {
+        return this.baseMapper.deleteSelective(monitorValue);
     }
 }
 

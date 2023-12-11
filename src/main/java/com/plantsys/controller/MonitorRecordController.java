@@ -1,11 +1,14 @@
 package com.plantsys.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.plantsys.Vo.QueryVo;
+import com.plantsys.Vo.MonitorVo;
 import com.plantsys.entity.MonitorRecord;
+import com.plantsys.entity.MonitorRecordInfo;
 import com.plantsys.entity.MonitorValue;
+import com.plantsys.service.MonitorRecordInfoService;
 import com.plantsys.service.MonitorRecordService;
 import com.plantsys.service.MonitorValueService;
 import com.plantsys.service.UserService;
@@ -29,22 +32,23 @@ public class MonitorRecordController {
     @Autowired
     MonitorRecordService monitorRecordService;
     @Autowired
+    MonitorRecordInfoService monitorRecordInfoService;
+    @Autowired
     MonitorValueService monitorValueService;
 
 
     //跳转到监测模块
     @RequestMapping("toMonitorManager")
     public ModelAndView monitorRecordList(){
-        return new ModelAndView("monitor/list");
+        return new ModelAndView("monitor/monitorManager");
     }
 
 
     //添加监测记录
     @RequestMapping("addMonitorRecord")
-    public ResultObj addMonitorRecord(MonitorRecord monitorRecord, MonitorValue monitorValue){
+    public ResultObj addMonitorRecord(MonitorRecord monitorRecord){
         try{
             monitorRecordService.addSelective(monitorRecord);
-            monitorValueService.addSelective(monitorValue); // 后添加指标值
             return ResultObj.ADD_SUCCESS;
         }catch (Exception e){
             e.printStackTrace();
@@ -71,7 +75,7 @@ public class MonitorRecordController {
     @ResponseBody
     public ResultObj deleteMonitorRecord(Integer recordId){
         try{
-            monitorValueService.deleteByPlantId(recordId); // 先删除指标值 B
+            monitorValueService.deleteByPlantId(recordId); // 先删除监测记录指标值
             monitorRecordService.deleteByRecordId(recordId);
             return ResultObj.DELETE_SUCCESS;
         }catch (Exception e){
@@ -83,20 +87,19 @@ public class MonitorRecordController {
 
     //查询监测记录
     @RequestMapping("monitorRecordList")
-    public DataGridView monitorRecordList(QueryVo queryVo){
+    public DataGridView monitorRecordList(MonitorVo monitorVo){
         System.out.println("awfdawdaw");
-        Page<Object> page = PageHelper.startPage(queryVo.getPage(), queryVo.getLimit());
+        Page<Object> page = PageHelper.startPage(monitorVo.getPage(), monitorVo.getLimit());
         System.out.println("1");
-        System.out.println(queryVo);
-        QueryWrapper<MonitorRecord> queryWrapper = new QueryWrapper<>();
+        System.out.println(monitorVo);
+        QueryWrapper<MonitorRecordInfo> queryWrapper = new QueryWrapper<>();
         // 模糊查询或查询所有记录
-//        queryWrapper.like(null != queryVo.getPlantId(), "plant_id", queryVo.getPlantId());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPlantName()), "plant_name", queryVo.getPlantName());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getFeature()), "feature", queryVo.getFeature());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getValue()), "value", queryVo.getValue());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPoint()), "point", queryVo.getPoint());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getAlias()), "alias", queryVo.getAlias());
-        List<MonitorRecord> data =this.monitorRecordService.list(queryWrapper);
+        queryWrapper.like(null != monitorVo.getRecordId(), "record_id", monitorVo.getRecordId());
+        queryWrapper.like(StrUtil.isNotBlank(monitorVo.getEquipmentName()), "equipment_name", monitorVo.getEquipmentName());
+        queryWrapper.like(StrUtil.isNotBlank(monitorVo.getLoginName()), "login_name", monitorVo.getLoginName());
+        queryWrapper.like(null != monitorVo.getMonitorTime(), "monitor_time", monitorVo.getMonitorTime());
+        queryWrapper.like(null != monitorVo.getMonitorSite(), "monitor_site", monitorVo.getMonitorSite());
+        List<MonitorRecordInfo> data =this.monitorRecordInfoService.list(queryWrapper);
         if (null != data) {
             data.stream().collect(Collectors.toList());
         }
