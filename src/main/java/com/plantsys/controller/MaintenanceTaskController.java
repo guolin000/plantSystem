@@ -35,9 +35,9 @@ public class MaintenanceTaskController {
     MaintenanceTaskInfoService maintenanceTaskInfoService;
 
 
-    //跳转到养护模块
+    //跳转到养护列表
     @RequestMapping("toMaintenanceManager")
-    public ModelAndView maintenanceTaskList(){
+    public ModelAndView toMaintenanceManager(){
         return new ModelAndView("maintenance/maintenanceManager");
     }
 

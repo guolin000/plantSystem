@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.IndicatorValueInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.IndicatorValueInfo">
+            <result property="indicatorId" column="indicator_id" jdbcType="INTEGER"/>
+            <result property="indicatorName" column="indicator_name" jdbcType="VARCHAR"/>
+            <result property="averageValue" column="average_value" jdbcType="DOUBLE"/>
+            <result property="maximumValue" column="maximum_value" jdbcType="FLOAT"/>
+            <result property="minimumValue" column="minimum_value" jdbcType="FLOAT"/>
+            <result property="plantId" column="plant_id" jdbcType="INTEGER"/>
+            <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        indicator_id,indicator_name,average_value,
+        maximum_value,minimum_value,plant_id,
+        plant_name
+    </sql>
+</mapper>

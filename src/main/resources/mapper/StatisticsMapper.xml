@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.StatisticsMapper">
+
+    <select id="selectByDay" resultType="com.plantsys.entity.Statistics">
+        SELECT AVG(indicator_value) AS count, DATE_FORMAT(monitor_time, '%Y-%m-%d') AS name
+        FROM monitor_statistics_info
+        WHERE indicator_id = #{indicatorId} AND plant_id = #{plantId}
+        GROUP BY DATE_FORMAT(monitor_time, '%Y-%m-%d');
+    </select>
+
+    <select id="selectByMonth" resultType="com.plantsys.entity.Statistics">
+        SELECT AVG(indicator_value) AS count, DATE_FORMAT(monitor_time, '%Y-%m') AS name
+        FROM monitor_statistics_info
+        WHERE indicator_id = #{indicatorId} AND plant_id = #{plantId}
+        GROUP BY DATE_FORMAT(monitor_time, '%Y-%m');
+    </select>
+
+    <select id="selectByYear" resultType="com.plantsys.entity.Statistics">
+        SELECT AVG(indicator_value) AS count, DATE_FORMAT(monitor_time, '%Y') AS name
+        FROM monitor_statistics_info
+        WHERE indicator_id = #{indicatorId} AND plant_id = #{plantId}
+        GROUP BY DATE_FORMAT(monitor_time, '%Y');
+    </select>
+
+</mapper>

@@ -83,19 +83,19 @@
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="newsTable" lay-filter="newsTable"></table>
 <div style="display: none;" id="newsToolBar">
-	<c:if test="${true}"> <!--role == 2 || role == 4-->
+	<c:if test="${role == 4}">
 		<button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">新增</button>
 		<button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="import" id="import">批量导入</button>
 	</c:if>
 </div>
 
 <div id="newsBar" style="display: none;">
-	<c:if test="${true}"> <!--role == 2 || role == 4-->
+	<c:if test="${role == 4}">
 		<a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="addValue">录入</a>
-		<a class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius" lay-event="viewNews">查看</a>
-		<a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
 	</c:if>
+	<a class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius" lay-event="viewNews">查看</a>
+	<a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
 </div>
 
 <!-- 添加和修改的弹出层-->
@@ -171,7 +171,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">监测指标编号:</label>
 			<div class="layui-input-block">
-				<input type="text" name="indicatorId" placeholder="请输入监测指标编号(1-4)" autocomplete="off" class="layui-input">
+				<input type="text" name="indicatorId" placeholder="请输入监测指标编号(1-8)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
@@ -473,7 +473,7 @@
 		console.log(indicatorId);
 		console.log(indicatorValue);
 		layui.jquery.ajax({
-			url: 'addMonitorValue.action', // 替换为你的删除接口
+			url: 'addMonitorValue.action', // 替换为你的接口
 			type: 'POST',
 			data: {
 				'recordId': recordId,
