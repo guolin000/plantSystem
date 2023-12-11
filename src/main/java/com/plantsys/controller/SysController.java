@@ -79,6 +79,72 @@ public class SysController {
         return "sort/sortManager";
     }
     /**
+     * 跳转到科目分类管理
+     * @return
+     */
+    @RequestMapping("toFamilyManager")
+    public String toFamilyManager(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "sort/familyManager";
+    }
+    /**
+     * 跳转到属目分类管理
+     * @return
+     */
+    @RequestMapping("toGenusManager")
+    public String toGenusManager(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "sort/genusManager";
+    }
+    /**
+     * 跳转到种目分类管理
+     * @return
+     */
+    @RequestMapping("toSpeciesManager")
+    public String toSpeciesManager(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "sort/speciesManager";
+    }
+    /**
+     * 跳转到省份分类管理
+     * @return
+     */
+    @RequestMapping("toProvinceManager")
+    public String toProvinceManager(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "sort/provinceManager";
+    }
+    /**
+     * 跳转到市分类管理
+     * @return
+     */
+    @RequestMapping("toCityManager")
+    public String toCityManager(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "sort/cityManager";
+    }
+    /**
+     * 跳转到县分类管理
+     * @return
+     */
+    @RequestMapping("toCountyManager")
+    public String toCountyManager(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "sort/countyManager";
+    }
+    /**
      * 跳转到患病植物列表
      * @return
      */

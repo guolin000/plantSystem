@@ -6,7 +6,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.plantsys.Vo.QueryVo;
 import com.plantsys.entity.SortInfo;
+import com.plantsys.service.FamilyService;
+import com.plantsys.service.GenusService;
 import com.plantsys.service.SortInfoService;
+import com.plantsys.service.SpeciesService;
 import com.plantsys.util.DataGridView;
 import com.plantsys.util.ResultObj;
 import com.plantsys.util.WebUtils;
@@ -19,6 +22,12 @@ import java.util.List;
 @RequestMapping("sortInfo")
 public class SortController {
     // 添加分类信息
+    @Autowired
+    private FamilyService familyService;
+    @Autowired
+    private GenusService genusService;
+    @Autowired
+    private SpeciesService speciesService;
     @Autowired
     private SortInfoService sortInfoService;
     @PostMapping("addSortInfo")
