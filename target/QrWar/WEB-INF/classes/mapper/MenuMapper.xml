@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.Menu">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="pid" column="pid" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="href" column="href" jdbcType="VARCHAR"/>
+            <result property="spread" column="spread" jdbcType="INTEGER"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="available" column="available" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,pid,title,
+        href,spread,icon,
+        available
+    </sql>
+    <!--查询所有菜单-->
+    <select id="queryAllMenu" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from menu
+        <where>
+            <if test="title!=null and title!=''">
+                and title like concat("%",#{title},"%")
+            </if>
+            <if test="available!=null">
+                and available=#{available}
+            </if>
+            <if test="id!=null">
+                and (id=#{id} or pid=#{id})
+            </if>
+        </where>
+
+    </select>
+
+
+    <!--根据用户id查询菜单-->
+    <select id="queryMenuByUid" resultMap="BaseResultMap">
+        SELECT DISTINCT
+            t1.*
+        FROM
+            menu t1
+                INNER JOIN role_menu t2
+                INNER JOIN user t3 ON ( t1.id = t2.mid AND t2.rid = t3.rid )
+        WHERE
+            t3.user_id = #{uid} and t1.available=#{available}
+    </select>
+</mapper>

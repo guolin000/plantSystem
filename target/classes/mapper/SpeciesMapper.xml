@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.SpeciesMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.Species">
+            <id property="speciesId" column="species_id" jdbcType="INTEGER"/>
+            <result property="speciesName" column="species_name" jdbcType="VARCHAR"/>
+            <result property="genusId" column="genus_id" jdbcType="INTEGER"/>
+            <result property="alias" column="alias" jdbcType="VARCHAR"/>
+            <result property="feature" column="feature" jdbcType="VARCHAR"/>
+            <result property="value" column="value" jdbcType="VARCHAR"/>
+            <result property="point" column="point" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        species_id,species_name,genus_id,
+        alias,feature,value,
+        point
+    </sql>
+</mapper>

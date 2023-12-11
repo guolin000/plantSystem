@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.TreatmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.Treatment">
+            <id property="treatmentId" column="treatment_id" jdbcType="INTEGER"/>
+            <result property="medicamentId" column="medicament_id" jdbcType="INTEGER"/>
+            <result property="creator" column="creator" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="plantId" column="plant_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        treatment_id,medicament_id,creator,
+        create_time,update_time,user_id,
+        status,plant_id
+    </sql>
+</mapper>

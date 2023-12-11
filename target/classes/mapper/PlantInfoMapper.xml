@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.PlantInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.PlantInfo">
+            <result property="plantId" column="plant_id" jdbcType="INTEGER"/>
+            <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
+            <result property="diseaseName" column="disease_name" jdbcType="VARCHAR"/>
+            <result property="speciesName" column="species_name" jdbcType="VARCHAR"/>
+            <result property="genusName" column="genus_name" jdbcType="VARCHAR"/>
+            <result property="familyName" column="family_name" jdbcType="VARCHAR"/>
+            <result property="alias" column="alias" jdbcType="VARCHAR"/>
+            <result property="feature" column="feature" jdbcType="VARCHAR"/>
+            <result property="value" column="value" jdbcType="VARCHAR"/>
+            <result property="point" column="point" jdbcType="VARCHAR"/>
+            <result property="treatMethod" column="treat_method" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        plant_id,plant_name,disease_name,
+        species_name,genus_name,family_name,
+        alias,feature,value,
+        point,treat_method
+    </sql>
+</mapper>
