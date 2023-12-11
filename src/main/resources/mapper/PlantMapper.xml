@@ -10,9 +10,32 @@
             <result property="speciesId" column="species_id" jdbcType="INTEGER"/>
             <result property="diseaseId" column="disease_id" jdbcType="INTEGER"/>
     </resultMap>
+    <resultMap id="FamilyPlantCountResultMap" type="com.plantsys.entity.FamilyPlantCount">
+        <result property="familyId" column="family_id"/>
+        <result property="familyName" column="family_name"/>
+        <result property="plantNum" column="plant_num"/>
+    </resultMap>
 
     <sql id="Base_Column_List">
         plant_id,plant_name,species_id,
         disease_id
     </sql>
+
+    <select id="listFamilyPlantCounts" resultMap="FamilyPlantCountResultMap">
+        SELECT
+            f.family_id,
+            f.family_name,
+            COUNT(p.plant_id) AS plant_num
+        FROM
+            family f
+                LEFT JOIN
+            genus g ON f.family_id = g.family_id
+                LEFT JOIN
+            species s ON g.genus_id = s.genus_id
+                LEFT JOIN
+            plant p ON s.species_id = p.species_id
+        GROUP BY
+            f.family_id, f.family_name;
+
+    </select>
 </mapper>

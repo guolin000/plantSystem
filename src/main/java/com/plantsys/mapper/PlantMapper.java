@@ -3,6 +3,8 @@ package com.plantsys.mapper;
 import com.plantsys.entity.Plant;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【plant】的数据库操作Mapper

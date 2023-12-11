@@ -104,15 +104,19 @@
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="newsTable" lay-filter="newsTable"></table>
 <div style="display: none;" id="newsToolBar">
-	<c:if test="${true}"> <!--role == 2 || role == 3-->
+	<c:if test="${role == 2}">
 		<button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">新增</button>
 		<button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="import" id="import">批量导入</button>
 	</c:if>
 </div>
 
 <div id="newsBar" style="display: none;">
-	<c:if test="${true}"> <!--role == 2 || role == 3-->
+	<c:if test="${role==3}">
+		{{# if(d.taskStatus==0){  }}
 		<a class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius" lay-event="viewNews">完成</a>
+		{{#  }}}
+	</c:if>
+	<c:if test="${role==2}">
 		<a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
 		<a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
 	</c:if>
@@ -125,6 +129,12 @@
 			<label class="layui-form-label">养护任务编号:</label>
 			<div class="layui-input-block">
 				<input type="text" name="taskId" placeholder="请输入养护任务编号" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">养护对象:</label>
+			<div class="layui-input-block">
+				<input type="text" name="plantId" placeholder="请输入养护对象(1001-1010)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -141,30 +151,23 @@
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">养护时间:</label>
+			<label class="layui-form-label">执行时间:</label>
 			<div class="layui-input-block">
 				<input type="date" name="maintenanceTime" placeholder="请输入养护时间" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">养护地点:</label>
+			<label class="layui-form-label">执行地点:</label>
 			<div class="layui-input-block">
 				<input type="text" name="maintenanceSite" placeholder="请输入养护地点" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">养护人员:</label>
+			<label class="layui-form-label">执行人员:</label>
 			<div class="layui-input-block">
 				<input type="text" name="uid" placeholder="请输入养护人员(1-4)" autocomplete="off" class="layui-input">
-			</div>
-		</div>
-
-		<div class="layui-form-item">
-			<label class="layui-form-label">养护对象:</label>
-			<div class="layui-input-block">
-				<input type="text" name="plantId" placeholder="请输入养护对象(1001-1010)" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 

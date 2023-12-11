@@ -85,6 +85,17 @@ public class DiseaseController {
             return ResultObj.UPDATE_ERROR;
         }
     }
+    @RequestMapping("deleteTreatment")
+    public ResultObj deleteTreatment(Integer treatmentId){
+        try{
+//            System.out.println("medicamentId:"+medicamentId);
+            this.treatmentService.removeById(treatmentId);
+            return ResultObj.DELETE_SUCCESS;
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
+        }
+    }
     @RequestMapping("updateStatus")
     public ResultObj updateStatus(Treatment treatment){
         try{

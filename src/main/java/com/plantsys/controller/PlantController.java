@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.plantsys.Vo.FamilyPlantCountVo;
+import com.plantsys.Vo.PlantInfoVo;
 import com.plantsys.Vo.QueryVo;
 import com.plantsys.entity.*;
 import com.plantsys.service.*;
@@ -43,6 +45,8 @@ public class PlantController {
     @Autowired
     PlantInfoService plantInfoService;
 
+    @Autowired
+    FamilyPlantCountService familyPlantCountService;
 
     //添加植物
     @RequestMapping("addPlant")
@@ -53,7 +57,6 @@ public class PlantController {
         if(count>0){
             return new ResultObj(-1,"植物已存在");
         }
-        System.out.println(plant.getPlantName());
         try{
             this.plantService.save(plant);
             return ResultObj.ADD_SUCCESS;
@@ -98,43 +101,19 @@ public class PlantController {
 
     //查询植物
     @RequestMapping("plantList")
-    public DataGridView plantList(QueryVo queryVo){
-        System.out.println("awfdawdaw");
+    public DataGridView plantList(PlantInfoVo plantInfoVo){
         String loginName = (String) WebUtils.getHttpSession().getAttribute("loginName");
 
-        Page<Object> page = PageHelper.startPage(queryVo.getPage(), queryVo.getLimit());
-        System.out.println("1");
-        System.out.println(queryVo);
+        Page<Object> page = PageHelper.startPage(plantInfoVo.getPage(), plantInfoVo.getLimit());
         QueryWrapper<PlantInfo> queryWrapper = new QueryWrapper<>();
         // 模糊查询或查询所有植物
-        queryWrapper.like(null != queryVo.getPlantId(), "plant_id", queryVo.getPlantId());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPlantName()), "plant_name", queryVo.getPlantName());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getFeature()), "feature", queryVo.getFeature());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getValue()), "value", queryVo.getValue());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPoint()), "point", queryVo.getPoint());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getAlias()), "alias", queryVo.getAlias());
+        queryWrapper.like(null != plantInfoVo.getPlantId(), "plant_id", plantInfoVo.getPlantId());
+        queryWrapper.like(StrUtil.isNotBlank(plantInfoVo.getPlantName()), "plant_name", plantInfoVo.getPlantName());
+        queryWrapper.like(StrUtil.isNotBlank(plantInfoVo.getFeature()), "feature", plantInfoVo.getFeature());
+        queryWrapper.like(StrUtil.isNotBlank(plantInfoVo.getValue()), "value", plantInfoVo.getValue());
+        queryWrapper.like(StrUtil.isNotBlank(plantInfoVo.getPoint()), "point", plantInfoVo.getPoint());
+        queryWrapper.like(StrUtil.isNotBlank(plantInfoVo.getAlias()), "alias", plantInfoVo.getAlias());
         List<PlantInfo> data =this.plantInfoService.list(queryWrapper);
-        if (null != data) {
-            data.stream().map(item -> {
-//                if(null!=item.getGenusId() && null!=item.getDiseaseId()){
-//                    Genus genus = genusService.getById(item.getGenusId());
-//                    System.out.println("5");
-//                    item.setGenusName(null != genus ? genus.getGenusName() : "");
-//
-//                    PlantDisease plantDisease=plantDiseaseService.getById(item.getDiseaseId());
-//                    item.setDiseaseName(null != plantDisease ? plantDisease.getName(): "");
-//
-//                    Family family=familyService.getById(genus.getFamilyId());
-//                    item.setFamilyName(null!=family? family.getFamilyName():"");
-//                }else {
-//                    item.setGenusName("");
-//                    item.setDiseaseName("");
-//                    item.setFamilyName("");
-//                }
-
-                return item;
-            }).collect(Collectors.toList());
-        }
         return new DataGridView(page.getTotal(),data);
 
     }
@@ -172,5 +151,18 @@ public class PlantController {
             e.printStackTrace();
             return ResultObj.DELETE_ERROR;
         }
+    }
+    @RequestMapping("familyPlantCounts")
+    public DataGridView familyPlantCounts(FamilyPlantCountVo familyPlantCountVo){
+            Page<Object> page = PageHelper.startPage(familyPlantCountVo.getPage(), familyPlantCountVo.getLimit());
+            QueryWrapper<FamilyPlantCount> queryWrapper = new QueryWrapper<>();
+            // 模糊查询或查询所有植物
+            queryWrapper.like(null != familyPlantCountVo.getFamilyId(), "family_id", familyPlantCountVo.getFamilyId());
+            queryWrapper.like(null != familyPlantCountVo.getPlantNum(), "plant_num", familyPlantCountVo.getPlantNum());
+            queryWrapper.like(StrUtil.isNotBlank(familyPlantCountVo.getFamilyName()), "family_name", familyPlantCountVo.getFamilyName());
+
+
+            List<FamilyPlantCount> data =this.familyPlantCountService.list(queryWrapper);
+            return new DataGridView(page.getTotal(),data);
     }
 }
