@@ -1,10 +1,13 @@
 package com.plantsys.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.plantsys.Vo.QueryVo;
+import com.plantsys.Vo.MaintenanceVo;
 import com.plantsys.entity.MaintenanceTask;
+import com.plantsys.entity.MaintenanceTaskInfo;
+import com.plantsys.service.MaintenanceTaskInfoService;
 import com.plantsys.service.MaintenanceTaskService;
 import com.plantsys.service.UserService;
 import com.plantsys.util.DataGridView;
@@ -28,12 +31,14 @@ public class MaintenanceTaskController {
     UserService userService;
     @Autowired
     MaintenanceTaskService maintenanceTaskService;
+    @Autowired
+    MaintenanceTaskInfoService maintenanceTaskInfoService;
 
 
     //跳转到养护模块
     @RequestMapping("toMaintenanceManager")
     public ModelAndView maintenanceTaskList(){
-        return new ModelAndView("maintenance/list");
+        return new ModelAndView("maintenance/maintenanceManager");
     }
 
 
@@ -55,8 +60,8 @@ public class MaintenanceTaskController {
         if(maintenanceTask.getTaskStatus()==0){
             maintenanceTask.setTaskStatus(1);
             maintenanceTaskService.updateSelective(maintenanceTask);
+            re = true;
         }
-        re = true;
         return re;
     }
 
@@ -103,20 +108,22 @@ public class MaintenanceTaskController {
 
     //查询养护任务
     @RequestMapping("maintenanceTaskList")
-    public DataGridView maintenanceTaskList(QueryVo queryVo){
+    public DataGridView maintenanceTaskList(MaintenanceVo maintenanceVo){
         System.out.println("awfdawdaw");
-        Page<Object> page = PageHelper.startPage(queryVo.getPage(), queryVo.getLimit());
+        Page<Object> page = PageHelper.startPage(maintenanceVo.getPage(), maintenanceVo.getLimit());
         System.out.println("1");
-        System.out.println(queryVo);
-        QueryWrapper<MaintenanceTask> queryWrapper = new QueryWrapper<>();
+        System.out.println(maintenanceVo);
+        QueryWrapper<MaintenanceTaskInfo> queryWrapper = new QueryWrapper<>();
         // 模糊查询或查询所有记录
-//        queryWrapper.like(null != queryVo.getPlantId(), "plant_id", queryVo.getPlantId());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPlantName()), "plant_name", queryVo.getPlantName());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getFeature()), "feature", queryVo.getFeature());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getValue()), "value", queryVo.getValue());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPoint()), "point", queryVo.getPoint());
-//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getAlias()), "alias", queryVo.getAlias());
-        List<MaintenanceTask> data =this.maintenanceTaskService.list(queryWrapper);
+        queryWrapper.like(null != maintenanceVo.getTaskId(), "task_id", maintenanceVo.getTaskId());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getTaskName()), "task_name", maintenanceVo.getTaskName());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getTaskDescription()), "task_description", maintenanceVo.getTaskDescription());
+        queryWrapper.like(null != maintenanceVo.getMaintenanceTime(), "maintenance_time", maintenanceVo.getMaintenanceTime());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getMaintenanceSite()), "maintenance_site", maintenanceVo.getMaintenanceSite());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getMaintainerName()), "maintainer_name", maintenanceVo.getMaintainerName());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getPlantName()), "plant_name", maintenanceVo.getPlantName());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getCreatorName()), "creator_name", maintenanceVo.getCreatorName());
+        List<MaintenanceTaskInfo> data =this.maintenanceTaskInfoService.list(queryWrapper);
         if (null != data) {
             data.stream().collect(Collectors.toList());
         }

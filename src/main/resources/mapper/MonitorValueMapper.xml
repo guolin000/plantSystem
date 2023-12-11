@@ -36,4 +36,18 @@
             <if test="indicatorValue != null">#{indicatorValue,jdbcType=FLOAT},</if>
         </trim>
     </insert>
+    <select id="selectByRecordId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from monitor_value
+        where
+        record_id = #{recordId,jdbcType=NUMERIC}
+    </select>
+    <delete id="deleteSelective">
+        delete
+        from monitor_value
+        where record_Id = #{recordId,jdbcType=NUMERIC} and
+        plant_id = #{plantId,jdbcType=NUMERIC} and
+        indicator_id = #{indicatorId,jdbcType=NUMERIC}
+    </delete>
 </mapper>

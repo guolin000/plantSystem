@@ -47,6 +47,6 @@
             <if test="monitorTime != null">monitor_time=#{monitorTime,jdbcType=TIMESTAMP},</if>
             <if test="monitorSite != null">monitor_site=#{monitorSite,jdbcType=VARCHAR},</if>
         </set>
-        where recordId = #{recordId,jdbcType=NUMERIC}
+        where record_id = #{recordId,jdbcType=NUMERIC}
     </update>
 </mapper>
