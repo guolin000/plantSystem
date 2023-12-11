@@ -3,6 +3,8 @@ package com.plantsys.service;
 import com.plantsys.entity.Plant;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【plant】的数据库操作Service

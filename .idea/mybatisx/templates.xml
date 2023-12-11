@@ -15,7 +15,7 @@
             <option name="ignoreFieldSuffix" value="" />
             <option name="ignoreTablePrefix" value="" />
             <option name="ignoreTableSuffix" value="" />
-            <option name="moduleName" value="PlantSystem" />
+            <option name="moduleName" value="plantSystem" />
             <option name="modulePath" value="$PROJECT_DIR$" />
             <option name="moduleUIInfoList">
               <list>
@@ -61,7 +61,6 @@
                 </ModuleInfoGo>
               </list>
             </option>
-            <option name="needToStringHashcodeEquals" value="true" />
             <option name="needsComment" value="true" />
             <option name="needsModel" value="true" />
             <option name="relativePackage" value="entity" />
@@ -69,17 +68,16 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="SortInfo" />
-                  <option name="tableName" value="sort_info" />
+                  <option name="className" value="FamilyPlantCount" />
+                  <option name="tableName" value="family_plant_count" />
                 </TableUIInfo>
               </list>
             </option>
             <option name="templatesName" value="mybatis-plus3" />
-            <option name="useActualColumnAnnotationInject" value="true" />
             <option name="useLombokPlugin" value="true" />
           </GenerateConfig>
         </option>
-        <option name="moduleName" value="PlantSystem" />
+        <option name="moduleName" value="plantSystem" />
         <option name="projectPath" value="$PROJECT_DIR$" />
         <option name="templateName" value="mybatis-plus3" />
       </TemplateContext>

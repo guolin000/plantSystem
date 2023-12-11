@@ -57,6 +57,17 @@ public class SysController {
         return "plant/plantManager";
     }
     /**
+     * 跳转到每科植物数量统计
+     * @return
+     */
+    @RequestMapping("toFamilyPlantCount")
+    public String toFamilyPlantCount(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "plant/familyPlantNum";
+    }
+    /**
      * 跳转到植物分类管理
      * @return
      */

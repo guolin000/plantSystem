@@ -6,6 +6,8 @@ import com.plantsys.service.PlantService;
 import com.plantsys.mapper.PlantMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【plant】的数据库操作Service实现

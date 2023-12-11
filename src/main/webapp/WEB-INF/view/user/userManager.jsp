@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -27,8 +28,10 @@
     <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">增加用户</button>
 </div>
 <div id="userBar" style="display: none;">
+    <c:if test="${role==1}">
     <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
     <a id="delebtn" class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
+    </c:if>
 </div>
 
 <!-- 添加和修改的弹出层-->
@@ -82,7 +85,7 @@
             , page: true  //是否启用分页
             , cols: [[   //列表数据
                 // {type: 'checkbox', fixed: 'left'},
-                 {field: 'userId', title: 'ID', align: 'center', width: '150'}
+                 {field: 'userId', title: '用户编号', align: 'center', width: '150'}
                 , {field: 'loginName', title: '用户名', align: 'center', width: '150'}
                 , {
                     field: 'role', title: '用户身份', align: 'center', width: '150', templet: function (d) {

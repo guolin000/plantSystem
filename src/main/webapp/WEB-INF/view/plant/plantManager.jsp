@@ -107,60 +107,21 @@
         <div class="layui-form-item">
             <label class="layui-form-label">植物名称:</label>
             <div class="layui-input-block">
-                <input type="text" name="plantName" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+                <input type="text" name="plantName" placeholder="请输入植物名称" required autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">植物别名:</label>
+            <label class="layui-form-label">种编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="alias" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">形态特征:</label>
-            <div class="layui-input-block">
-                <input type="text" name="feature" placeholder="请输入形态特征" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">应用价值:</label>
-            <div class="layui-input-block">
-                <input type="text" name="value" placeholder="请输入应用价值" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">栽培要点:</label>
-            <div class="layui-input-block">
-                <input type="text" name="point" placeholder="请输入栽培要点" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">种名:</label>
-            <div class="layui-input-block">
-                <input type="text" name="speciesName" placeholder="请输入植物名称" autocomplete="off"
+                <input type="text" name="speciesId" placeholder="请输入种编号" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
+
         <div class="layui-form-item">
-            <label class="layui-form-label">属名:</label>
+            <label class="layui-form-label">病虫害编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="genusName" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">科名:</label>
-            <div class="layui-input-block">
-                <input type="text" name="familyName" placeholder="请输入植物名称" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">病虫害名称:</label>
-            <div class="layui-input-block">
-                <input type="text" name="diseaseName" placeholder="请输入病虫害名称" autocomplete="off"
+                <input type="text" name="diseaseId" placeholder="请输入病虫害编号" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
