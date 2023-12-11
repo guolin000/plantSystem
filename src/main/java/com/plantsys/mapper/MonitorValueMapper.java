@@ -1,4 +1,6 @@
 package com.plantsys.mapper;
+import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.plantsys.entity.MonitorValue;
@@ -14,6 +16,10 @@ public interface MonitorValueMapper extends BaseMapper<MonitorValue> {
     int deleteByPlantId(@Param("plantId") Integer plantId);
 
     int addSelective(MonitorValue monitorValue);
+
+    List<MonitorValue> selectByRecordId(@Param("recordId") Integer recordId);
+
+    int deleteSelective(MonitorValue monitorValue);
 }
 
 

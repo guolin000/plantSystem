@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>首页-图书管理系统</title>
+	<title>首页-园林植物综合管理平台</title>
 	<meta name="renderer" conhtent="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -20,13 +20,13 @@
 		<!-- 顶部 -->
 		<div class="layui-header header">
 			<div class="layui-main mag0">
-				<a href="#" class="logo">图书管理系统</a>
+				<a href="#" class="logo" style="width: 200px;">园林植物综合管理平台</a>
 				<!-- 显示/隐藏菜单 -->
-				<a href="javascript:;" class="seraph hideMenu icon-caidan"></a>
+				<a href="javascript:;" class="seraph hideMenu layui-icon layui-icon-left" id="toggleMenu"></a>
 			    <!-- 顶部右侧菜单 -->
 			    <ul class="layui-nav top_menu">
 					<li class="layui-nav-item" id="userInfo">
-						<a href="javascript:;"><img src="" id="userImage" alt="User Image" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName">${user.loginName }</cite></a>
+						<a href="javascript:;"><img src="/file/downloadFile.action?path=2023-12-08/202311231919585503212.png" id="userImage" alt="User Image" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName">${user.loginName }</cite></a>
 						<dl class="layui-nav-child">
 							<dd><a href="javascript:;" data-url="/resources/page/user/userInfo.html"><i class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人信息</cite></a></dd>
 							<dd><a href="javascript:;" data-url="/resources/page/user/changePwd.html"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
@@ -71,7 +71,7 @@
 		</div>
 		<!-- 底部 -->
 		<div class="layui-footer footer">
-			<p><span>图书管理系统</span></p>
+			<p><span>园林植物综合管理平台</span></p>
 		</div>
 	</div>
 
@@ -210,6 +210,16 @@
 	function addTab(_this){
 		tab.tabAdd(_this);
 	}
+	document.getElementById('toggleMenu').addEventListener('click', function() {
+		var menuIcon = this;
+		if (menuIcon.classList.contains('layui-icon-left')) {
+			menuIcon.classList.remove('layui-icon-left');
+			menuIcon.classList.add('layui-icon-right');
+		} else {
+			menuIcon.classList.remove('layui-icon-right');
+			menuIcon.classList.add('layui-icon-left');
+		}
+	});
 	</script>
 </body>
 </html>

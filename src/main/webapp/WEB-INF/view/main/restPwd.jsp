@@ -4,7 +4,7 @@
 <html class="loginHtml">
 <head>
 	<meta charset="utf-8">
-	<title>登录-图书管理系统</title>
+	<title>登录-园林植物综合管理平台</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,7 +16,7 @@
 </head>
 <body class="loginBody">
 <br><br>
-<h1 align="center"  style="color:LightSteelBlue ; font-size: 50px">图书管理系统</h1>
+<h1 align="center"  style="color:LightSteelBlue ; font-size: 50px">园林植物综合管理平台</h1>
 	<br><br>
 	<form class="layui-form" id="loginFrm">
 		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">

@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 public class TreatmentServiceImpl extends ServiceImpl<TreatmentMapper, Treatment>
     implements TreatmentService{
 
+    @Override
+    public int deleteByMedicamentId(Integer medicamentId) {
+        return this.baseMapper.deleteByMedicamentId(medicamentId);
+    }
 }
 
 

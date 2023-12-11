@@ -2,6 +2,7 @@ package com.plantsys.service;
 
 import com.plantsys.entity.Medicament;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author Administrator

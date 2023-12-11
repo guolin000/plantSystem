@@ -1,9 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>防治任务</title>
+  <title>药剂信息列表</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -25,45 +25,39 @@
 <form class="layui-form" method="post" id="searchFrm">
   <div class="layui-form-item">
     <div class="layui-inline">
-      <label class="layui-form-label">任务编号:</label>
+      <label class="layui-form-label">药剂编号:</label>
       <div class="layui-input-inline" style="padding: 5px">
-        <input type="text" name="treatmentId" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="请输入任务编号" style="height: 30px;border-radius: 10px">
+        <input type="text" name="medicamentId" autocomplete="off" class="layui-input layui-input-inline"
+               placeholder="请输入药剂编号" style="height: 30px;border-radius: 10px">
       </div>
     </div>
     <div class="layui-inline">
-      <label class="layui-form-label">植物编号:</label>
+      <label class="layui-form-label">药剂名称:</label>
       <div class="layui-input-inline" style="padding: 5px">
-        <input type="text" name="plantId" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="请输入植物编号" style="height: 30px;border-radius: 10px">
+        <input type="text" name="medicamentName" autocomplete="off" class="layui-input layui-input-inline"
+               placeholder="请输入药剂名称" style="height: 30px;border-radius: 10px">
       </div>
     </div>
     <div class="layui-inline">
-      <label class="layui-form-label">植物名称:</label>
+      <label class="layui-form-label">药剂用量:</label>
       <div class="layui-input-inline" style="padding: 5px">
-        <input type="text" name="plantName" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="请输入形态特点" style="height: 30px;border-radius: 10px">
+        <input type="text" name="dosage" autocomplete="off" class="layui-input layui-input-inline"
+               placeholder="请输入药剂用量" style="height: 30px;border-radius: 10px">
       </div>
     </div>
     <div class="layui-inline">
-      <label class="layui-form-label">病虫害名称:</label>
+      <label class="layui-form-label">作用期限:</label>
+      <div class="layui-input-inline" style="padding: 5px">
+        <input type="text" name="duration" autocomplete="off" class="layui-input layui-input-inline"
+               placeholder="请输入作用期限" style="height: 30px;border-radius: 10px">
+      </div>
+    </div>
+
+    <div class="layui-inline">
+      <label class="layui-form-label">应对病虫害:</label>
       <div class="layui-input-inline" style="padding: 5px">
         <input type="text" name="diseaseName" autocomplete="off" class="layui-input layui-input-inline"
                placeholder="请输入病虫害名称" style="height: 30px;border-radius: 10px">
-      </div>
-    </div>
-    <div class="layui-inline">
-      <label class="layui-form-label">请输入养护人员用户名:</label>
-      <div class="layui-input-inline" style="padding: 5px">
-        <input type="text" name="loginName" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="请输入用户名" style="height: 30px;border-radius: 10px">
-      </div>
-    </div>
-    <div class="layui-inline">
-      <label class="layui-form-label">养护状态:</label>
-      <div class="layui-input-inline" style="padding: 5px">
-        <input type="text" name="status" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="0-正在进行中 1-已结束" style="height: 30px;border-radius: 10px">
       </div>
     </div>
     <div class="layui-inline" style="margin-left: 50px">
@@ -81,61 +75,50 @@
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="newsTable" lay-filter="newsTable"></table>
 <div style="display: none;" id="newsToolBar">
-
+  <c:if test="${role==2}">
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">新增</button>
+  </c:if>
 </div>
-<!-- 行工具栏 -->
+
 <div id="newsBar" style="display: none;">
   <c:if test="${role==2}">
-    {{# if(d.status==0){  }}
     <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
-    {{#  }}}
     <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
   </c:if>
-
-  <c:if test="${role==3}">
-    {{# if(d.status==0){  }}
-    <a class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius" lay-event="updateStatus">已养护</a>
-    {{#  }}}
-  </c:if>
 </div>
+
 <!-- 添加/修改药剂的弹出层-->
 <div style="display: none;padding: 20px" id="saveOrUpdateDiv">
   <form class="layui-form" lay-filter="dataFrm" id="dataFrm" style="margin-right: 20px">
     <div class="layui-form-item">
-      <label class="layui-form-label">任务编号:</label>
-      <div class="layui-input-block">
-        <input type="text" id="treatmentId" name="diseaseId" readonly placeholder="请输入植物编号" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">植物编号:</label>
-      <div class="layui-input-block">
-        <input type="text" name="plantId" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-    <div class="layui-form-item">
       <label class="layui-form-label">药剂编号:</label>
       <div class="layui-input-block">
-        <input type="text" name="medicamentId" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">
+        <input type="text" id="medicamentId" name="medicamentId" readonly placeholder="请输入植物编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
-      <label class="layui-form-label">创建时间:</label>
+      <label class="layui-form-label">药剂名称:</label>
       <div class="layui-input-block">
-        <input type="text" id="createTime" name="duration" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+        <input type="text" name="medicamentName" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">药剂用量:</label>
+      <div class="layui-input-block">
+        <input type="text" name="dosage" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">作用期限:</label>
+      <div class="layui-input-block">
+        <input type="text" id="duration" name="duration" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
       </div>
     </div>
 
     <div class="layui-form-item">
-      <label class="layui-form-label">更新时间:</label>
+      <label class="layui-form-label">应对病虫害编号:</label>
       <div class="layui-input-block">
-        <input type="text" id="updateTime" name="updateTime" readonly placeholder="请输入形态特征" autocomplete="off" class="layui-input" value="${uid}">
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">养护人员编号:</label>
-      <div class="layui-input-block">
-        <input type="text" name="userId" placeholder="请输入形态特征" autocomplete="off" class="layui-input" value="${uid}">
+        <input type="text" name="diseaseId" readonly placeholder="请输入形态特征" autocomplete="off" class="layui-input" value="${uid}">
       </div>
     </div>
     <div class="layui-form-item">
@@ -152,6 +135,8 @@
   </form>
 </div>
 
+
+
 <script src="/resources/layui/layui.js"></script>
 <script type="text/javascript">
   var tableIns;
@@ -165,12 +150,12 @@
 
     //渲染时间
     laydate.render({
-      elem: '#createTime',
-      type: 'datetime'
+      elem: '#publishTime',
+      type: 'date'
       ,trigger: 'click'// 增加这个参数解决
     });
     laydate.render({
-      elem: '#updateTime',
+      elem: '#returnTime',
       type: 'datetime'
       ,trigger: 'click'// 增加这个参数解决
     });
@@ -178,26 +163,18 @@
     //渲染数据表格
     tableIns = table.render({
       elem: '#newsTable'   //渲染的目标对象
-      , url: '/disease/treatmentInfoList.action' //数据接口
+      , url: '/disease/medicamentInfoList.action' //数据接口
       , title: '植物信息'//数据导出来的标题
       , toolbar: "#newsToolBar"   //表格的工具条
       , height: 'full-185'
-      , cellMinWidth: 100 //设置列的最小默认宽度
+      , cellMinWidth: 120 //设置列的最小默认宽度
       , page: true  //是否启用分页
       , cols: [[   //列表数据
-        {field: 'treatmentId', title: '任务编号', align: 'center'}
-        ,{field: 'plantId', title: '植物编号', align: 'center'}
-        , {field: 'plantName', title: '植物名称', align: 'center'}
-        , {field: 'diseaseName', title: '病虫害', align: 'center'}
-        , {field: 'medicamentName', title: '使用药剂', align: 'center'}
-        , {field: 'dosage', title: '用量', align: 'center'}
+        {field: 'medicamentId', title: '药剂编号', align: 'center'}
+        , {field: 'medicamentName', title: '药剂名称', align: 'center'}
+        , {field: 'dosage', title: '药剂用量', align: 'center'}
         , {field: 'duration', title: '作用期限', align: 'center'}
-        , {field: 'createTime', title: '创建时间', align: 'center'}
-        , {field: 'updateTime', title: '更新时间', align: 'center'}
-        , {field: 'loginName', title: '养护人员', align: 'center'}
-        , {field: 'status', title: '养护状态', align: 'center',templet: function (d) {
-            return d.status == 0 ? '正在进行中' : '已结束';
-          }}
+        , {field: 'diseaseName', title: '应对病虫害', align: 'center'}
         , {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 270}
       ]],
       done:function (data, curr, count) {
@@ -237,29 +214,16 @@
       var params = $("#searchFrm").serialize();
       //alert(params);
       tableIns.reload({
-        url: "/disease/treatmentInfoList.action?" + params,
+        url: "/disease/medicamentInfoList.action?" + params,
         page: {curr: 1}
       })
-    });
-
-    upload.render({
-      elem: '#mobileTest1',
-      url: '/file/uploadFile.action',
-      method: "post",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
-      acceptMime: 'images/*',
-      field: "mf",
-      done: function (res, index, upload) {
-        console.log(res.data)
-        $('#mobileCoverImg').attr('src', "/file/downloadFile.action?path=" + res.data.src);
-        $('#img').val(res.data.src);
-      }
     });
 
     //监听头部工具栏事件
     table.on("toolbar(newsTable)", function (obj) {
       switch (obj.event) {
         case 'add':
-          openAddNews();
+          openAddMedicament();
           break;
       }
     });
@@ -270,9 +234,9 @@
       var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
       if (layEvent === 'del') { //删除
-        layer.confirm('真的删除任务【' + data.treatmentId + '】吗？', function (index) {
+        layer.confirm('真的删除【' + data.medicamentName + '】这个药剂以及相关记录吗？', function (index) {
           //向服务端发送删除指令
-          $.post("/disease/deleteTreatment.action", {treatmentId: data.treatmentId}, function (res) {
+          $.post("/disease/deleteMedicament.action", {medicamentId: data.medicamentId}, function (res) {
             layer.msg(res.msg);
             //刷新数据表格
             tableIns.reload();
@@ -281,37 +245,36 @@
       } else if (layEvent === 'edit') { //修改
         //修改，打开修改界面
         openUpdate(data);
-      }else if(layEvent == 'updateStatus') {
-        updateStatus(data.treatmentId,1);
       }
     });
-
-    function updateStatus(treatmentId,status){
-        layer.confirm('是否确认该操作？',function (index){
-          $.post("/disease/updateStatus.action",{treatmentId:treatmentId,status:status},function (res){
-              layer.msg(res.msg);
-
-              tableIns.reload();
-          })
-        });
-    }
-
-
 
     var url;
     var mainIndex;
 
+    //打开添加框
+    function openAddMedicament() {
+      mainIndex = layer.open({
+        type: 1,
+        title: '添加药剂信息',
+        content: $("#saveOrUpdateDiv"),
+        area: ['800px', '540px'],
+        success: function (index) {
+
+          url = "/disease/addOrUpdateMedicament.action";
+        }
+      });
+    }
     //打开修改页面
     function openUpdate(data) {
       mainIndex = layer.open({
         type: 1,
-        title: '修改防治信息',
+        title: '修改药剂信息',
         content: $("#saveOrUpdateDiv"),
         area: ['800px', '540px'],
         success: function (index) {
           form.val("dataFrm", data);
           // $('#mobileCoverImg').attr('src', "/file/downloadFile.action?path=" + data.img);
-          url = "/disease/updateTreatment.action";
+          url = "/disease/addOrUpdateMedicament.action";
         }
       });
     }
@@ -325,29 +288,11 @@
         layer.msg(obj.msg);
         //关闭弹出层
         layer.close(mainIndex);
+        //清空表单数据
+        $("#dataFrm")[0].reset();
         //刷新数据 表格
         tableIns.reload();
-      })
-    });
-
-    //保存
-    form.on("submit(doSubmit1)", function (obj) {
-      //序列化表单数据
-      var params = $("#dataFrm1").serialize();
-      $.post(url, params, function (obj) {
-        layer.msg(obj.msg);
-        //关闭弹出层
-        layer.close(mainIndex);
-        //刷新数据 表格
-        tableIns.reload();
-      })
-    });
-
-
-
-
-
-
+      })});
 
   });
 

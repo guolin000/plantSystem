@@ -24,142 +24,23 @@
 <table class="layui-hide" id="userTable" lay-filter="userTable"></table>
 
 <div id="userToolBar" style="display: none;">
-    <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">增加工作人员</button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">增加用户</button>
 </div>
 <div id="userBar" style="display: none;">
-    <a class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius" lay-event="viewNews">详情</a>
     <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
     <a id="delebtn" class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
 </div>
 
-<%--详情div--%>
-<div id="viewNewsDiv" style="padding: 10px;display: none">
-    <form class="layui-form" lay-filter="dataFrm2" id="dataFrm2" style="margin-right: 20px">
-        <div class="layui-form-item">
-            <label class="layui-form-label">编号:</label>
-            <div class="layui-input-block">
-                <input type="text" name="id" style="display: none;">
-                <input type="text" name="id" placeholder="请输入图书名称" disabled autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户名:</label>
-            <div class="layui-input-block">
-                <input type="text" name="loginname" placeholder="请输入图书分类" disabled autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">真实姓名:</label>
-            <div class="layui-input-block">
-                <input type="text" name="realname" placeholder="请输入作者" disabled autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">性别:</label>
-            <div class="layui-input-inline">
-                <input type="radio" name="sex" value="1" title="男">
-                <input type="radio" name="sex" value="0" title="女">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">电话:</label>
-            <div class="layui-input-block">
-                <input type="text" name="phone" placeholder="请输入出版时间" disabled autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">邮箱:</label>
-            <div class="layui-input-block">
-                <input type="text" name="email" placeholder="请输入出版社" disabled autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">地址:</label>
-            <div class="layui-input-block">
-                <input type="text" name="address" placeholder="请输入页数" disabled autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">创建时间:</label>
-            <div class="layui-input-block">
-                <input type="text" name="createTime" placeholder="请输入图书价格" disabled autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">上次登陆时间:</label>
-            <div class="layui-input-block">
-                <input type="text" name="lastTime" placeholder="请输入图书价格" disabled autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item" style="margin-top: 20px">
-            <label class="layui-form-label">头像</label>
-            <img id="mobileCoverImg1" class="originalImg"  style="height: 50px;min-width: 50px;"/>
-        </div>
-
-    </form>
-</div>
 <!-- 添加和修改的弹出层-->
 <div style="display: none;padding: 20px" id="saveOrUpdateDiv">
     <form class="layui-form" lay-filter="dataFrm" id="dataFrm">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">真实姓名:</label>
+                <label class="layui-form-label">用户名:</label>
                 <div class="layui-input-inline">
                     <input type="hidden" name="id">
-                    <input type="text" name="realname" lay-verify="required" placeholder="请输入真实姓名"
+                    <input type="text" name="loginName" lay-verify="required" placeholder="请输入真实姓名"
                            autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">登陆用户名（工号）:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="loginname" lay-verify="required" placeholder="请输入用户名（工号）"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">邮箱:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="email" placeholder="请输入用户邮箱" lay-verify="required|email"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">用户性别:</label>
-                <div class="layui-input-inline">
-                    <input type="radio" name="sex" value="1" checked="checked" title="男">
-                    <input type="radio" name="sex" value="0" title="女">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">用户电话:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="phone" lay-verify="required|phone" placeholder="请输入用户电话"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">用户地址:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="address" placeholder="请输入用户地址" autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">所属单位:</label>
-                <div class="layui-input-inline">
-                    <select name="deptId" id="dept" lay-verify="required">
-                        <option value="">请选择单位</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -176,6 +57,7 @@
         </div>
     </form>
 </div>
+
 
 
 <script src="/resources/layui/layui.js"></script>
@@ -196,14 +78,14 @@
             , title: '用户数据表'//数据导出来的标题
             , toolbar: "#userToolBar"   //表格的工具条
             , height: 'full-120'
-            , cellMinWidth: 100 //设置列的最小默认宽度
+            , cellMinWidth: 200 //设置列的最小默认宽度
             , page: true  //是否启用分页
             , cols: [[   //列表数据
                 // {type: 'checkbox', fixed: 'left'},
-                 {field: 'userId', title: 'ID', align: 'center', width: '55'}
-                , {field: 'loginName', title: '用户名', align: 'center', width: '110'}
+                 {field: 'userId', title: 'ID', align: 'center', width: '150'}
+                , {field: 'loginName', title: '用户名', align: 'center', width: '150'}
                 , {
-                    field: 'role', title: '用户身份', align: 'center', width: '130', templet: function (d) {
+                    field: 'role', title: '用户身份', align: 'center', width: '150', templet: function (d) {
                         if (d.rid == 1) {
                             return '管理员';
                         } else if (d.rid == 2) {
@@ -264,8 +146,6 @@
                     $('#dept').prop('disabled', false);
                 }
                 openUpdateUser(data);
-            }else if(layEvent === 'viewNews'){
-                viewNews(data);
             }
         });
 
@@ -297,19 +177,6 @@
                 success: function (index) {
                     form.val("dataFrm", data);
                     url = "/user/save.action";
-                }
-            });
-        }
-        //查看
-        function viewNews(data) {
-            mainIndex = layer.open({
-                type: 1,
-                title: '查看用户信息',
-                content: $("#viewNewsDiv"),
-                area: ['700px', '540px'],
-                success: function (index) {
-                    form.val("dataFrm2", data);
-                    $('#mobileCoverImg1').attr('src', "/file/downloadFile.action?path=" + data.img);
                 }
             });
         }
