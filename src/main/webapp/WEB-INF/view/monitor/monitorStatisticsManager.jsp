@@ -63,9 +63,9 @@
 <table class="layui-hide" id="newsTable" lay-filter="newsTable"></table>
 <div id="newsBar" style="display: none;">
 	<c:if test="${true}"> <!--role == 2 || role == 4-->
-		<a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="viewByDay">日表</a>
-		<a class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius" lay-event="viewByMonth">月表</a>
-		<a class="layui-btn layui-btn-xs layui-btn-xs layui-btn-radius" lay-event="viewByYear">年表</a>
+		<a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="viewByDay">日</a>
+		<a class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius" lay-event="viewByMonth">月</a>
+		<a class="layui-btn layui-btn-xs layui-btn-xs layui-btn-radius" lay-event="viewByYear">年</a>
 	</c:if>
 </div>
 
@@ -115,7 +115,7 @@
 				, {field: 'averageValue', title: '平均值', align: 'center'}
 				, {field: 'maximumValue', title: '最大值', align: 'center'}
 				, {field: 'minimumValue', title: '最小值', align: 'center'}
-				, {fixed: 'right', title: '明细', toolbar: '#newsBar', align: 'center', width: 220}
+				, {fixed: 'right', title: '分析', toolbar: '#newsBar', align: 'center', width: 220}
 			]],
 			done:function (data, curr, count) {
 				//不是第一页时，如果当前返回的数据为0那么就返回上一页
@@ -270,7 +270,7 @@
 
 			layer.open({
 				type: 1,
-				title: '按日查看',
+				title: '分析/按日',
 				area: ['500px', '550px'],
 				content: $("#echarts"),
 				success: function (index) {
@@ -307,7 +307,7 @@
 
 									echarts.init(document.getElementById('echarts')).setOption({
 										title: {
-											text: '统计/按日',
+											text: '分析/按日',
 											left: 'center'
 										},
 										tooltip: {},
@@ -367,7 +367,7 @@
 
 			layer.open({
 				type: 1,
-				title: '按月查看',
+				title: '分析/按月',
 				area: ['500px', '550px'],
 				content: $("#echarts"),
 				success: function (index) {
@@ -403,7 +403,7 @@
 
 									echarts.init(document.getElementById('echarts')).setOption({
 										title: {
-											text: '统计/按月',
+											text: '分析/按月',
 											left: 'center'
 										},
 										tooltip: {},
@@ -463,7 +463,7 @@
 
 			layer.open({
 				type: 1,
-				title: '按年查看',
+				title: '分析/按年',
 				area: ['500px', '550px'],
 				content: $("#echarts"),
 				success: function (index) {
@@ -494,7 +494,7 @@
 
 									echarts.init(document.getElementById('echarts')).setOption({
 										title: {
-											text: '统计/按年',
+											text: '分析/按年',
 											left: 'center'
 										},
 										tooltip: {},
