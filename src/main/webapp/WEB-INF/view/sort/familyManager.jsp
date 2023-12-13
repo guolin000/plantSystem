@@ -59,7 +59,7 @@
 </div>
 
 <div id="newsBar" style="display: none;">
-    <c:if test="${role==1||role==2}">
+    <c:if test="${role==1}">
         <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
         <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="genus">增加属</a>
