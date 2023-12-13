@@ -380,7 +380,7 @@
             mainIndex = layer.open({
                 type: 1, // 弹出层类型
                 title: '添加新图片', // 标题
-                area: ['600px', '400px'], // 宽高
+                area: ['600px', '500px'], // 宽高
                 content: $('#addPictureDiv'), // 弹出层内容
                 success: function (index) {
                     //表单数据
