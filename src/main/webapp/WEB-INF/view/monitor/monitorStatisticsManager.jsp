@@ -115,7 +115,7 @@
 				, {field: 'averageValue', title: '平均值', align: 'center'}
 				, {field: 'maximumValue', title: '最大值', align: 'center'}
 				, {field: 'minimumValue', title: '最小值', align: 'center'}
-				, {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 220}
+				, {fixed: 'right', title: '明细', toolbar: '#newsBar', align: 'center', width: 220}
 			]],
 			done:function (data, curr, count) {
 				//不是第一页时，如果当前返回的数据为0那么就返回上一页
