@@ -69,8 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="IndicatorValueInfo" />
-                  <option name="tableName" value="indicator_value_info" />
+                  <option name="className" value="RegionInfo" />
+                  <option name="tableName" value="region_info" />
                 </TableUIInfo>
               </list>
             </option>

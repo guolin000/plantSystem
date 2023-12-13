@@ -52,6 +52,13 @@
                        placeholder="请输入科目名称" style="height: 30px;border-radius: 10px">
             </div>
         </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">生长环境:</label>
+            <div class="layui-input-inline" style="padding: 5px">
+                <input type="text" name="environment" autocomplete="off" class="layui-input layui-input-inline"
+                       placeholder="请输入生长环境" style="height: 30px;border-radius: 10px">
+            </div>
+        </div>
         <div class="layui-inline" style="margin-left: 50px">
             <button type="button"
                     class="layui-btn layui-btn-normal layui-icon layui-icon-search layui-btn-radius layui-btn-sm"
@@ -70,6 +77,7 @@
     <c:if test="${role==1||role==2}">
         <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="region">分布区域</a>
     </c:if>
 </div>
 
@@ -101,6 +109,30 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">形态特征:</label>
+            <div class="layui-input-block">
+                <input type="text" name="feature" placeholder="请输入形态特征" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">应用价值:</label>
+            <div class="layui-input-block">
+                <input type="text" name="value" placeholder="请输入应用价值" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">栽培技术要点:</label>
+            <div class="layui-input-block">
+                <input type="text" name="point" placeholder="请输入栽培技术要点" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生长环境:</label>
+            <div class="layui-input-block">
+                <input type="text" name="point" placeholder="请输入生长环境" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-input-block" style="text-align: center;padding-right: 120px">
                 <button type="button"
                         class="layui-btn layui-btn-normal layui-btn-md layui-icon layui-icon-release layui-btn-radius"
@@ -113,7 +145,41 @@
         </div>
     </form>
 </div>
+<!-- 分布区域的弹出层-->
+<div style="display: none;padding: 20px" id="saveOrUpdateDiv2">
+<%--    <form class="layui-form" lay-filter="dataFrm2" id="dataFrm2" style="margin-right: 20px">--%>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">省名:</label>--%>
+<%--            <div class="layui-input-block">--%>
+<%--                <input type="text" id="provinceName" name="provinceName" readonly placeholder="请输入省名" autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">市名:</label>--%>
+<%--            <div class="layui-input-block">--%>
+<%--                <input type="text" id="cityName" name="cityName" readonly placeholder="请输入市名" autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">县名:</label>--%>
+<%--            <div class="layui-input-block">--%>
+<%--                <input type="text" id="countyName" name="countyName" readonly placeholder="请输入县名" autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="layui-form-item">--%>
+<%--            <div class="layui-input-block" style="text-align: center;padding-right: 120px">--%>
+<%--                <button type="button"--%>
+<%--                        class="layui-btn layui-btn-danger layui-btn-md layui-icon layui-icon-release layui-btn-radius"--%>
+<%--                        lay-filter="doSubmit2" lay-submit="">删除--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </form>--%>
+</div>
+<%--查看div--%>
+<div id="viewNewsDiv" style="padding: 10px;display: none">
 
+</div>
 <script src="/resources/layui/layui.js"></script>
 <script type="text/javascript">
     var tableIns;
@@ -151,6 +217,10 @@
                 ,{field: 'speciesName', title: '种目名称', align: 'center'}
                 , {field: 'genusName', title: '属目名称', align: 'center'}
                 ,{field: 'familyName', title: '科目名称', align: 'center'}
+                ,{field: 'feature', title: '形态特征', align: 'center'}
+                ,{field: 'value', title: '应用价值', align: 'center'}
+                ,{field: 'point', title: '栽培技术要点', align: 'center'}
+                ,{field: 'environment', title: '生长环境', align: 'center'}
                 , {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 270}
             ]],
             done: function (data, curr, count) {
@@ -237,6 +307,10 @@
             {
                 //增加，打开增加界面
                 openAddNews(data);
+            }else if(layEvent=='region')
+            {
+                //打开分布区域页面
+                viewNews(data);
             }
         });
         var url;
@@ -255,6 +329,45 @@
                 }
             });
         }
+        //查看分布区域
+        function viewNews(data) {
+            $.ajax({
+                url:"/species/showRegion.action",
+                type: 'POST',
+                data: { 'speciesId': data.speciesId },
+                success: function(data) {
+                    var content = '<div align="center">';
+                    content += '<table style="width: 50%; border: 1px solid #dddddd; border-collapse: collapse; margin-top: 20px;">';
+                    content += '<thead>';
+                    content += '<tr style="background-color: #f2f2f2;">';
+                    content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">省名</th>';
+                    content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">市名</th>';
+                    content += '<th style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">县名</th>';
+                    content += '</tr>';
+                    content += '</thead>';
+                    content += '<tbody>';
+                    data.forEach(function(regionInfo) {
+                        content += '<tr>';
+                        content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + regionInfo.provinceName + '</td>';
+                        content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + regionInfo.cityName + '</td>';
+                        content += '<td style="border: 1px solid #dddddd; padding: 8px; white-space: nowrap;">' + regionInfo.countyName + '</td>';
+                        content += '</tr>';
+                    });
+                    content += '</tbody>';
+                    content += '</table>';
+                    content += '</div>';
+                    layer.open({
+                        type: 1,
+                        title: '分布区域',
+                        area: ['400px', 150+data.length*50+'px'], // 宽高
+                        content: content
+                    });
+                },
+
+            });
+        }
+    });
+
         //打开修改页面
         function openUpdateNews(data) {
             mainIndex = layer.open({
@@ -281,6 +394,17 @@
                 tableIns.reload();
             })
         });
+        //保存
+        form.on("submit(doSubmit2)", function (obj) {
+            //序列化表单数据
+            var params = $("#dataFrm2").serialize();
+            $.post(url, params, function (obj) {
+                layer.msg(obj.msg);
+                //关闭弹出层
+                layer.close(mainIndex);
+                //刷新数据 表格
+                tableIns.reload();
+            })
     });
 </script>
 <style type="text/css">

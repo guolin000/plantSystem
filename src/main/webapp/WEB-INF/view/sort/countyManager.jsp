@@ -37,6 +37,20 @@
                placeholder="请输入县名称" style="height: 30px;border-radius: 10px">
       </div>
     </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">市名称:</label>
+      <div class="layui-input-inline" style="padding: 5px">
+        <input type="text" name="cityName" autocomplete="off" class="layui-input layui-input-inline"
+               placeholder="请输入市名称" style="height: 30px;border-radius: 10px">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">省名称:</label>
+      <div class="layui-input-inline" style="padding: 5px">
+        <input type="text" name="provinceName" autocomplete="off" class="layui-input layui-input-inline"
+               placeholder="请输入省名称" style="height: 30px;border-radius: 10px">
+      </div>
+    </div>
     <div class="layui-inline" style="margin-left: 50px">
       <button type="button"
               class="layui-btn layui-btn-normal layui-icon layui-icon-search layui-btn-radius layui-btn-sm"

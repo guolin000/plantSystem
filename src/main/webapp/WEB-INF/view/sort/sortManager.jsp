@@ -23,28 +23,28 @@
     <legend>查询条件</legend>
 </fieldset>
 <form class="layui-form" method="post" id="searchFrm">
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">科目名称:</label>
-            <div class="layui-input-inline" style="padding: 5px">
-                <input type="text" name="familyName" autocomplete="off" class="layui-input layui-input-inline"
-                       placeholder="请输入科目名称" style="height: 30px;border-radius: 10px">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">属目名称:</label>
-            <div class="layui-input-inline" style="padding: 5px">
-                <input type="text" name="genusName" autocomplete="off" class="layui-input layui-input-inline"
-                       placeholder="请输入属目名称" style="height: 30px;border-radius: 10px">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">种目名称:</label>
-            <div class="layui-input-inline" style="padding: 5px">
-                <input type="text" name="speciesName" autocomplete="off" class="layui-input layui-input-inline"
-                       placeholder="请输入种目名称" style="height: 30px;border-radius: 10px">
-            </div>
-        </div>
+<%--    <div class="layui-form-item">--%>
+<%--        <div class="layui-inline">--%>
+<%--            <label class="layui-form-label">科目名称:</label>--%>
+<%--            <div class="layui-input-inline" style="padding: 5px">--%>
+<%--                <input type="text" name="familyName" autocomplete="off" class="layui-input layui-input-inline"--%>
+<%--                       placeholder="请输入科目名称" style="height: 30px;border-radius: 10px">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="layui-inline">--%>
+<%--            <label class="layui-form-label">属目名称:</label>--%>
+<%--            <div class="layui-input-inline" style="padding: 5px">--%>
+<%--                <input type="text" name="genusName" autocomplete="off" class="layui-input layui-input-inline"--%>
+<%--                       placeholder="请输入属目名称" style="height: 30px;border-radius: 10px">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="layui-inline">--%>
+<%--            <label class="layui-form-label">种目名称:</label>--%>
+<%--            <div class="layui-input-inline" style="padding: 5px">--%>
+<%--                <input type="text" name="speciesName" autocomplete="off" class="layui-input layui-input-inline"--%>
+<%--                       placeholder="请输入种目名称" style="height: 30px;border-radius: 10px">--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <div class="layui-inline">
             <label class="layui-form-label">省名:</label>
             <div class="layui-input-inline" style="padding: 5px">
@@ -66,13 +66,13 @@
                        placeholder="请输入县名" style="height: 30px;border-radius: 10px">
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">生长环境:</label>
-            <div class="layui-input-inline" style="padding: 5px">
-                <input type="text" name="environment" autocomplete="off" class="layui-input layui-input-inline"
-                       placeholder="请输入生长环境" style="height: 30px;border-radius: 10px">
-            </div>
-        </div>
+<%--        <div class="layui-inline">--%>
+<%--            <label class="layui-form-label">生长环境:</label>--%>
+<%--            <div class="layui-input-inline" style="padding: 5px">--%>
+<%--                <input type="text" name="environment" autocomplete="off" class="layui-input layui-input-inline"--%>
+<%--                       placeholder="请输入生长环境" style="height: 30px;border-radius: 10px">--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <div class="layui-inline" style="margin-left: 50px">
             <button type="button"
                     class="layui-btn layui-btn-normal layui-icon layui-icon-search layui-btn-radius layui-btn-sm"
@@ -87,80 +87,52 @@
 
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="newsTable" lay-filter="newsTable"></table>
-<div style="display: none;" id="newsToolBar">
-    <c:if test="${role==1}">
-        <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add">新增</button>
-    </c:if>
-</div>
-
 <div id="newsBar" style="display: none;">
     <c:if test="${role==1||role==2}">
-        <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="county">增加县</a>
+<%--        <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>--%>
+<%--        <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>--%>
+
     </c:if>
 </div>
 
-<!-- 添加和修改的弹出层-->
+<!-- 修改的弹出层-->
 <div style="display: none;padding: 20px" id="saveOrUpdateDiv">
     <form class="layui-form" lay-filter="dataFrm" id="dataFrm" style="margin-right: 20px">
         <div class="layui-form-item">
-            <label class="layui-form-label">植物编号:</label>
+            <label class="layui-form-label">种目编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="plantId" placeholder="请输入植物编号" autocomplete="off" class="layui-input">
+                <input type="text" name="speciesId" readonly placeholder="请输入种目编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">植物名称:</label>
+            <label class="layui-form-label">种目名称:</label>
             <div class="layui-input-block">
-                <input type="text" name="plantName" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+                <input type="text" name="speciesName" readonly placeholder="请输入种目名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">植物科目:</label>
+            <label class="layui-form-label">县编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="familyName" placeholder="请输入植物科目" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">植物属目:</label>
-            <div class="layui-input-block">
-                <input type="text" name="genusName" placeholder="请输入植物属目" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">植物种目:</label>
-            <div class="layui-input-block">
-                <input type="text" name="speciesName" placeholder="请输入植物种目" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">省名:</label>
-            <div class="layui-input-block">
-                <input type="text" name="provinceName" placeholder="请输入省名" autocomplete="off" class="layui-input">
+                <input type="text" name="countyId" placeholder="请输入县编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">市名:</label>
+            <label class="layui-form-label">县名称:</label>
             <div class="layui-input-block">
-                <input type="text" name="cityName" placeholder="请输入市名" autocomplete="off" class="layui-input">
+                <input type="text" name="countyName" placeholder="请输入县名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">县名:</label>
+            <label class="layui-form-label">市名称:</label>
             <div class="layui-input-block">
-                <input type="text" name="countyName" placeholder="请输入县名" autocomplete="off" class="layui-input">
+                <input type="text" name="cityName" placeholder="请输入市名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">生长环境:</label>
+            <label class="layui-form-label">省名称:</label>
             <div class="layui-input-block">
-                <input type="text" name="environment" placeholder="请输入生长环境" autocomplete="off"
-                       class="layui-input">
+                <input type="text" name="provinceName" placeholder="请输入省名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -176,7 +148,34 @@
         </div>
     </form>
 </div>
-
+<!-- 添加县的弹出层-->
+<div style="display: none;padding: 20px" id="saveOrUpdateDiv3">
+    <form class="layui-form" lay-filter="dataFrm3" id="dataFrm3" style="margin-right: 20px">
+        <div class="layui-form-item">
+            <label class="layui-form-label">种目编号:</label>
+            <div class="layui-input-block">
+                <input type="text" id="speciesId" name="speciesId" readonly placeholder="请输入种目编号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">县编号:</label>
+            <div class="layui-input-block">
+                <input type="text" name="countyId" placeholder="请输入县编号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="text-align: center;padding-right: 120px">
+                <button type="button"
+                        class="layui-btn layui-btn-normal layui-btn-md layui-icon layui-icon-release layui-btn-radius"
+                        lay-filter="doSubmit3" lay-submit="">提交
+                </button>
+                <button type="reset" id="dataFrmResetBtn3"
+                        class="layui-btn layui-btn-warm layui-btn-md layui-icon layui-icon-refresh layui-btn-radius">重置
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 <script src="/resources/layui/layui.js"></script>
 <script type="text/javascript">
     var tableIns;
@@ -204,21 +203,17 @@
         tableIns = table.render({
             elem: '#newsTable'   //渲染的目标对象
             , url: '/sortInfo/sortInfoList.action' //数据接口
-            , title: '植物分类信息'//数据导出来的标题
+            , title: '植物分布区域信息'//数据导出来的标题
             , toolbar: "#newsToolBar"   //表格的工具条
             , height: 'full-220'
             , cellMinWidth: 120 //设置列的最小默认宽度
             , page: true  //是否启用分页
             , cols: [[   //列表数据
-                {field: 'plantId', title: '植物编号', align: 'center'}
-                , {field: 'plantName', title: '植物名称', align: 'center'}
-                , {field: 'familyName', title: '植物科目', align: 'center'}
-                , {field: 'genusName', title: '植物属目', align: 'center'}
-                , {field: 'speciesName', title: '植物种目', align: 'center'}
-                , {field: 'provinceName', title: '省名', align: 'center'}
-                , {field: 'cityName', title: '市名', align: 'center'}
-                , {field: 'countyName', title: '县名', align: 'center'}
-                , {field: 'environment', title: '生长环境', align: 'center'}
+                ,{field: 'speciesId', title: '种目编号', align: 'center'}
+                , {field: 'speciesName', title: '种目名称', align: 'center'}
+                , {field: 'countyName', title: '县名称', align: 'center'}
+                , {field: 'cityName', title: '市名称', align: 'center'}
+                , {field: 'provinceName', title: '省名称', align: 'center'}
                 , {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 270}
             ]],
             done: function (data, curr, count) {
@@ -290,9 +285,9 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             if (layEvent === 'del') { //删除
-                layer.confirm('真的删除【' + data.plantName + '】这个植物以及对应的信息么？', function (index) {
+                layer.confirm('真的删除【' + data.speciesName + '】这个植物以及对应的信息么？', function (index) {
                     //向服务端发送删除指令
-                    $.post("/sortInfo/deleteSortInfo.action", {plantId: data.plantId}, function (res) {
+                    $.post("/sortInfo/deleteSortInfo.action", {speciesId: data.speciesId}, function (res) {
                         layer.msg(res.msg);
                         //刷新数据表格
                         tableIns.reload();
@@ -301,42 +296,56 @@
             } else if (layEvent === 'edit') { //修改
                 //修改，打开修改界面
                 openUpdateNews(data);
-            }else if(layEvent=='add')
-            {
-                //增加，打开增加界面
-                openAddNews(data);
             }
+            else if(layEvent==='county')
+            {
+                openCountyNews(data);
+            }
+
         });
         var url;
         var mainIndex;
-        //打开添加框
-        function openAddNews() {
+        //打开添加县
+        function openCountyNews(data) {
             mainIndex = layer.open({
                 type: 1,
-                title: '添加植物信息',
-                content: $("#saveOrUpdateDiv"),
+                title: '添加县',
+                content: $("#saveOrUpdateDiv3"),
                 area: ['800px', '540px'],
                 success: function (index) {
-                    //清空表单数据
-                    $("#dataFrm")[0].reset();
-                    url = "/sortInfo/addSortInfo.action";
+                    $("#speciesId").val(data.speciesId);
+                    $("#speciesName").val(data.speciesName);
+                    url = "/county/addCounty2.action";
                 }
             });
         }
+
         //打开修改页面
         function openUpdateNews(data) {
             mainIndex = layer.open({
                 type: 1,
-                title: '修改植物信息',
+                title: '修改植物县信息',
                 content: $("#saveOrUpdateDiv"),
                 area: ['800px', '540px'],
                 success: function (index) {
                     form.val("dataFrm", data);
                     // $('#mobileCoverImg').attr('src', "/file/downloadFile.action?path=" + data.img);
-                    url = "/sortInfo/updateSortInfo.action";
+                    url = "/county/updateCounty.action";
                 }
             });
         }
+        //保存添加县
+        form.on("submit(doSubmit3)", function (obj) {
+            //序列化表单数据
+            var params = $("#dataFrm3").serialize();
+            $.post(url, params, function (obj) {
+                layer.msg(obj.msg);
+                //关闭弹出层
+                layer.close(mainIndex);
+                //刷新数据 表格
+                tableIns.reload();
+            })
+        });
         //保存
         form.on("submit(doSubmit)", function (obj) {
             //序列化表单数据
@@ -349,6 +358,7 @@
                 tableIns.reload();
             })
         });
+
     });
 </script>
 <style type="text/css">

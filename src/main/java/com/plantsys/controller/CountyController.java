@@ -5,14 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.plantsys.Vo.QueryVo;
-import com.plantsys.entity.City;
-import com.plantsys.entity.CityInfo;
-import com.plantsys.entity.County;
-import com.plantsys.entity.CountyInfo;
-import com.plantsys.service.CityInfoService;
-import com.plantsys.service.CityService;
-import com.plantsys.service.CountyInfoService;
-import com.plantsys.service.CountyService;
+import com.plantsys.entity.*;
+import com.plantsys.service.*;
 import com.plantsys.util.DataGridView;
 import com.plantsys.util.ResultObj;
 import com.plantsys.util.WebUtils;
@@ -29,6 +23,10 @@ public class CountyController {
     CountyInfoService countyInfoService;
     @Autowired
     CountyService countyService;
+    @Autowired
+    SpeciesCountyInfoService speciesCountyInfoService;
+    @Autowired
+    SpeciesCountyService speciesCountyService;
 
     // 添加县
     @RequestMapping("addCounty")
@@ -41,6 +39,17 @@ public class CountyController {
         }
         try {
             countyService.save(county);
+            return ResultObj.ADD_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.ADD_ERROR;
+        }
+    }
+    //根据种添加县
+    @RequestMapping("addCounty2")
+    public ResultObj addCounty2(SpeciesCounty speciesCounty) {
+        try {
+            speciesCountyService.save(speciesCounty);
             return ResultObj.ADD_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

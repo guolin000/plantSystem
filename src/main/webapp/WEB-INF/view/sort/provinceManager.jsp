@@ -27,14 +27,14 @@
       <label class="layui-form-label">省份编号:</label>
       <div class="layui-input-inline" style="padding: 5px">
         <input type="text" name="provinceId" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="请输入科目编号" style="height: 30px;border-radius: 10px">
+               placeholder="请输入省份编号" style="height: 30px;border-radius: 10px">
       </div>
     </div>
     <div class="layui-inline">
       <label class="layui-form-label">省份名称:</label>
       <div class="layui-input-inline" style="padding: 5px">
         <input type="text" name="provinceName" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="请输入科目名称" style="height: 30px;border-radius: 10px">
+               placeholder="请输入省份名称" style="height: 30px;border-radius: 10px">
       </div>
     </div>
     <div class="layui-inline" style="margin-left: 50px">
@@ -60,22 +60,22 @@
   <c:if test="${role==1}">
     <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="del">删除</a>
-    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="genus">增加市</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" lay-event="city">增加市</a>
   </c:if>
 </div>
-<!-- 修改省份的弹出层-->
+<!-- 新增和修改省份的弹出层-->
 <div style="display: none;padding: 20px" id="saveOrUpdateDiv">
   <form class="layui-form" lay-filter="dataFrm" id="dataFrm" style="margin-right: 20px">
     <div class="layui-form-item">
       <label class="layui-form-label">省份编号:</label>
       <div class="layui-input-block">
-        <input type="text" name="provinceId" readonly placeholder="请输入科目编号" autocomplete="off" class="layui-input">
+        <input type="text" name="provinceId" readonly placeholder="请输入省份编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">省份名称:</label>
       <div class="layui-input-block">
-        <input type="text" name="provinceName" placeholder="请输入科目名称" autocomplete="off" class="layui-input">
+        <input type="text" name="provinceName" placeholder="请输入省份名称" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -97,19 +97,19 @@
     <div class="layui-form-item">
       <label class="layui-form-label">省份编号:</label>
       <div class="layui-input-block">
-        <input type="text" id="provinceId" readonly name="provinceId" placeholder="请输入科目编号" autocomplete="off" class="layui-input">
+        <input type="text" id="provinceId" readonly name="provinceId" placeholder="请输入省份编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">市编号:</label>
       <div class="layui-input-block">
-        <input type="text" id="cityId" name="genusId" placeholder="请输入市编号" autocomplete="off" class="layui-input">
+        <input type="text" id="cityId" name="cityId" placeholder="请输入市编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">市名称:</label>
       <div class="layui-input-block">
-        <input type="text" id="cityName" name="genusName" placeholder="请输入市名称" autocomplete="off" class="layui-input">
+        <input type="text" id="cityName" name="cityName" placeholder="请输入市名称" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -140,8 +140,8 @@
     //渲染数据表格
     tableIns = table.render({
       elem: '#newsTable'   //渲染的目标对象
-      , url: '.action' //数据接口
-      , title: '植物分类信息'//数据导出来的标题
+      , url: '/province/provinceList.action' //数据接口
+      , title: '省份分类信息'//数据导出来的标题
       , toolbar: "#newsToolBar"   //表格的工具条
       , height: 'full-220'
       , cellMinWidth: 120 //设置列的最小默认宽度
@@ -187,7 +187,7 @@
       var params = $("#searchFrm").serialize();
       //alert(params);
       tableIns.reload({
-        url: ".action?" + params,
+        url: "/province/provinceList.action?" + params,
         page: {curr: 1}
       })
     });
@@ -196,7 +196,7 @@
     table.on("toolbar(newsTable)", function (obj) {
       switch (obj.event) {
         case 'add':
-          openAddProvince();
+          openAddNews();
           break;
       }
     });
@@ -208,7 +208,7 @@
       if (layEvent === 'del') { //删除
         layer.confirm('真的删除【' + data.provinceName+ '】这个省份以及对应的信息么？', function (index) {
           //向服务端发送删除指令
-          $.post(".action", {familyId: data.familyId}, function (res) {
+          $.post("/province/deleteProvince.action", {provinceId: data.provinceId}, function (res) {
             layer.msg(res.msg);
             //刷新数据表格
             tableIns.reload();
@@ -217,10 +217,10 @@
       } else if (layEvent === 'edit') { //修改
         //修改，打开修改界面
         openUpdateNews(data);
-      }else if(layEvent='genus')
+      }else if(layEvent=='city')
       {
         //打开添加市的页面
-        openGenusNews(data);
+        openCityNews(data);
       }
     });
 
@@ -231,19 +231,19 @@
     function openAddNews() {
       mainIndex = layer.open({
         type: 1,
-        title: '添加科目信息',
+        title: '添加省份信息',
         content: $("#saveOrUpdateDiv"),
         area: ['800px', '540px'],
         success: function (index) {
           //清空表单数据
           $("#dataFrm")[0].reset();
-          url = "/sort/addFamily.action";
+          url = "/province/addProvince.action";
         }
       });
     }
 
     //打开市的添加框
-    function openGenusNews(data) {
+    function openCityNews(data) {
       mainIndex = layer.open({
         type: 1,
         title: '添加市信息',
@@ -251,7 +251,7 @@
         area: ['800px', '540px'],
         success: function (index) {
           $("#provinceId").val(data.provinceId);
-          url = "/sort/.action";
+          url = "/city/addCity.action";
         }
       });
     }
@@ -266,7 +266,7 @@
         success: function (index) {
           form.val("dataFrm", data);
           // $('#mobileCoverImg').attr('src', "/file/downloadFile.action?path=" + data.img);
-          url = ".action";
+          url = "/province/updateProvince.action";
         }
       });
     }

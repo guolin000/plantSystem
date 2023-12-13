@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantsys.mapper.RegionInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.plantsys.entity.RegionInfo">
+            <result property="speciesId" column="species_id" jdbcType="INTEGER"/>
+            <result property="countyId" column="county_id" jdbcType="INTEGER"/>
+            <result property="countyName" column="county_name" jdbcType="VARCHAR"/>
+            <result property="cityName" column="city_name" jdbcType="VARCHAR"/>
+            <result property="provinceName" column="province_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        species_id,county_id,county_name,
+        city_name,province_name
+    </sql>
+    <select id="selectAllBySpeciesId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region_info
+        where
+        species_id = #{speciesId,jdbcType=NUMERIC}
+    </select>
+</mapper>
