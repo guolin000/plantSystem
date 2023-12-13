@@ -1,0 +1,96 @@
+package com.plantsys.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import lombok.Data;
+
+/**
+ * 
+ * @TableName region_info
+ */
+@TableName(value ="region_info")
+@Data
+public class RegionInfo implements Serializable {
+    /**
+     * 
+     */
+    @TableField(value = "species_id")
+    private Integer speciesId;
+
+    /**
+     * 
+     */
+    @TableField(value = "county_id")
+    private Integer countyId;
+
+    /**
+     * 
+     */
+    @TableField(value = "county_name")
+    private String countyName;
+
+    /**
+     * 
+     */
+    @TableField(value = "city_name")
+    private String cityName;
+
+    /**
+     * 
+     */
+    @TableField(value = "province_name")
+    private String provinceName;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        RegionInfo other = (RegionInfo) that;
+        return (this.getSpeciesId() == null ? other.getSpeciesId() == null : this.getSpeciesId().equals(other.getSpeciesId()))
+            && (this.getCountyId() == null ? other.getCountyId() == null : this.getCountyId().equals(other.getCountyId()))
+            && (this.getCountyName() == null ? other.getCountyName() == null : this.getCountyName().equals(other.getCountyName()))
+            && (this.getCityName() == null ? other.getCityName() == null : this.getCityName().equals(other.getCityName()))
+            && (this.getProvinceName() == null ? other.getProvinceName() == null : this.getProvinceName().equals(other.getProvinceName()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getSpeciesId() == null) ? 0 : getSpeciesId().hashCode());
+        result = prime * result + ((getCountyId() == null) ? 0 : getCountyId().hashCode());
+        result = prime * result + ((getCountyName() == null) ? 0 : getCountyName().hashCode());
+        result = prime * result + ((getCityName() == null) ? 0 : getCityName().hashCode());
+        result = prime * result + ((getProvinceName() == null) ? 0 : getProvinceName().hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", speciesId=").append(speciesId);
+        sb.append(", countyId=").append(countyId);
+        sb.append(", countyName=").append(countyName);
+        sb.append(", cityName=").append(cityName);
+        sb.append(", provinceName=").append(provinceName);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
+    }
+}

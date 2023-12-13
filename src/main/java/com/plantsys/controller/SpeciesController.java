@@ -11,7 +11,9 @@ import com.plantsys.util.DataGridView;
 import com.plantsys.util.ResultObj;
 import com.plantsys.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,7 +29,12 @@ public class SpeciesController {
     GenusService genusService;
     @Autowired
     SpeciesService speciesService;
+    @Autowired
+    SpeciesCountyInfoService speciesCountyInfoService;
+    @Autowired
+    RegionInfoService regionInfoService;
 
+    // 查询所有种
 
     // 添加种
     @RequestMapping("addSpecies")
@@ -72,9 +79,34 @@ public class SpeciesController {
         queryWrapper.like(StrUtil.isNotBlank(queryVo.getSpeciesName()), "species_name", queryVo.getSpeciesName());
         queryWrapper.like(StrUtil.isNotBlank(queryVo.getGenusName()), "genus_name", queryVo.getGenusName());
         queryWrapper.like(StrUtil.isNotBlank(queryVo.getFamilyName()), "family_name", queryVo.getFamilyName());
+        queryWrapper.like(StrUtil.isNotBlank(queryVo.getEnvironment()), "environment", queryVo.getEnvironment());
         List<SpeciesInfo> data = this.speciesInfoService.list(queryWrapper);
         return new DataGridView(page.getTotal(), data);
     }
+    @RequestMapping("showRegion")
+    public List<RegionInfo> showRegion(@RequestParam("speciesId") int speciesId, Model model){
+        List<RegionInfo> regionInfos = this.regionInfoService.selectAllBySpeciesId(speciesId);
+        model.addAttribute("regionInfos", regionInfos);
+        return regionInfos;
+    }
+
+//    @RequestMapping("speciesList2")
+//    public DataGridView speciesList2(QueryVo queryVo) {
+//        System.out.println("awfdawdaw");
+//        String loginName = (String) WebUtils.getHttpSession().getAttribute("loginName");
+//        Page<Object> page = PageHelper.startPage(queryVo.getPage(), queryVo.getLimit());
+//        System.out.println("1");
+//        System.out.println(queryVo);
+//        QueryWrapper<SpeciesCountyInfo> queryWrapper=new QueryWrapper<>();
+//        queryWrapper.like(null != queryVo.getSpeciesId(), "species_id", queryVo.getSpeciesId());
+//        queryWrapper.like(null != queryVo.getCountyId(), "county_id", queryVo.getCountyId());
+//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getProvinceName()), "province_name", queryVo.getProvinceName());
+//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getCityName()), "city_name", queryVo.getCityName());
+//        queryWrapper.like(StrUtil.isNotBlank(queryVo.getCountyName()), "county_name", queryVo.getCountyName());
+//        List<SpeciesCountyInfo> data=this.speciesCountyInfoService.list(queryWrapper);
+//        return new DataGridView(page.getTotal(), data);
+//    }
+    //查询省市县
 
     // 删除种
     @RequestMapping("deleteSpecies")

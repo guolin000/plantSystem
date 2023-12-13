@@ -11,10 +11,16 @@
             <result property="familyName" column="family_name" jdbcType="VARCHAR"/>
             <result property="genusId" column="genus_id" jdbcType="INTEGER"/>
             <result property="familyId" column="family_id" jdbcType="INTEGER"/>
+            <result property="environment" column="environment" jdbcType="VARCHAR"/>
+            <result property="feature" column="feature" jdbcType="VARCHAR"/>
+            <result property="value" column="value" jdbcType="VARCHAR"/>
+            <result property="point" column="point" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         species_id,species_name,genus_name,
-        family_name,genus_id,family_id
+        family_name,genus_id,family_id,
+        environment,feature,value,
+        point
     </sql>
 </mapper>

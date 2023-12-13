@@ -6,10 +6,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.plantsys.Vo.QueryVo;
 import com.plantsys.entity.SortInfo;
-import com.plantsys.service.FamilyService;
-import com.plantsys.service.GenusService;
-import com.plantsys.service.SortInfoService;
-import com.plantsys.service.SpeciesService;
+import com.plantsys.entity.SpeciesCountyInfo;
+import com.plantsys.service.*;
 import com.plantsys.util.DataGridView;
 import com.plantsys.util.ResultObj;
 import com.plantsys.util.WebUtils;
@@ -29,11 +27,11 @@ public class SortController {
     @Autowired
     private SpeciesService speciesService;
     @Autowired
-    private SortInfoService sortInfoService;
+    private SpeciesCountyInfoService sortInfoService;
     @PostMapping("addSortInfo")
-    public ResultObj addSortInfo(SortInfo sortInfo) {
-        QueryWrapper<SortInfo> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("plant_id",sortInfo.getPlantId());
+    public ResultObj addSortInfo(SpeciesCountyInfo sortInfo) {
+        QueryWrapper<SpeciesCountyInfo> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("plant_id",sortInfo.getSpeciesId());
         int count=this.sortInfoService.count(queryWrapper);
         if(count>0){
             return new ResultObj(-1,"植物已存在");
@@ -49,7 +47,7 @@ public class SortController {
 
     // 修改分类信息
     @RequestMapping("updateSortInfo")
-    public ResultObj updateSortInfo(SortInfo sortInfo) {
+    public ResultObj updateSortInfo(SpeciesCountyInfo sortInfo) {
         try {
             sortInfoService.updateById(sortInfo);
             return ResultObj.OPERATE_SUCCESS;
@@ -79,18 +77,15 @@ public class SortController {
         Page<Object> page = PageHelper.startPage(queryVo.getPage(), queryVo.getLimit());
         System.out.println("1");
         System.out.println(queryVo);
-        QueryWrapper<SortInfo> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SpeciesCountyInfo> queryWrapper = new QueryWrapper<>();
         // 模糊查询或查询所有植物
-        queryWrapper.like(null != queryVo.getPlantId(), "plant_id", queryVo.getPlantId());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getPlantName()), "plant_name", queryVo.getPlantName());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getFamilyName()), "family_name", queryVo.getFamilyName());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getGenusName()), "genus_name", queryVo.getGenusName());
+        queryWrapper.like(null != queryVo.getSpeciesId(), "species_id", queryVo.getSpeciesId());
         queryWrapper.like(StrUtil.isNotBlank(queryVo.getSpeciesName()), "species_name", queryVo.getSpeciesName());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getProvinceName()), "province_name", queryVo.getProvinceName());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getCityName()), "city_name", queryVo.getCityName());
+        queryWrapper.like(null !=queryVo.getCountyId(), "county_id", queryVo.getCountyId());
         queryWrapper.like(StrUtil.isNotBlank(queryVo.getCountyName()), "county_name", queryVo.getCountyName());
-        queryWrapper.like(StrUtil.isNotBlank(queryVo.getEnvironment()), "environment", queryVo.getEnvironment());
-        List<SortInfo> data =this.sortInfoService.list(queryWrapper);
+        queryWrapper.like(StrUtil.isNotBlank(queryVo.getCityName()), "city_name", queryVo.getCityName());
+        queryWrapper.like(StrUtil.isNotBlank(queryVo.getProvinceName()), "province_name", queryVo.getProvinceName());
+        List<SpeciesCountyInfo> data =this.sortInfoService.list(queryWrapper);
         return new DataGridView(page.getTotal(),data);
     }
 }

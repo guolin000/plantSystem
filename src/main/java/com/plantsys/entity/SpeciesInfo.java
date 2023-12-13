@@ -50,6 +50,30 @@ public class SpeciesInfo implements Serializable {
     @TableField(value = "family_id")
     private Integer familyId;
 
+    /**
+     * 
+     */
+    @TableField(value = "environment")
+    private String environment;
+
+    /**
+     * 
+     */
+    @TableField(value = "feature")
+    private String feature;
+
+    /**
+     * 
+     */
+    @TableField(value = "value")
+    private String value;
+
+    /**
+     * 
+     */
+    @TableField(value = "point")
+    private String point;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -70,7 +94,11 @@ public class SpeciesInfo implements Serializable {
             && (this.getGenusName() == null ? other.getGenusName() == null : this.getGenusName().equals(other.getGenusName()))
             && (this.getFamilyName() == null ? other.getFamilyName() == null : this.getFamilyName().equals(other.getFamilyName()))
             && (this.getGenusId() == null ? other.getGenusId() == null : this.getGenusId().equals(other.getGenusId()))
-            && (this.getFamilyId() == null ? other.getFamilyId() == null : this.getFamilyId().equals(other.getFamilyId()));
+            && (this.getFamilyId() == null ? other.getFamilyId() == null : this.getFamilyId().equals(other.getFamilyId()))
+            && (this.getEnvironment() == null ? other.getEnvironment() == null : this.getEnvironment().equals(other.getEnvironment()))
+            && (this.getFeature() == null ? other.getFeature() == null : this.getFeature().equals(other.getFeature()))
+            && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
+            && (this.getPoint() == null ? other.getPoint() == null : this.getPoint().equals(other.getPoint()));
     }
 
     @Override
@@ -83,6 +111,10 @@ public class SpeciesInfo implements Serializable {
         result = prime * result + ((getFamilyName() == null) ? 0 : getFamilyName().hashCode());
         result = prime * result + ((getGenusId() == null) ? 0 : getGenusId().hashCode());
         result = prime * result + ((getFamilyId() == null) ? 0 : getFamilyId().hashCode());
+        result = prime * result + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
+        result = prime * result + ((getFeature() == null) ? 0 : getFeature().hashCode());
+        result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
+        result = prime * result + ((getPoint() == null) ? 0 : getPoint().hashCode());
         return result;
     }
 
@@ -98,6 +130,10 @@ public class SpeciesInfo implements Serializable {
         sb.append(", familyName=").append(familyName);
         sb.append(", genusId=").append(genusId);
         sb.append(", familyId=").append(familyId);
+        sb.append(", environment=").append(environment);
+        sb.append(", feature=").append(feature);
+        sb.append(", value=").append(value);
+        sb.append(", point=").append(point);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

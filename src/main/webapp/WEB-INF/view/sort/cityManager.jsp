@@ -26,15 +26,22 @@
     <div class="layui-inline">
       <label class="layui-form-label">市编号:</label>
       <div class="layui-input-inline" style="padding: 5px">
-        <input type="text" name="provinceId" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="请输入科目编号" style="height: 30px;border-radius: 10px">
+        <input type="text" name="cityId" autocomplete="off" class="layui-input layui-input-inline"
+               placeholder="请输入市编号" style="height: 30px;border-radius: 10px">
       </div>
     </div>
     <div class="layui-inline">
       <label class="layui-form-label">市名称:</label>
       <div class="layui-input-inline" style="padding: 5px">
+        <input type="text" name="cityName" autocomplete="off" class="layui-input layui-input-inline"
+               placeholder="请输入市名称" style="height: 30px;border-radius: 10px">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">省名称:</label>
+      <div class="layui-input-inline" style="padding: 5px">
         <input type="text" name="provinceName" autocomplete="off" class="layui-input layui-input-inline"
-               placeholder="请输入科目名称" style="height: 30px;border-radius: 10px">
+               placeholder="请输入省名称" style="height: 30px;border-radius: 10px">
       </div>
     </div>
     <div class="layui-inline" style="margin-left: 50px">
@@ -92,19 +99,19 @@
     <div class="layui-form-item">
       <label class="layui-form-label">市编号:</label>
       <div class="layui-input-block">
-        <input type="text" id="cityId" readonly name="cityId" placeholder="请输入科目编号" autocomplete="off" class="layui-input">
+        <input type="text" id="cityId" readonly name="cityId" placeholder="请输入市编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">县编号:</label>
       <div class="layui-input-block">
-        <input type="text" id="countyId" name="genusId" placeholder="请输入市编号" autocomplete="off" class="layui-input">
+        <input type="text" id="countyId" name="countyId" placeholder="请输入县编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">县名称:</label>
       <div class="layui-input-block">
-        <input type="text" id="countyName" name="genusName" placeholder="请输入市名称" autocomplete="off" class="layui-input">
+        <input type="text" id="countyName" name="countyName" placeholder="请输入县名称" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -135,8 +142,8 @@
     //渲染数据表格
     tableIns = table.render({
       elem: '#newsTable'   //渲染的目标对象
-      , url: '.action' //数据接口
-      , title: '植物分类信息'//数据导出来的标题
+      , url: '/city/cityList.action' //数据接口
+      , title: '市信息'//数据导出来的标题
       , toolbar: "#newsToolBar"   //表格的工具条
       , height: 'full-220'
       , cellMinWidth: 120 //设置列的最小默认宽度
@@ -144,6 +151,7 @@
       , cols: [[   //列表数据
         {field: 'cityId', title: '市编号', align: 'center'}
         , {field: 'cityName', title: '市名称', align: 'center'}
+        , {field: 'provinceName', title: '省名称', align: 'center'}
         , {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 270}
       ]],
       done: function (data, curr, count) {
@@ -182,7 +190,7 @@
       var params = $("#searchFrm").serialize();
       //alert(params);
       tableIns.reload({
-        url: ".action?" + params,
+        url: "/city/cityList.action?" + params,
         page: {curr: 1}
       })
     });
@@ -203,7 +211,7 @@
       if (layEvent === 'del') { //删除
         layer.confirm('真的删除【' + data.cityName+ '】这个市以及对应的信息么？', function (index) {
           //向服务端发送删除指令
-          $.post(".action", {familyId: data.familyId}, function (res) {
+          $.post("/city/deleteCity.action", {cityId: data.cityId}, function (res) {
             layer.msg(res.msg);
             //刷新数据表格
             tableIns.reload();
@@ -231,7 +239,7 @@
         area: ['800px', '540px'],
         success: function (index) {
           $("#cityId").val(data.cityId);
-          url = "/sort/.action";
+          url = "/county/addCounty.action";
         }
       });
     }
@@ -246,7 +254,7 @@
         success: function (index) {
           form.val("dataFrm", data);
           // $('#mobileCoverImg').attr('src', "/file/downloadFile.action?path=" + data.img);
-          url = ".action";
+          url = "/city/updateCity.action";
         }
       });
     }

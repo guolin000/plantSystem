@@ -100,7 +100,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">科目编号:</label>
             <div class="layui-input-block">
-                <input type="text" id="familyId" name="familyId" placeholder="请输入科目编号" autocomplete="off" class="layui-input">
+                <input type="text" id="familyId" name="familyId" readonly placeholder="请输入科目编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

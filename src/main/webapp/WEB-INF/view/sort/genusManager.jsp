@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">种目名称:</label>
+            <label class="layui-form-label">科目名称:</label>
             <div class="layui-input-inline" style="padding: 5px">
                 <input type="text" name="familyName" autocomplete="off" class="layui-input layui-input-inline"
                        placeholder="请输入科目名称" style="height: 30px;border-radius: 10px">
@@ -101,12 +101,13 @@
         </div>
     </form>
 </div>
+<!--增加种弹出层-->
 <div style="display: none;padding: 20px" id="saveOrUpdateDiv2">
     <form class="layui-form" lay-filter="dataFrm2" id="dataFrm2" style="margin-right: 20px">
         <div class="layui-form-item">
             <label class="layui-form-label">属目编号:</label>
             <div class="layui-input-block">
-                <input type="text" id="genusId" name="genusId" placeholder="请输入属目编号" autocomplete="off" class="layui-input">
+                <input type="text" id="genusId" name="genusId" readonly placeholder="请输入属目编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -119,6 +120,30 @@
             <label class="layui-form-label">种目名称:</label>
             <div class="layui-input-block">
                 <input type="text" name="speciesName" placeholder="请输入种目名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">形态特征:</label>
+            <div class="layui-input-block">
+                <input type="text" name="feature" placeholder="请输入形态特征" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">应用价值:</label>
+            <div class="layui-input-block">
+                <input type="text" name="value" placeholder="请输入应用价值" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">栽培技术要点:</label>
+            <div class="layui-input-block">
+                <input type="text" name="point" placeholder="请输入栽培技术要点" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生长环境:</label>
+            <div class="layui-input-block">
+                <input type="text" name="point" placeholder="请输入生长环境" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -286,7 +311,7 @@
                 content: $("#saveOrUpdateDiv2"),
                 area: ['800px', '540px'],
                 success: function (index) {
-                    $("#genusId").val(data.familyId);
+                    $("#genusId").val(data.genusId);
                     url = "/species/addSpecies.action";
                 }
             });

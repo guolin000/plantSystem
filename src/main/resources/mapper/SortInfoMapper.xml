@@ -5,8 +5,7 @@
 <mapper namespace="com.plantsys.mapper.SortInfoMapper">
 
     <resultMap id="BaseResultMap" type="com.plantsys.entity.SortInfo">
-            <result property="plantId" column="plant_id" jdbcType="INTEGER"/>
-            <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
+            <result property="speciesId" column="species_id" jdbcType="INTEGER"/>
             <result property="familyName" column="family_name" jdbcType="VARCHAR"/>
             <result property="genusName" column="genus_name" jdbcType="VARCHAR"/>
             <result property="speciesName" column="species_name" jdbcType="VARCHAR"/>
@@ -14,11 +13,12 @@
             <result property="cityName" column="city_name" jdbcType="VARCHAR"/>
             <result property="countyName" column="county_name" jdbcType="VARCHAR"/>
             <result property="environment" column="environment" jdbcType="VARCHAR"/>
+            <result property="plantName" column="plant_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        plant_id,plant_name,family_name,
-        genus_name,species_name,province_name,
-        city_name,county_name,environment
+        species_id,family_name,genus_name,
+        species_name,province_name,city_name,
+        county_name,environment,plant_name
     </sql>
 </mapper>
