@@ -93,32 +93,32 @@
     <div class="layui-form-item">
       <label class="layui-form-label">药剂编号:</label>
       <div class="layui-input-block">
-        <input type="text" id="medicamentId" name="medicamentId" readonly placeholder="请输入植物编号" autocomplete="off" class="layui-input">
+        <input type="text" id="medicamentId" name="medicamentId" placeholder="请输入药剂编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">药剂名称:</label>
       <div class="layui-input-block">
-        <input type="text" name="medicamentName" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+        <input type="text" name="medicamentName" placeholder="请输入药剂名称" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">药剂用量:</label>
       <div class="layui-input-block">
-        <input type="text" name="dosage" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">
+        <input type="text" name="dosage" placeholder="请输入药剂用量" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">作用期限:</label>
       <div class="layui-input-block">
-        <input type="text" id="duration" name="duration" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
+        <input type="text" id="duration" name="duration" placeholder="请输入作用期限" autocomplete="off" class="layui-input">
       </div>
     </div>
 
     <div class="layui-form-item">
       <label class="layui-form-label">应对病虫害编号:</label>
       <div class="layui-input-block">
-        <input type="text" name="diseaseId" readonly placeholder="请输入形态特征" autocomplete="off" class="layui-input" value="${uid}">
+        <input type="text" name="diseaseId" placeholder="请输入应对病虫害编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">

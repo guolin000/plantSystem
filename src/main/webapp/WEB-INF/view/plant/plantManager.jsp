@@ -167,34 +167,34 @@
         <div class="layui-form-item">
             <label class="layui-form-label">植物编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="plantId" readonly placeholder="请输入图书编号" autocomplete="off"
+                <input type="text" name="plantId" readonly placeholder="请输入植物编号" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">配图编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="pictureId" lay-verify="required" placeholder="请输入图书编号"
+                <input type="text" name="pictureId" lay-verify="required" placeholder="请输入配图编号"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">拍摄地点:</label>
             <div class="layui-input-block">
-                <input type="text" name="location" placeholder="请输入图书编号" autocomplete="off" class="layui-input">
+                <input type="text" name="location" placeholder="请输入拍摄地点" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">拍摄人:</label>
             <div class="layui-input-block">
-                <input type="text" name="photographer" placeholder="请输入图书编号" autocomplete="off"
+                <input type="text" name="photographer" placeholder="请输入拍摄人" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">描述:</label>
             <div class="layui-input-block">
-                <input type="text" name="description" placeholder="请输入图书编号" autocomplete="off"
+                <input type="text" name="description" placeholder="请输入描述" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
