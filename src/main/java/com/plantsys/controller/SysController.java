@@ -177,4 +177,15 @@ public class SysController {
         model.addAttribute("uid", user.getUserId());
         return "treatment/medicament";
     }
+    /**
+     * 跳转到病虫害信息列表
+     * @return
+     */
+    @RequestMapping("toDiseaseManager")
+    public String toDiseaseManager(Model model){
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        model.addAttribute("role", user.getRid());
+        model.addAttribute("uid", user.getUserId());
+        return "treatment/diseaseManager";
+    }
 }

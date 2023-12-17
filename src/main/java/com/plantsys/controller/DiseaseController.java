@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.plantsys.Vo.DiseaseInfoVo;
+import com.plantsys.Vo.DiseaseVo;
 import com.plantsys.Vo.MedicamentInfoVo;
 import com.plantsys.Vo.TreatmentInfoVo;
 import com.plantsys.entity.*;
@@ -20,6 +21,8 @@ import java.util.List;
 @RestController
 @RequestMapping("disease")
 public class DiseaseController {
+    @Autowired
+    DiseaseService diseaseService;
     @Autowired
     DiseaseInfoService diseaseInfoService;
 
@@ -38,7 +41,7 @@ public class DiseaseController {
         Page<Object> page = PageHelper.startPage(diseaseInfoVo.getPage(), diseaseInfoVo.getLimit());
         QueryWrapper<DiseaseInfo> queryWrapper = new QueryWrapper<>();
 
-        // 模糊查询或查询所有病虫害信息
+        // 模糊查询或查询所有患病植物信息
         queryWrapper.like(null != diseaseInfoVo.getPlantId(), "plant_id", diseaseInfoVo.getPlantId());
         queryWrapper.like(StrUtil.isNotBlank(diseaseInfoVo.getName()), "name", diseaseInfoVo.getName());
         queryWrapper.like(StrUtil.isNotBlank(diseaseInfoVo.getPlantName()), "plant_name", diseaseInfoVo.getPlantName());
@@ -47,6 +50,52 @@ public class DiseaseController {
 
         return new DataGridView(page.getTotal(),data);
     }
+
+    @RequestMapping("diseaseList")
+    public DataGridView diseaseInfoList(DiseaseVo diseaseVo){
+        Page<Object> page = PageHelper.startPage(diseaseVo.getPage(), diseaseVo.getLimit());
+        QueryWrapper<Disease> queryWrapper = new QueryWrapper<>();
+
+        // 模糊查询或查询所有患病植物信息
+        queryWrapper.like(null != diseaseVo.getDiseaseId(), "disease_id", diseaseVo.getDiseaseId());
+        queryWrapper.like(StrUtil.isNotBlank(diseaseVo.getDiseaseName()), "disease_name", diseaseVo.getDiseaseName());
+        queryWrapper.like(StrUtil.isNotBlank(diseaseVo.getTreatMethod()), "treat_method", diseaseVo.getTreatMethod());
+        List<Disease> data = this.diseaseService.list(queryWrapper);
+
+        return new DataGridView(page.getTotal(),data);
+    }
+    @RequestMapping("addDisease")
+    public ResultObj addDisease(Disease disease){
+        try{
+            this.diseaseService.save(disease);
+            return ResultObj.ADD_SUCCESS;
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultObj.ADD_ERROR;
+        }
+    }
+    @RequestMapping("updateDisease")
+    public ResultObj updateDisease(Disease disease){
+        try{
+            this.diseaseService.updateById(disease);
+            return ResultObj.UPDATE_SUCCESS;
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultObj.UPDATE_ERROR;
+        }
+    }
+    @RequestMapping("deleteDisease")
+    public ResultObj deleteDisease(Integer diseaseId){
+        try{
+//            System.out.println("medicamentId:"+medicamentId);
+            this.diseaseService.removeById(diseaseId);
+            return ResultObj.DELETE_SUCCESS;
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
+        }
+    }
+
 
 
     @RequestMapping("treatmentInfoList")

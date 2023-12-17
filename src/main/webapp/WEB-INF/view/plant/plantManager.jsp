@@ -333,6 +333,7 @@
             }
         });
 
+
         //监听行工具事件
         table.on('tool(newsTable)', function (obj) {
             var data = obj.data; //获得当前行数据
