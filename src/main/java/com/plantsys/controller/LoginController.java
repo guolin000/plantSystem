@@ -6,10 +6,21 @@ import com.plantsys.entity.User;
 import com.plantsys.service.UserService;
 import com.plantsys.util.WebUtils;
 import com.plantsys.Vo.UserVo;
+import nl.captcha.Captcha;
+import nl.captcha.backgrounds.FlatColorBackgroundProducer;
+import nl.captcha.noise.CurvedLineNoiseProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * 用户登录控制器
@@ -54,7 +65,13 @@ public class LoginController {
      * @return
      */
     @RequestMapping("login")
-    public String login(UserVo userVo, Model model) {
+    public String login(UserVo userVo, @RequestParam String captcha,Model model) {
+        // 从 Session 中获取之前存储的验证码
+        String sessionCaptcha = (String) WebUtils.getHttpSession().getAttribute("captcha");
+        if (sessionCaptcha == null || !sessionCaptcha.equals(captcha)) {
+            model.addAttribute("error","验证码错误");
+            return "main/login";
+        }
         try {
             if(userVo.getRid() == null) {
                 model.addAttribute("error", SysConstant.USER_LOGIN_CODE_ERROR_MSG);
@@ -103,7 +120,23 @@ public class LoginController {
         return "main/login";
     }
 
-
+    @RequestMapping("captcha")
+    public void captcha(HttpServletRequest request, HttpServletResponse response)throws IOException {
+        // 生成验证码
+        Captcha captcha = new Captcha.Builder(150, 50)
+                .addNoise(new CurvedLineNoiseProducer())
+                .addText()
+                .addBackground(new FlatColorBackgroundProducer(Color.CYAN))  // 添加背景
+                .build();
+        // 将验证码存储在Session中
+        request.getSession().setAttribute("captcha", captcha.getAnswer());
+        // 设置响应类型为图片 返回验证码图片
+        response.setContentType("image/jpeg");
+        OutputStream os = response.getOutputStream();
+        // 输出验证码图片
+        ImageIO.write(captcha.getImage(), "png", os);
+        os.close();
+    }
 
 
 }

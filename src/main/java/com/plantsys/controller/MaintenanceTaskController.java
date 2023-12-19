@@ -1,5 +1,7 @@
 package com.plantsys.controller;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.unit.DataUnit;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
@@ -7,17 +9,20 @@ import com.github.pagehelper.PageHelper;
 import com.plantsys.Vo.MaintenanceVo;
 import com.plantsys.entity.MaintenanceTask;
 import com.plantsys.entity.MaintenanceTaskInfo;
+import com.plantsys.entity.User;
 import com.plantsys.service.MaintenanceTaskInfoService;
 import com.plantsys.service.MaintenanceTaskService;
 import com.plantsys.service.UserService;
 import com.plantsys.util.DataGridView;
 import com.plantsys.util.ResultObj;
+import com.plantsys.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +43,11 @@ public class MaintenanceTaskController {
     //跳转到养护列表
     @RequestMapping("toMaintenanceManager")
     public ModelAndView toMaintenanceManager(){
-        return new ModelAndView("maintenance/maintenanceManager");
+        User user = (User) WebUtils.getHttpSession().getAttribute("user");
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("uid",user.getUserId());
+        modelAndView.setViewName("maintenance/maintenanceManager");
+        return modelAndView;
     }
 
 
@@ -70,6 +79,8 @@ public class MaintenanceTaskController {
     @RequestMapping("addMaintenanceTask")
     public ResultObj addMaintenanceTask(MaintenanceTask maintenanceTask){
         try{
+            maintenanceTask.setCreationTime(Date.valueOf(DateUtil.now()));
+            maintenanceTask.setUpdateTime(Date.valueOf(DateUtil.now()));
             maintenanceTaskService.addSelective(maintenanceTask);
             return ResultObj.ADD_SUCCESS;
         }catch (Exception e){
@@ -83,6 +94,7 @@ public class MaintenanceTaskController {
     @RequestMapping("updateMaintenanceTask")
     public ResultObj updateMaintenanceTask(MaintenanceTask maintenanceTask){
         try{
+            maintenanceTask.setUpdateTime(Date.valueOf(DateUtil.now()));
             maintenanceTaskService.updateSelective(maintenanceTask);
             return ResultObj.OPERATE_SUCCESS;
         }catch (Exception e){

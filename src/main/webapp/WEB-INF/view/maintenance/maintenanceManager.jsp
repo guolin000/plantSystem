@@ -167,14 +167,17 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">执行人员:</label>
 			<div class="layui-input-block">
-				<input type="text" name="uid" placeholder="请输入养护人员(1-4)" autocomplete="off" class="layui-input">
+				<select name="uid" id="uid" lay-verify="required">
+					<option value="">请选择养护人员</option>
+				</select>
+<%--				<input type="text" name="uid" placeholder="请输入养护人员(1-4)" autocomplete="off" class="layui-input">--%>
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">创建人员:</label>
 			<div class="layui-input-block">
-				<input type="text" name="creator" placeholder="请输入创建人员(1-4)" autocomplete="off" class="layui-input">
+				<input type="text" name="creator" id="creator" readonly placeholder="请输入创建人员(1-4)" autocomplete="off" class="layui-input" value="${uid}">
 			</div>
 		</div>
 
@@ -373,7 +376,17 @@
 				}
 			});
 		}
-
+		//加载养护人员下拉列表
+		$.get("/disease/loadAllMaintainerForSelect.action", function (res) {
+			var data = res.data;
+			var dom = $("#uid");
+			var html = '<option value="-1">请选择养护人员</option>'
+			$.each(data, function (index, item) {
+				html += '<option value="' + item.userId + '">' + item.loginName + '</option>'
+			});
+			dom.html(html);
+			form.render("select");
+		})
 		//打开修改页面
 		function openUpdateNews(data) {
 			mainIndex = layer.open({

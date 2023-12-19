@@ -34,15 +34,37 @@
     </c:if>
 </div>
 
-<!-- 添加和修改的弹出层-->
+<!-- 添加的弹出层-->
 <div style="display: none;padding: 20px" id="saveOrUpdateDiv">
     <form class="layui-form" lay-filter="dataFrm" id="dataFrm">
         <div class="layui-form-item">
             <div class="layui-inline">
+                <label class="layui-form-label">角色:</label>
+                <div class="layui-input-inline">
+                    <select name="rid" id="rid" lay-verify="required">
+                        <option value="">请选择角色</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">用户名:</label>
                 <div class="layui-input-inline">
                     <input type="hidden" name="id">
-                    <input type="text" name="loginName" lay-verify="required" placeholder="请输入真实姓名"
+                    <input type="text" name="loginName" lay-verify="required" placeholder="请输入用户名"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">密码:</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" lay-verify="required" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">确认密码:</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password1" lay-verify="required|passwordMatch" placeholder="请输入密码"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -60,7 +82,52 @@
         </div>
     </form>
 </div>
-
+<!-- 修改的弹出层-->
+<div style="display: none;padding: 20px" id="saveOrUpdateDiv2">
+    <form class="layui-form" lay-filter="dataFrm2" id="dataFrm2">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">用户编号:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userId" id="userId" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">用户名:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="loginName" id="loginName" lay-verify="required" placeholder="请输入用户名"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">密码:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="password" id="password1" lay-verify="required" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">确认密码:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="password1" lay-verify="required|passwordMatchOne" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="text-align: center;padding-right: 120px">
+                <button type="button"
+                        class="layui-btn layui-btn-normal layui-btn-md layui-icon layui-icon-release layui-btn-radius"
+                        lay-filter="doSubmit2" lay-submit="">提交
+                </button>
+                <button type="reset"
+                        class="layui-btn layui-btn-warm layui-btn-md layui-icon layui-icon-refresh layui-btn-radius">重置
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 <script src="/resources/layui/layui.js"></script>
@@ -133,9 +200,9 @@
                 if(data.rid===1){
                     $('#delebtn').hide();
                 }
-                layer.confirm('真的删除【' + data.realname + '】这个用户么？', function (index) {
+                layer.confirm('真的删除【' + data.loginName + '】这个用户么？', function (index) {
                     //向服务端发送删除指令
-                    $.post("/user/delete.action", {id: data.id}, function (res) {
+                    $.post("/user/delete.action", {userId: data.userId}, function (res) {
                         layer.msg(res.msg);
                         //刷新数据表格
                         tableIns.reload();
@@ -143,11 +210,7 @@
                 });
             } else if (layEvent === 'edit') { //修改
                 //修改，打开修改界面
-                if(data.rid===3 || data.rid===1){
-                    $('#dept').prop('disabled', true);
-                }else{
-                    $('#dept').prop('disabled', false);
-                }
+                $('#rid2').prop('disabled', true);
                 openUpdateUser(data);
             }
         });
@@ -169,21 +232,58 @@
                 }
             });
         }
+        //加载角色选择下拉列表
+        $.get("/user/loadAllForSelect.action", function (res) {
+            var data = res.data;
+            var dom = $("#rid");
+            var html = '<option value="0">请选择角色</option>'
+            $.each(data, function (index, item) {
+                // 跳过管理员
+                if (index > 0) {
+                    html += '<option value="' + item.roleId + '">' + item.roleName + '</option>'
+                }
+            });
+            dom.html(html);
+            form.render("select");
+        })
+
+        // 自定义密码验证规则
+        form.verify({
+            passwordMatch: function(value) {
+                var passwordValue = $('input[name=password]').val();
+                if(value !== passwordValue){
+                    return '两次输入的密码不一致';
+                }
+            }
+        });
+        // 自定义密码验证规则
+        form.verify({
+            passwordMatchOne: function(value) {
+                var passwordValue = $('input[id=password1]').val();
+                if(value !== passwordValue){
+                    return '两次输入的密码不一致';
+                }
+            }
+        });
         //打开修改页面
         function openUpdateUser(data) {
 
             mainIndex = layer.open({
                 type: 1,
                 title: '修改',
-                content: $("#saveOrUpdateDiv"),
+                content: $("#saveOrUpdateDiv2"),
                 area: ['700px', '580px'],
                 success: function (index) {
-                    form.val("dataFrm", data);
+                    // form.val("dataFrm2", data);
+                    //清空表单数据
+                    $("#dataFrm2")[0].reset();
+                    $("#userId").val(data.userId);
+                    $("#loginName").val(data.loginName);
                     url = "/user/save.action";
                 }
             });
         }
-        //保存
+        //提交
         form.on("submit(doSubmit)", function (obj) {
             //序列化表单数据
             var params = $("#dataFrm").serialize();
@@ -193,7 +293,23 @@
                 layer.close(mainIndex)
                 //刷新数据 表格
                 tableIns.reload();
-            })
+            });
+            return false; // 阻止表单跳转
+        });
+        //提交
+        form.on("submit(doSubmit2)", function (obj) {
+            //序列化表单数据
+            var params = $("#dataFrm2").serialize();
+            $.post(url, params, function (obj) {
+                layer.msg(obj.msg);
+                //关闭弹出层
+                layer.close(mainIndex)
+                //清空表单数据
+                $("#dataFrm2")[0].reset();
+                //刷新数据 表格
+                tableIns.reload();
+            });
+            return false; // 阻止表单跳转
         });
     });
 

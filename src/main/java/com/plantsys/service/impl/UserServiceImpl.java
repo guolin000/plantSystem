@@ -7,6 +7,7 @@ import com.plantsys.entity.User;
 import com.plantsys.mapper.UserMapper;
 import com.plantsys.service.UserService;
 import com.plantsys.Vo.UserVo;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             queryWrapper.eq("login_name", userVo.getLoginName());
             //明文生成密文
 //            queryWrapper.eq("pwd", DigestUtils.md5DigestAsHex(userVo.getPwd().getBytes()));
-            queryWrapper.eq("password", userVo.getPassword());
+//            queryWrapper.eq("password", userVo.getPassword());
             queryWrapper.eq(null != userVo.getRid(), "rid", userVo.getRid());
-            return userMapper.selectOne(queryWrapper);
+            User user=userMapper.selectOne(queryWrapper);
+
+            return null!=user && BCrypt.checkpw(userVo.getPassword(), user.getPassword())?user:null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

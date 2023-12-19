@@ -98,13 +98,13 @@
     {{#  }}}
   </c:if>
 </div>
-<!-- 添加/修改药剂的弹出层-->
+<!-- 修改防治任务的弹出层-->
 <div style="display: none;padding: 20px" id="saveOrUpdateDiv">
   <form class="layui-form" lay-filter="dataFrm" id="dataFrm" style="margin-right: 20px">
     <div class="layui-form-item">
       <label class="layui-form-label">任务编号:</label>
       <div class="layui-input-block">
-        <input type="text" id="treatmentId" name="diseaseId" readonly placeholder="请输入植物编号" autocomplete="off" class="layui-input">
+        <input type="text" id="treatmentId" name="treatmentId" readonly placeholder="请输入植物编号" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -119,19 +119,19 @@
         <input type="text" name="medicamentId" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">
       </div>
     </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">创建时间:</label>
-      <div class="layui-input-block">
-        <input type="text" id="createTime" name="duration" placeholder="请输入植物名称" autocomplete="off" class="layui-input">
-      </div>
-    </div>
+<%--    <div class="layui-form-item">--%>
+<%--      <label class="layui-form-label">创建时间:</label>--%>
+<%--      <div class="layui-input-block">--%>
+<%--        <input type="text" id="createTime" name="duration" placeholder="请输入植物名称" autocomplete="off" class="layui-input">--%>
+<%--      </div>--%>
+<%--    </div>--%>
 
-    <div class="layui-form-item">
-      <label class="layui-form-label">更新时间:</label>
-      <div class="layui-input-block">
-        <input type="text" id="updateTime" name="updateTime" readonly placeholder="请输入形态特征" autocomplete="off" class="layui-input" value="${uid}">
-      </div>
-    </div>
+<%--    <div class="layui-form-item">--%>
+<%--      <label class="layui-form-label">更新时间:</label>--%>
+<%--      <div class="layui-input-block">--%>
+<%--        <input type="text" id="updateTime" name="updateTime" readonly placeholder="请输入形态特征" autocomplete="off" class="layui-input" value="${uid}">--%>
+<%--      </div>--%>
+<%--    </div>--%>
     <div class="layui-form-item">
       <label class="layui-form-label">养护人员编号:</label>
       <div class="layui-input-block">
@@ -182,7 +182,7 @@
       , title: '植物信息'//数据导出来的标题
       , toolbar: "#newsToolBar"   //表格的工具条
       , height: 'full-195'
-      , cellMinWidth: 100 //设置列的最小默认宽度
+      , cellMinWidth: 130 //设置列的最小默认宽度
       , page: true  //是否启用分页
       , cols: [[   //列表数据
         {field: 'treatmentId', title: '任务编号', align: 'center'}
@@ -198,7 +198,7 @@
         , {field: 'status', title: '养护状态', align: 'center',templet: function (d) {
             return d.status == 0 ? '正在进行中' : '已结束';
           }}
-        , {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 270}
+        , {fixed: 'right', title: '操作', toolbar: '#newsBar', align: 'center', width: 150}
       ]],
       done:function (data, curr, count) {
         //不是第一页时，如果当前返回的数据为0那么就返回上一页

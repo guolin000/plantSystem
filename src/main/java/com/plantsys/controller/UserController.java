@@ -1,7 +1,9 @@
 package com.plantsys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.plantsys.entity.Role;
 import com.plantsys.entity.User;
+import com.plantsys.service.RoleService;
 import com.plantsys.service.UserService;
 import com.plantsys.util.DataGridView;
 import com.plantsys.util.ResultObj;
@@ -9,7 +11,9 @@ import com.plantsys.util.WebUtils;
 import com.plantsys.Vo.UserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +28,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private RoleService roleService;
     /**
      * 加载用户列表返回DataGridView
      * @param userVo
@@ -51,30 +56,21 @@ public class UserController {
     public ResultObj save(UserVo userVo){
         try {
             System.out.println("userVo.getId():"+userVo.getUserId());
-            if (null == userVo.getUserId()) {
-                // 密码为工号（登录名称）后四位
-                if (userVo.getLoginName().length() >= 4) {
-                    String pwd = userVo.getLoginName().substring(userVo.getLoginName().length() - 4);
-                    System.out.println("pwd:"+pwd);
-                    userVo.setPassword(pwd);
-                } else {
-                    userVo.setPassword(userVo.getLoginName());
-                }
-
-            }
-
-            // 编号唯一
+            // 用户名唯一
             QueryWrapper<User> wrapper = new QueryWrapper<>();
             wrapper.eq("login_name", userVo.getLoginName());
             if (null != userVo.getUserId()) {
                 wrapper.ne("user_id", userVo.getUserId());
+            }else{
+                System.out.println("1231");
+                int count = this.userService.count(wrapper);
+                if (count > 0) {
+                    return new ResultObj(-1, "用户名已存在");
+                }
             }
-            int count = this.userService.count(wrapper);
-            if (count > 0) {
-                return new ResultObj(-1, "用户名已存在");
-            }
-//            User user=this.userService.getById(userVo.getId());
-            userVo.setRid(2);
+
+            // 密码加密
+            userVo.setPassword(BCrypt.hashpw(userVo.getPassword(),BCrypt.gensalt()));
             this.userService.saveOrUpdate(userVo);
             return ResultObj.OPERATE_SUCCESS;
         } catch (Exception e) {
@@ -159,5 +155,10 @@ public class UserController {
             e.printStackTrace();
             return new DataGridView();
         }
+    }
+    @RequestMapping("loadAllForSelect")
+    public DataGridView loadAllForSelect() {
+        List<Role> list = this.roleService.list(null);
+        return new DataGridView(list);
     }
 }

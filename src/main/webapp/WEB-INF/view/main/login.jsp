@@ -40,22 +40,35 @@
 			<input type="password" placeholder="请输入密码" autocomplete="off" name="password" id="password" class="layui-input" lay-verify="required">
 		</div>
 
-		<div class="layui-form-item layui-row" style="text-align: center;color: #2b1010;">
+		<!-- 验证码 -->
+		<div class="layui-form-item input-item">
+			<label for="captcha">验证码</label>
+			<input type="text" name="captcha" id="captcha" required lay-verify="required" placeholder="请输入下方验证码" class="layui-input">
+			<div style="display: flex;margin-top: 6px;">
+				<img style="display: inline-block" id="captchaImage" src="/login/captcha.action?Math.random()" onclick="refreshCaptcha()">
+				<p style="display: inline-block;margin-left: 5px;margin-top: 8px;" onclick="refreshCaptcha()">看不清？点击刷新</p>
+			</div>
+		</div>
+		<div class="layui-form-item layui-row" style="text-align: center;color: red;">
 			${error}
 		</div>
 		<div class="layui-form-item">
 			<button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
 			<br/>
-			<a class="layui-btn layui-block magt3" lay-filter="register" href="/login/toRegister.action">注册</a>
+<%--			<a class="layui-btn layui-block magt3" lay-filter="register" href="/login/toRegister.action">注册</a>--%>
 		</div>
 
-		<div class="layui-form-item layui-row" style="text-align: right;color: blue;">
-			<a style="text-align: right " href="/login/toRestPwd.action">重置密码</a>
-		</div>
+<%--		<div class="layui-form-item layui-row" style="text-align: right;color: blue;">--%>
+<%--			<a style="text-align: right " href="/login/toRestPwd.action">重置密码</a>--%>
+<%--		</div>--%>
 	</form>
 	<script type="text/javascript" src="/resources/layui/layui.js"></script>
 	<script type="text/javascript" src="/resources/js/cache.js"></script>
 	<script type="text/javascript">
+	// 实现刷新验证码的逻辑
+	function refreshCaptcha() {
+		$('#captchaImage').attr('src', '/login/captcha.action?' + Math.random());
+	}
 	layui.use(['form','layer','jquery'],function(){
 	    var form = layui.form,
 	        layer = parent.layer === undefined ? layui.layer : top.layer

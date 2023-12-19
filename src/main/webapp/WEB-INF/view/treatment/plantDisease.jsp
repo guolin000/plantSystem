@@ -86,21 +86,27 @@
         <div class="layui-form-item">
             <label class="layui-form-label">药剂编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="medicamentId" placeholder="请输入药剂编号" autocomplete="off" class="layui-input">
+                <select name="medicamentId" id="medicament" lay-verify="required">
+                    <option value="">请选择药剂</option>
+                </select>
+<%--                <input type="text" name="medicamentId" placeholder="请输入药剂编号" autocomplete="off" class="layui-input">--%>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">设置养护人员:</label>
             <div class="layui-input-block">
-                <input type="text" name="userId" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">
+                <select name="userId" id="maintainer" lay-verify="required">
+                    <option value="">请选择养护人员</option>
+                </select>
+<%--                <input type="text" name="userId" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">--%>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">创建时间:</label>
-            <div class="layui-input-block">
-                <input type="text" id="createTime" name="createTime" placeholder="请输入创建时间" autocomplete="off" class="layui-input">
-            </div>
-        </div>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">创建时间:</label>--%>
+<%--            <div class="layui-input-block">--%>
+<%--                <input type="text" id="createTime" name="createTime" placeholder="请输入创建时间" autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
 
         <div class="layui-form-item">
             <label class="layui-form-label">创建人员:</label>
@@ -109,12 +115,12 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">更新时间:</label>
-            <div class="layui-input-block">
-                <input type="text" id="updateTime" name="updateTime" placeholder="请输入更新时间" autocomplete="off" class="layui-input">
-            </div>
-        </div>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">更新时间:</label>--%>
+<%--            <div class="layui-input-block">--%>
+<%--                <input type="text" id="updateTime" name="updateTime" placeholder="请输入更新时间" autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
 
         <div class="layui-form-item">
             <div class="layui-input-block" style="text-align: center;padding-right: 120px">
@@ -223,7 +229,7 @@
 
         var url;
         var mainIndex;
-
+        var data1;
         //打开防治弹出层
         function viewNews(data) {
             mainIndex = layer.open({
@@ -232,13 +238,35 @@
                 content: $("#saveOrUpdateDiv"),
                 area: ['800px', '540px'],
                 success: function (index) {
-
+                    data1=data;
                     $("#plantId").val(data.plantId);
 
                     url = "/disease/addTreatment.action";
                 }
             });
         }
+        //加载药剂下拉列表
+        $.get("/disease/loadAllMedicamentForSelect.action", function (res) {
+            var data = res.data;
+            var dom = $("#medicament");
+            var html = '<option value="-1">请选择药剂</option>'
+            $.each(data, function (index, item) {
+                html += '<option value="' + item.medicamentId + '">' + item.medicamentName + '</option>'
+            });
+            dom.html(html);
+            form.render("select");
+        })
+        //加载养护人员下拉列表
+        $.get("/disease/loadAllMaintainerForSelect.action", function (res) {
+            var data = res.data;
+            var dom = $("#maintainer");
+            var html = '<option value="-1">请选择养护人员</option>'
+            $.each(data, function (index, item) {
+                html += '<option value="' + item.userId + '">' + item.loginName + '</option>'
+            });
+            dom.html(html);
+            form.render("select");
+        })
         //提交
         form.on("submit(doSubmit)", function (obj) {
             //序列化表单数据

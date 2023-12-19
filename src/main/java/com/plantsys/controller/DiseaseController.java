@@ -1,5 +1,6 @@
 package com.plantsys.controller;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
@@ -35,6 +36,8 @@ public class DiseaseController {
     MedicamentService medicamentService;
     @Autowired
     MedicamentInfoService medicamentInfoService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("diseaseInfoList")
     public DataGridView diseaseInfoList(DiseaseInfoVo diseaseInfoVo){
@@ -117,6 +120,8 @@ public class DiseaseController {
     public ResultObj addTreatment(Treatment treatment){
         try{
             treatment.setStatus(0);
+            treatment.setUpdateTime(DateUtil.now());
+            treatment.setCreateTime(DateUtil.now());
             this.treatmentService.save(treatment);
             return ResultObj.ADD_SUCCESS;
         }catch (Exception e){
@@ -127,6 +132,7 @@ public class DiseaseController {
     @RequestMapping("updateTreatment")
     public ResultObj updateTreatment(Treatment treatment){
         try{
+            treatment.setUpdateTime(DateUtil.now());
             this.treatmentService.updateById(treatment);
             return ResultObj.UPDATE_SUCCESS;
         }catch (Exception e){
@@ -137,7 +143,6 @@ public class DiseaseController {
     @RequestMapping("deleteTreatment")
     public ResultObj deleteTreatment(Integer treatmentId){
         try{
-//            System.out.println("medicamentId:"+medicamentId);
             this.treatmentService.removeById(treatmentId);
             return ResultObj.DELETE_SUCCESS;
         }catch (Exception e){
@@ -152,6 +157,7 @@ public class DiseaseController {
             if(0==treatment.getStatus()){
                 t.setStatus(1);
             }
+            treatment.setUpdateTime(DateUtil.now());
             this.treatmentService.updateById(treatment);
             return ResultObj.UPDATE_SUCCESS;
         }catch (Exception e){
@@ -178,7 +184,6 @@ public class DiseaseController {
     @RequestMapping("addOrUpdateMedicament")
     public ResultObj addMedicament(Medicament medicament){
         try{
-            System.out.println("medicament.getMedicamentName():"+medicament.getMedicamentName());
             this.medicamentService.saveOrUpdate(medicament);
             return ResultObj.ADD_SUCCESS;
         }catch (Exception e){
@@ -197,5 +202,21 @@ public class DiseaseController {
             e.printStackTrace();
             return ResultObj.DELETE_ERROR;
         }
+    }
+    @RequestMapping("loadAllMaintainerForSelect")
+    public DataGridView loadAllMaintainerForSelect() {
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("rid",3);
+        List<User> list = this.userService.list(queryWrapper);
+        System.out.println("list.get(0).getRid():"+list.get(0).getRid());
+        return new DataGridView(list);
+    }
+    @RequestMapping("loadAllMedicamentForSelect")
+    public DataGridView loadAllMedicamentForSelect() {
+        QueryWrapper<Medicament> queryWrapper=new QueryWrapper<>();
+//        queryWrapper.eq("disease_id",diseaseId);
+        List<Medicament> list = this.medicamentService.list(queryWrapper);
+        System.out.println("list.get(0).getMedicamentId:"+list.get(0).getMedicamentId());
+        return new DataGridView(list);
     }
 }
