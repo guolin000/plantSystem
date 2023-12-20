@@ -78,7 +78,6 @@ public class PlantController {
     @RequestMapping("updatePlant")
     public ResultObj update(Plant plant){
         try{
-            System.out.println("getPlantId:"+plant.getPlantId());
             this.plantService.updateSelective(plant);
             return ResultObj.OPERATE_SUCCESS;
         }catch (Exception e){
@@ -94,11 +93,11 @@ public class PlantController {
             System.out.println(plantId);
             Plant plant=this.plantService.getById(plantId);
 
-            this.pictureService.deleteByPlantId(plantId);
+//            this.pictureService.deleteByPlantId(plantId);
 
-            this.maintenanceTaskService.deleteByPlantId(plantId);
+//            this.maintenanceTaskService.deleteByPlantId(plantId);
 
-            this.monitorValueService.deleteByPlantId(plantId);
+//            this.monitorValueService.deleteByPlantId(plantId);
 
             this.plantService.removeById(plantId);
             return ResultObj.DELETE_SUCCESS;
