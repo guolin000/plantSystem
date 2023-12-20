@@ -48,6 +48,11 @@ public class PlantController {
     @Autowired
     FamilyPlantCountService familyPlantCountService;
 
+    @Autowired
+    DiseaseService diseaseService;
+    @Autowired
+    SpeciesService speciesService;
+
     //添加植物
     @RequestMapping("addPlant")
     public ResultObj addPlant(Plant plant){
@@ -164,5 +169,17 @@ public class PlantController {
 
             List<FamilyPlantCount> data =this.familyPlantCountService.list(queryWrapper);
             return new DataGridView(page.getTotal(),data);
+    }
+    @RequestMapping("loadAllDiseaseForSelect")
+    public DataGridView loadAllDiseaseForSelect() {
+        QueryWrapper<Disease> queryWrapper=new QueryWrapper<>();
+        List<Disease> list = this.diseaseService.list(queryWrapper);
+        return new DataGridView(list);
+    }
+    @RequestMapping("loadAllSpeciesForSelect")
+    public DataGridView loadAllMaintainerForSelect() {
+        QueryWrapper<Species> queryWrapper=new QueryWrapper<>();
+        List<Species> list = this.speciesService.list(queryWrapper);
+        return new DataGridView(list);
     }
 }
