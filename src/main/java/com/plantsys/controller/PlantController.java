@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.mchange.lang.IntegerUtils;
 import com.plantsys.Vo.FamilyPlantCountVo;
 import com.plantsys.Vo.PlantInfoVo;
 import com.plantsys.Vo.QueryVo;
@@ -77,7 +78,8 @@ public class PlantController {
     @RequestMapping("updatePlant")
     public ResultObj update(Plant plant){
         try{
-            this.plantService.updateById(plant);
+            System.out.println("getPlantId:"+plant.getPlantId());
+            this.plantService.updateSelective(plant);
             return ResultObj.OPERATE_SUCCESS;
         }catch (Exception e){
             e.printStackTrace();
@@ -91,8 +93,11 @@ public class PlantController {
         try{
             System.out.println(plantId);
             Plant plant=this.plantService.getById(plantId);
+
             this.pictureService.deleteByPlantId(plantId);
+
             this.maintenanceTaskService.deleteByPlantId(plantId);
+
             this.monitorValueService.deleteByPlantId(plantId);
 
             this.plantService.removeById(plantId);

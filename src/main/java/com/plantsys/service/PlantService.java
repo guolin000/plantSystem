@@ -11,5 +11,5 @@ import java.util.List;
 * @createDate 2023-12-09 11:42:56
 */
 public interface PlantService extends IService<Plant> {
-
+    int updateSelective(Plant plant);
 }

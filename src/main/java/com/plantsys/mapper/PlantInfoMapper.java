@@ -1,5 +1,6 @@
 package com.plantsys.mapper;
 
+import com.baomidou.mybatisplus.core.enums.SqlLike;
 import com.plantsys.entity.PlantInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -10,7 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.plantsys.entity.PlantInfo
 */
 public interface PlantInfoMapper extends BaseMapper<PlantInfo> {
-
 }
 
 

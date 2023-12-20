@@ -83,7 +83,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">病虫害名称:</label>
             <div class="layui-input-block">
-                <input type="text" name="diseaseName" placeholder="请输入病虫害名称" autocomplete="off" class="layui-input">
+                <input type="text" name="diseaseName" placeholder="请输入病虫害名称" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

@@ -17,6 +17,10 @@ import java.util.List;
 public class PlantServiceImpl extends ServiceImpl<PlantMapper, Plant>
     implements PlantService{
 
+    @Override
+    public int updateSelective(Plant plant) {
+        return this.baseMapper.updateSelective(plant);
+    }
 }
 
 

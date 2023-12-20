@@ -38,4 +38,14 @@
             f.family_id, f.family_name;
 
     </select>
+
+    <update id="updateSelective">
+        update plant
+        <set>
+            plant_name=#{plantName,jdbcType=VARCHAR},
+            species_id=#{speciesId,jdbcType=NUMERIC},
+            disease_id=#{diseaseId,jdbcType=NUMERIC}
+        </set>
+        where plant_id = #{plantId,jdbcType=NUMERIC}
+    </update>
 </mapper>

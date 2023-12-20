@@ -180,7 +180,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">配图编号:</label>
             <div class="layui-input-block">
-                <input type="text" name="pictureId" lay-verify="required" placeholder="请输入配图编号"
+                <input type="text" name="pictureId" readonly placeholder="编号自增"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -385,7 +385,7 @@
         $.get("/plant/loadAllSpeciesForSelect.action", function (res) {
             var data = res.data;
             var dom = $("#speciesId");
-            var html = '<option value="-1">请选择种</option>'
+            var html = '<option value="">无</option>'
             $.each(data, function (index, item) {
                 html += '<option value="' + item.speciesId + '">' + item.speciesName + '</option>'
             });
@@ -396,7 +396,7 @@
         $.get("/plant/loadAllDiseaseForSelect.action", function (res) {
             var data = res.data;
             var dom = $("#diseaseId");
-            var html = '<option value="-1">请选择病虫害</option>'
+            var html = '<option value="">无</option>'
             $.each(data, function (index, item) {
                 html += '<option value="' + item.diseaseId + '">' + item.diseaseName + '</option>'
             });
@@ -485,18 +485,23 @@
                 data: {'plantId': data.plantId},
                 success: function (data) {
                     var content = '';
-                    data.forEach(function (picture) {
-                        // $('#mobileCoverImg').attr('src', "downloadFile?path=" + res.data.src);
-                        // content += '<div align="center"><img src="' + 'downloadFile?path='+picture.path + '" style="width:200px;min-height: 200px;"><p>拍摄人: ' + picture.photographer + '</p><p>拍摄地点: ' + picture.location + '</p><p>描述: ' + picture.description + '</p></div>';
-                        content += '<div align="center">';
-                        content += '<img src="' + '/file/downloadFile.action?path=' + picture.path + '" style="width:200px;min-height: 200px;">';
-                        content += '<p>拍摄人: ' + picture.photographer + '</p>';
-                        content += '<p>拍摄地点: ' + picture.location + '</p>';
-                        content += '<p>描述: ' + picture.description + '</p>';
-                        content += '<button class="layui-btn layui-btn-danger" onclick="deletePicture(' + picture.pictureId + ')">删除</button>';
-                        content += '</div>';
+                    if(data.length===0){
+                        content='<div align="center"><h1>无配图信息</h1></div>';
+                    }else{
+                        data.forEach(function (picture) {
+                            // $('#mobileCoverImg').attr('src', "downloadFile?path=" + res.data.src);
+                            // content += '<div align="center"><img src="' + 'downloadFile?path='+picture.path + '" style="width:200px;min-height: 200px;"><p>拍摄人: ' + picture.photographer + '</p><p>拍摄地点: ' + picture.location + '</p><p>描述: ' + picture.description + '</p></div>';
+                            content += '<div align="center">';
+                            content += '<img src="' + '/file/downloadFile.action?path=' + picture.path + '" style="width:200px;min-height: 200px;">';
+                            content += '<p>拍摄人: ' + picture.photographer + '</p>';
+                            content += '<p>拍摄地点: ' + picture.location + '</p>';
+                            content += '<p>描述: ' + picture.description + '</p>';
+                            content += '<button class="layui-btn layui-btn-danger" onclick="deletePicture(' + picture.pictureId + ')">删除</button>';
+                            content += '</div>';
 
-                    });
+                        });
+                    }
+
                     layer.open({
                         type: 1,
                         title: '植物配图',
@@ -524,8 +529,8 @@
 
     function deletePicture(pictureId) {
         console.log(pictureId)
-        jquery.ajax({
-            url: '/plant/deletePicture.action', // 替换为你的删除接口
+        layui.jquery.ajax({
+            url: '/plant/deletePicture.action', // 删除接口
             type: 'POST',
             data: {'pictureId': pictureId},
             success: function (response) {

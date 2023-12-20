@@ -1,4 +1,5 @@
 package com.plantsys.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.plantsys.entity.Plant;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -12,7 +13,7 @@ import java.util.List;
 * @Entity com.plantsys.entity.Plant
 */
 public interface PlantMapper extends BaseMapper<Plant> {
-
+    int updateSelective(Plant plant);
 }
 
 
