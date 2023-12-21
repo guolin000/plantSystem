@@ -116,9 +116,12 @@
     </div>
 
     <div class="layui-form-item">
-      <label class="layui-form-label">应对病虫害编号:</label>
+      <label class="layui-form-label">应对病虫害:</label>
       <div class="layui-input-block">
-        <input type="text" name="diseaseId" placeholder="请输入应对病虫害编号" autocomplete="off" class="layui-input">
+        <select name="diseaseId" id="diseaseId">
+          <option value="">请选择病虫害(可选项)</option>
+        </select>
+<%--        <input type="text" name="diseaseId" placeholder="请输入应对病虫害编号" autocomplete="off" class="layui-input">--%>
       </div>
     </div>
     <div class="layui-form-item">
@@ -264,6 +267,17 @@
         }
       });
     }
+    //加载病虫害下拉列表
+    $.get("/plant/loadAllDiseaseForSelect.action", function (res) {
+      var data = res.data;
+      var dom = $("#diseaseId");
+      var html = '<option value="">无</option>'
+      $.each(data, function (index, item) {
+        html += '<option value="' + item.diseaseId + '">' + item.diseaseName + '</option>'
+      });
+      dom.html(html);
+      form.render("select");
+    })
     //打开修改页面
     function openUpdate(data) {
       mainIndex = layer.open({

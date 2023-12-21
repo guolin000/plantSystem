@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">药剂编号:</label>
+            <label class="layui-form-label">药剂选择:</label>
             <div class="layui-input-block">
                 <select name="medicamentId" id="medicament" lay-verify="required">
                     <option value="">请选择药剂</option>

@@ -392,7 +392,7 @@
             dom.html(html);
             form.render("select");
         })
-        //加载种下拉列表
+        //加载病虫害下拉列表
         $.get("/plant/loadAllDiseaseForSelect.action", function (res) {
             var data = res.data;
             var dom = $("#diseaseId");

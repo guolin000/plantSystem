@@ -185,10 +185,10 @@ public class DiseaseController {
     public ResultObj addMedicament(Medicament medicament){
         try{
             this.medicamentService.saveOrUpdate(medicament);
-            return ResultObj.ADD_SUCCESS;
+            return ResultObj.OPERATE_SUCCESS;
         }catch (Exception e){
             e.printStackTrace();
-            return ResultObj.ADD_ERROR;
+            return ResultObj.OPERATE_ERRO;
         }
     }
     @RequestMapping("deleteMedicament")

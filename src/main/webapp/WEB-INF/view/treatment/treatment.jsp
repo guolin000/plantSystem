@@ -114,9 +114,12 @@
       </div>
     </div>
     <div class="layui-form-item">
-      <label class="layui-form-label">药剂编号:</label>
+      <label class="layui-form-label">药剂选择:</label>
       <div class="layui-input-block">
-        <input type="text" name="medicamentId" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">
+        <select name="medicamentId" id="medicament" lay-verify="required">
+          <option value="">请选择药剂</option>
+        </select>
+        <%--                <input type="text" name="medicamentId" placeholder="请输入药剂编号" autocomplete="off" class="layui-input">--%>
       </div>
     </div>
 <%--    <div class="layui-form-item">--%>
@@ -133,9 +136,12 @@
 <%--      </div>--%>
 <%--    </div>--%>
     <div class="layui-form-item">
-      <label class="layui-form-label">养护人员编号:</label>
+      <label class="layui-form-label">设置养护人员:</label>
       <div class="layui-input-block">
-        <input type="text" name="userId" placeholder="请输入形态特征" autocomplete="off" class="layui-input" value="${uid}">
+        <select name="userId" id="maintainer" lay-verify="required">
+          <option value="">请选择养护人员</option>
+        </select>
+        <%--                <input type="text" name="userId" placeholder="请输入养护人员编号" autocomplete="off" class="layui-input">--%>
       </div>
     </div>
     <div class="layui-form-item">
@@ -315,7 +321,28 @@
         }
       });
     }
-
+    //加载药剂下拉列表
+    $.get("/disease/loadAllMedicamentForSelect.action", function (res) {
+      var data = res.data;
+      var dom = $("#medicament");
+      var html = '<option value="-1">请选择药剂</option>'
+      $.each(data, function (index, item) {
+        html += '<option value="' + item.medicamentId + '">' + item.medicamentName + '</option>'
+      });
+      dom.html(html);
+      form.render("select");
+    })
+    //加载养护人员下拉列表
+    $.get("/disease/loadAllMaintainerForSelect.action", function (res) {
+      var data = res.data;
+      var dom = $("#maintainer");
+      var html = '<option value="-1">请选择养护人员</option>'
+      $.each(data, function (index, item) {
+        html += '<option value="' + item.userId + '">' + item.loginName + '</option>'
+      });
+      dom.html(html);
+      form.render("select");
+    })
 
     //保存
     form.on("submit(doSubmit)", function (obj) {
