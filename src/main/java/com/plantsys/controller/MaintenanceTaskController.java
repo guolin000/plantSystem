@@ -1,12 +1,13 @@
 package com.plantsys.controller;
 
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.unit.DataUnit;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.plantsys.Vo.MaintenanceVo;
+import com.plantsys.Vo.MaintenanceInfoVo;
 import com.plantsys.entity.MaintenanceTask;
 import com.plantsys.entity.MaintenanceTaskInfo;
 import com.plantsys.entity.User;
@@ -68,6 +69,7 @@ public class MaintenanceTaskController {
         MaintenanceTask maintenanceTask = maintenanceTaskService.selectByMap(map).get(0);
         if(maintenanceTask.getTaskStatus()==0){
             maintenanceTask.setTaskStatus(1);
+            maintenanceTask.setUpdateTime(DateUtil.now());
             maintenanceTaskService.updateSelective(maintenanceTask);
             re = true;
         }
@@ -79,8 +81,10 @@ public class MaintenanceTaskController {
     @RequestMapping("addMaintenanceTask")
     public ResultObj addMaintenanceTask(MaintenanceTask maintenanceTask){
         try{
-            maintenanceTask.setCreationTime(Date.valueOf(DateUtil.now()));
-            maintenanceTask.setUpdateTime(Date.valueOf(DateUtil.now()));
+            System.out.println("");
+
+            maintenanceTask.setCreationTime(DateUtil.now());
+            maintenanceTask.setUpdateTime(DateUtil.now());
             maintenanceTaskService.addSelective(maintenanceTask);
             return ResultObj.ADD_SUCCESS;
         }catch (Exception e){
@@ -94,7 +98,7 @@ public class MaintenanceTaskController {
     @RequestMapping("updateMaintenanceTask")
     public ResultObj updateMaintenanceTask(MaintenanceTask maintenanceTask){
         try{
-            maintenanceTask.setUpdateTime(Date.valueOf(DateUtil.now()));
+            maintenanceTask.setUpdateTime(DateUtil.now());
             maintenanceTaskService.updateSelective(maintenanceTask);
             return ResultObj.OPERATE_SUCCESS;
         }catch (Exception e){
@@ -120,21 +124,24 @@ public class MaintenanceTaskController {
 
     //查询养护任务
     @RequestMapping("maintenanceTaskList")
-    public DataGridView maintenanceTaskList(MaintenanceVo maintenanceVo){
-        System.out.println("awfdawdaw");
-        Page<Object> page = PageHelper.startPage(maintenanceVo.getPage(), maintenanceVo.getLimit());
-        System.out.println("1");
-        System.out.println(maintenanceVo);
+    public DataGridView maintenanceTaskList(MaintenanceInfoVo maintenanceInfoVo){
+        Page<Object> page = PageHelper.startPage(maintenanceInfoVo.getPage(), maintenanceInfoVo.getLimit());
+        System.out.println(maintenanceInfoVo);
         QueryWrapper<MaintenanceTaskInfo> queryWrapper = new QueryWrapper<>();
         // 模糊查询或查询所有记录
-        queryWrapper.like(null != maintenanceVo.getTaskId(), "task_id", maintenanceVo.getTaskId());
-        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getTaskName()), "task_name", maintenanceVo.getTaskName());
-        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getTaskDescription()), "task_description", maintenanceVo.getTaskDescription());
-        queryWrapper.like(null != maintenanceVo.getMaintenanceTime(), "maintenance_time", maintenanceVo.getMaintenanceTime());
-        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getMaintenanceSite()), "maintenance_site", maintenanceVo.getMaintenanceSite());
-        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getMaintainerName()), "maintainer_name", maintenanceVo.getMaintainerName());
-        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getPlantName()), "plant_name", maintenanceVo.getPlantName());
-        queryWrapper.like(StrUtil.isNotBlank(maintenanceVo.getCreatorName()), "creator_name", maintenanceVo.getCreatorName());
+        queryWrapper.like(null != maintenanceInfoVo.getTaskId(), "task_id", maintenanceInfoVo.getTaskId());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceInfoVo.getTaskName()), "task_name", maintenanceInfoVo.getTaskName());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceInfoVo.getTaskDescription()), "task_description", maintenanceInfoVo.getTaskDescription());
+        queryWrapper.like(null != maintenanceInfoVo.getMaintenanceTime(), "maintenance_time", maintenanceInfoVo.getMaintenanceTime());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceInfoVo.getMaintenanceSite()), "maintenance_site", maintenanceInfoVo.getMaintenanceSite());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceInfoVo.getMaintainerName()), "maintainer_name", maintenanceInfoVo.getMaintainerName());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceInfoVo.getPlantName()), "plant_name", maintenanceInfoVo.getPlantName());
+        queryWrapper.like(StrUtil.isNotBlank(maintenanceInfoVo.getCreatorName()), "creator_name", maintenanceInfoVo.getCreatorName());
+
+        User user=(User) WebUtils.getHttpSession().getAttribute("user");
+        if(user.getRid() == 3){
+            queryWrapper.eq("uid",user.getUserId());
+        }
         List<MaintenanceTaskInfo> data =this.maintenanceTaskInfoService.list(queryWrapper);
         if (null != data) {
             data.stream().collect(Collectors.toList());

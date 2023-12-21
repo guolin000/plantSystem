@@ -151,21 +151,21 @@
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">执行时间:</label>
+			<label class="layui-form-label">养护时间:</label>
 			<div class="layui-input-block">
 				<input type="date" name="maintenanceTime" placeholder="请输入养护时间" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">执行地点:</label>
+			<label class="layui-form-label">养护地点:</label>
 			<div class="layui-input-block">
 				<input type="text" name="maintenanceSite" placeholder="请输入养护地点" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">执行人员:</label>
+			<label class="layui-form-label">养护人员:</label>
 			<div class="layui-input-block">
 				<select name="uid" id="uid" lay-verify="required">
 					<option value="">请选择养护人员</option>

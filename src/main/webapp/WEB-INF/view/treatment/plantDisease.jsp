@@ -109,7 +109,7 @@
 <%--        </div>--%>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">创建人员:</label>
+            <label class="layui-form-label">创建人员编号:</label>
             <div class="layui-input-block">
                 <input type="text" name="creator" readonly placeholder="请输入创建人员" autocomplete="off" class="layui-input" value="${uid}">
             </div>

@@ -93,7 +93,7 @@
     <div class="layui-form-item">
       <label class="layui-form-label">药剂编号:</label>
       <div class="layui-input-block">
-        <input type="text" id="medicamentId" name="medicamentId" placeholder="请输入药剂编号" autocomplete="off" class="layui-input">
+        <input type="text" id="medicamentId"  readonly name="medicamentId" placeholder="编号自增" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">

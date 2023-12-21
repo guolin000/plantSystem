@@ -58,16 +58,16 @@ public class MaintenanceTaskInfo implements Serializable {
     /**
      *
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date creationTime;
+//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String creationTime;
 
     /**
      *
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date updateTime;
+//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String updateTime;
 
     /**
      *

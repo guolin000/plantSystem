@@ -13,6 +13,7 @@ import com.plantsys.entity.*;
 import com.plantsys.service.*;
 import com.plantsys.util.DataGridView;
 import com.plantsys.util.ResultObj;
+import com.plantsys.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -112,8 +113,15 @@ public class DiseaseController {
         queryWrapper.like(StrUtil.isNotBlank(treatmentInfoVo.getPlantName()), "plant_name", treatmentInfoVo.getPlantName());
         queryWrapper.like(StrUtil.isNotBlank(treatmentInfoVo.getDiseaseName()), "disease_name", treatmentInfoVo.getDiseaseName());
         queryWrapper.like(StrUtil.isNotBlank(treatmentInfoVo.getLoginName()), "login_name", treatmentInfoVo.getLoginName());
+
+        User user=(User) WebUtils.getHttpSession().getAttribute("user");
+        if(user.getRid() == 3){
+            queryWrapper.eq("user_id",user.getUserId());
+        }
+
         List<TreatmentInfo> data = this.treatmentInfoService.list(queryWrapper);
 
+        System.out.println("data.get(0).getCreateTime():"+data.get(0).getCreateTime());
         return new DataGridView(page.getTotal(),data);
     }
     @RequestMapping("addTreatment")

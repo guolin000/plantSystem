@@ -1,5 +1,6 @@
 package com.plantsys.entity;
 
+import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -59,16 +60,16 @@ public class MaintenanceTask implements Serializable {
     /**
      *
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date creationTime;
+//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String creationTime;
 
     /**
      *
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date updateTime;
+//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String updateTime;
 
     /**
      *
