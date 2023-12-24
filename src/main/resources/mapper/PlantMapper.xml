@@ -48,4 +48,48 @@
         </set>
         where plant_id = #{plantId,jdbcType=NUMERIC}
     </update>
+    <insert id="addSelective">
+        insert into plant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="plantId != null">plant_id,</if>
+            <if test="plantName != null">plant_name,</if>
+            <if test="speciesId != null">species_id,</if>
+            <if test="diseaseId != null">disease_id,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="plantId != null">#{plantId,jdbcType=INTEGER},</if>
+            <if test="plantName != null">#{plantName,jdbcType=VARCHAR},</if>
+            <if test="speciesId != null">#{speciesId,jdbcType=INTEGER},</if>
+            <if test="diseaseId != null">#{diseaseId,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <delete id="delByPlantId">
+        delete
+        from plant
+        where plant_id = #{plantId,jdbcType=NUMERIC}
+    </delete>
+    <update id="updateSelective">
+        update plant
+        <set>
+            <if test="plantName != null">plant_name=#{plantName,jdbcType=VARCHAR},</if>
+            <if test="speciesId != null">species_id=#{speciesId,jdbcType=NUMERIC},</if>
+            <if test="diseaseId != null">disease_id=#{diseaseId,jdbcType=NUMERIC},</if>
+        </set>
+        where plantId = #{plantId,jdbcType=NUMERIC}
+    </update>
+    <select id="selectByPlantId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from plant
+        where
+        plant_id = #{plantId,jdbcType=NUMERIC}
+    </select>
+    <select id="selectByPlantName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from plant
+        where
+        plant_name = #{plantName,jdbcType=VARCHAR}
+    </select>
 </mapper>

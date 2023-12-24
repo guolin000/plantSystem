@@ -25,4 +25,46 @@
         from treatment
         where medicament_id = #{medicamentId,jdbcType=NUMERIC}
     </delete>
+    <update id="updateSelective">
+        update treatment
+        <set>
+            <if test="medicamentId != null">medicament_id=#{medicamentId,jdbcType=NUMERIC},</if>
+            <if test="creator != null">creator=#{creator,jdbcType=NUMERIC},</if>
+            <if test="createTime != null">create_time=#{createTime,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">update_time=#{updateTime,jdbcType=VARCHAR},</if>
+            <if test="userId != null">user_id=#{userId,jdbcType=NUMERIC},</if>
+            <if test="status != null">status=#{status,jdbcType=NUMERIC},</if>
+            <if test="plantId != null">plant_id=#{plantId,jdbcType=NUMERIC},</if>
+        </set>
+        where treatmentId = #{treatmentId,jdbcType=NUMERIC}
+    </update>
+    <delete id="delByTreatmentId">
+        delete
+        from treatment
+        where treatment_id = #{treatmentId,jdbcType=NUMERIC}
+    </delete>
+    <insert id="addSelective">
+        insert into treatment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="treatmentId != null">treatment_id,</if>
+            <if test="medicamentId != null">medicament_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="status != null">status,</if>
+            <if test="plantId != null">plant_id,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="treatmentId != null">#{treatmentId,jdbcType=INTEGER},</if>
+            <if test="medicamentId != null">#{medicamentId,jdbcType=INTEGER},</if>
+            <if test="creator != null">#{creator,jdbcType=INTEGER},</if>
+            <if test="createTime != null">#{createTime,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=VARCHAR},</if>
+            <if test="userId != null">#{userId,jdbcType=INTEGER},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="plantId != null">#{plantId,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
 </mapper>

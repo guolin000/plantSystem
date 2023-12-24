@@ -13,7 +13,16 @@ import java.util.List;
 * @Entity com.plantsys.entity.Plant
 */
 public interface PlantMapper extends BaseMapper<Plant> {
+
+    int addSelective(Plant plant);
+
+    int delByPlantId(@Param("plantId") Integer plantId);
+
     int updateSelective(Plant plant);
+
+    List<Plant> selectByPlantId(@Param("plantId") Integer plantId);
+
+    List<Plant> selectByPlantName(@Param("plantName") String plantName);
 }
 
 

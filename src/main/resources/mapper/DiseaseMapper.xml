@@ -13,4 +13,38 @@
     <sql id="Base_Column_List">
         disease_id,disease_name,treat_method
     </sql>
+    <insert id="addSelective">
+        insert into disease
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="diseaseId != null">disease_id,</if>
+            <if test="diseaseName != null">disease_name,</if>
+            <if test="treatMethod != null">treat_method,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="diseaseId != null">#{diseaseId,jdbcType=INTEGER},</if>
+            <if test="diseaseName != null">#{diseaseName,jdbcType=VARCHAR},</if>
+            <if test="treatMethod != null">#{treatMethod,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <delete id="delByDiseaseId">
+        delete
+        from disease
+        where disease_id = #{diseaseId,jdbcType=NUMERIC}
+    </delete>
+    <update id="updateSelective">
+        update disease
+        <set>
+            <if test="diseaseName != null">disease_name=#{diseaseName,jdbcType=VARCHAR},</if>
+            <if test="treatMethod != null">treat_method=#{treatMethod,jdbcType=VARCHAR},</if>
+        </set>
+        where diseaseId = #{diseaseId,jdbcType=NUMERIC}
+    </update>
+    <select id="selectByDiseaseId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from disease
+        where
+        disease_id = #{diseaseId,jdbcType=NUMERIC}
+    </select>
 </mapper>

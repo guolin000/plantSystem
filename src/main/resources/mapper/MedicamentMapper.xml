@@ -21,4 +21,51 @@
         from medicament
         where medicament_id = #{medicamentId,jdbcType=NUMERIC}
     </delete>
+    <insert id="addSelective">
+        insert into medicament
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="medicamentId != null">medicament_id,</if>
+            <if test="medicamentName != null">medicament_name,</if>
+            <if test="dosage != null">dosage,</if>
+            <if test="duration != null">duration,</if>
+            <if test="diseaseId != null">disease_id,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="medicamentId != null">#{medicamentId,jdbcType=INTEGER},</if>
+            <if test="medicamentName != null">#{medicamentName,jdbcType=VARCHAR},</if>
+            <if test="dosage != null">#{dosage,jdbcType=VARCHAR},</if>
+            <if test="duration != null">#{duration,jdbcType=VARCHAR},</if>
+            <if test="diseaseId != null">#{diseaseId,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <delete id="deleteByMedicamentIdAdd">
+        delete
+        from medicament
+        where medicament_id = #{medicamentId,jdbcType=NUMERIC}
+    </delete>
+    <select id="selectByMedicamentId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medicament
+        where
+        medicament_id = #{medicamentId,jdbcType=NUMERIC}
+    </select>
+    <select id="selectByDiseaseId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medicament
+        where
+        disease_id = #{diseaseId,jdbcType=NUMERIC}
+    </select>
+    <update id="updateSelective">
+        update medicament
+        <set>
+            <if test="medicamentName != null">medicament_name=#{medicamentName,jdbcType=VARCHAR},</if>
+            <if test="dosage != null">dosage=#{dosage,jdbcType=VARCHAR},</if>
+            <if test="duration != null">duration=#{duration,jdbcType=VARCHAR},</if>
+            <if test="diseaseId != null">disease_id=#{diseaseId,jdbcType=NUMERIC},</if>
+        </set>
+        where medicamentId = #{medicamentId,jdbcType=NUMERIC}
+    </update>
 </mapper>

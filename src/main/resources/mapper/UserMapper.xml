@@ -10,4 +10,48 @@
   <sql id="Base_Column_List">
     user_id, login_name, password,rid
   </sql>
+    <insert id="addSelective">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="loginName != null">login_name,</if>
+            <if test="password != null">password,</if>
+            <if test="rid != null">rid,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId,jdbcType=INTEGER},</if>
+            <if test="loginName != null">#{loginName,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+            <if test="rid != null">#{rid,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <delete id="delByUserId">
+        delete
+        from user
+        where user_id = #{userId,jdbcType=NUMERIC}
+    </delete>
+    <select id="selectByLoginName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where
+        login_name = #{loginName,jdbcType=VARCHAR}
+    </select>
+    <update id="updateSelective">
+        update user
+        <set>
+            <if test="loginName != null">login_name=#{loginName,jdbcType=VARCHAR},</if>
+            <if test="password != null">password=#{password,jdbcType=VARCHAR},</if>
+            <if test="rid != null">rid=#{rid,jdbcType=NUMERIC},</if>
+        </set>
+        where userId = #{userId,jdbcType=NUMERIC}
+    </update>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where
+        user_id = #{userId,jdbcType=NUMERIC}
+    </select>
 </mapper>

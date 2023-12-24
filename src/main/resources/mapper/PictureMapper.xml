@@ -29,4 +29,24 @@
         where
         plant_id = #{plantId,jdbcType=NUMERIC}
     </select>
+    <insert id="addSelective">
+        insert into picture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pictureId != null">picture_id,</if>
+            <if test="plantId != null">plant_id,</if>
+            <if test="description != null">description,</if>
+            <if test="location != null">location,</if>
+            <if test="photographer != null">photographer,</if>
+            <if test="path != null">path,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pictureId != null">#{pictureId,jdbcType=INTEGER},</if>
+            <if test="plantId != null">#{plantId,jdbcType=INTEGER},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="location != null">#{location,jdbcType=VARCHAR},</if>
+            <if test="photographer != null">#{photographer,jdbcType=VARCHAR},</if>
+            <if test="path != null">#{path,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
 </mapper>

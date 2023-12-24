@@ -12,6 +12,12 @@ import org.apache.ibatis.annotations.Param;
 */
 public interface TreatmentMapper extends BaseMapper<Treatment> {
     int deleteByMedicamentId(@Param("medicamentId") Integer medicamentId);
+
+    int updateSelective(Treatment treatment);
+
+    int delByTreatmentId(@Param("treatmentId") Integer treatmentId);
+
+    int addSelective(Treatment treatment);
 }
 
 

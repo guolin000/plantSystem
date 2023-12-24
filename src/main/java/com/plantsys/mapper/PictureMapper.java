@@ -16,6 +16,8 @@ public interface PictureMapper extends BaseMapper<Picture> {
     int deleteByPlantId(@Param("plantId") Integer plantId);
 
     List<Picture> selectAllByPlantId(@Param("plantId") Integer plantId);
+
+    int addSelective(Picture picture);
 }
 
 
